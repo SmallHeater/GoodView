@@ -16,6 +16,13 @@
 @property (nonatomic,copy) NSString * imageName;
 @property (nonatomic,copy) NSString * selectedImageName;
 
+//UIControlStateNormal标题和颜色
+@property (nonatomic,strong) NSString * normalTitle;
+@property (nonatomic,strong) UIColor * normalTitleColor;
+//UIControlStateSelected标题和颜色
+@property (nonatomic,strong) NSString * selectedlTitle;
+@property (nonatomic,strong) UIColor * selectedTitleColor;
+
 @end
 
 @implementation SHImageAndTitleBtn
@@ -30,6 +37,9 @@
         self.imageView.frame = imageFrame;
         self.titleLabel.frame = titleFrame;
         self.titleLabel.text = title;
+        
+        self.normalTitle = title;
+        self.normalTitleColor = [UIColor blackColor];
         
         self.imageName = imageName;
         self.selectedImageName = selectedImageName;
@@ -60,6 +70,29 @@
     }
 }
 
+- (void)setTitle:(NSString *)title forState:(UIControlState)state{
+    
+    if (state == UIControlStateNormal) {
+        
+        self.normalTitle = title;
+    }
+    else if (state == UIControlStateSelected){
+        
+        self.selectedlTitle = title;
+    }
+}
+- (void)setTitleColor:(UIColor *)color forState:(UIControlState)state{
+    
+    if (state == UIControlStateNormal) {
+        
+        self.normalTitleColor = color;
+    }
+    else if (state == UIControlStateSelected){
+        
+        self.selectedTitleColor = color;
+    }
+}
+
 #pragma mark  ---- SET
 -(void)setSelected:(BOOL)selected{
     
@@ -67,12 +100,23 @@
     if (selected) {
         
         self.imageView.image = [UIImage imageNamed:self.selectedImageName];
+        self.titleLabel.text = self.normalTitle;
+        if (self.normalTitleColor) {
+         
+            self.titleLabel.textColor = self.normalTitleColor;
+        }
     }
     else{
         
         self.imageView.image = [UIImage imageNamed:self.imageName];
+        self.titleLabel.text = self.selectedlTitle;
+        if (self.selectedTitleColor) {
+            
+            self.titleLabel.textColor = self.selectedTitleColor;
+        }
     }
 }
+
 
 #pragma mark  ----  懒加载
 -(UIImageView *)imageView{

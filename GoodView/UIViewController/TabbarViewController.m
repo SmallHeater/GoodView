@@ -9,7 +9,7 @@
 #import "TabbarViewController.h"
 #import "HomeViewController.h"
 #import "MyViewController.h"
-#import "Masonry.h"
+
 #import "SHImageAndTitleBtn.h"
 
 @interface TabbarViewController ()
@@ -23,7 +23,6 @@
 
 
 #pragma mark  ----  生命周期函数
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -34,20 +33,13 @@
     HomeViewController * homeVC = [[HomeViewController alloc] initWithTitle:@"首页"];
     MyViewController * myVC = [[MyViewController alloc] initWithTitle:@"我的"];
     self.viewControllers = @[homeVC,myVC];
-    self.selectedIndex = 0;
+    self.selectedIndex = 1;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
 }
 
-
-#pragma mark  ----  自定义函数
--(void)setUI{
-    
-    
-}
 
 //首页,我的按钮的响应
 -(void)buttonClicked:(UIButton *)btn{
@@ -90,11 +82,13 @@
         
         SHImageAndTitleBtn * homeBtn = [[SHImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, 0, btnWidth, CGRectGetHeight(_tabbarView.frame)) andImageFrame:CGRectMake((btnWidth - imageWidth) / 2, 5, imageWidth, imageWidth) andTitleFrame:CGRectMake(0, imageWidth + 5, btnWidth, btnHeight - imageWidth - 5) andImageName:@"home_black@2x.png" andSelectedImageName:@"home_green@2x.png" andTitle:@"首页" andTarget:self andAction:@selector(buttonClicked:)];
         homeBtn.tag = 1100;
+        [homeBtn setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
         [_tabbarView addSubview:homeBtn];
         
         
         SHImageAndTitleBtn * myBtn = [[SHImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(homeBtn.frame), 0, btnWidth, CGRectGetHeight(_tabbarView.frame)) andImageFrame:CGRectMake((btnWidth - imageWidth) / 2, 5,imageWidth, imageWidth) andTitleFrame:CGRectMake(0, imageWidth + 5, btnWidth, btnHeight - imageWidth - 5) andImageName:@"me_black@2x.png" andSelectedImageName:@"me_green@2x.png" andTitle:@"我的" andTarget:self andAction:@selector(buttonClicked:)];
         myBtn.tag = 1101;
+        [myBtn setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
         [_tabbarView addSubview:myBtn];
     }
     return _tabbarView;

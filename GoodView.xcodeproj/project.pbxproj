@@ -25,6 +25,7 @@
 		04A217E021A44A9200DC2D2B /* me_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A217DE21A44A9200DC2D2B /* me_black@2x.png */; };
 		04A217E321A44B2200DC2D2B /* home_green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A217E121A44B2200DC2D2B /* home_green@2x.png */; };
 		04A217E421A44B2200DC2D2B /* home_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A217E221A44B2200DC2D2B /* home_black@2x.png */; };
+		62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */; };
 		877899E402EEC60C8CF5BFC1 /* libPods-GoodView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D87861D39641187F56817B4E /* libPods-GoodView.a */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,8 @@
 		04A217DE21A44A9200DC2D2B /* me_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me_black@2x.png"; sourceTree = "<group>"; };
 		04A217E121A44B2200DC2D2B /* home_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_green@2x.png"; sourceTree = "<group>"; };
 		04A217E221A44B2200DC2D2B /* home_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_black@2x.png"; sourceTree = "<group>"; };
+		62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHLabelAndLabelView.m; sourceTree = "<group>"; };
+		62ED857E21A537F900245CA0 /* SHLabelAndLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHLabelAndLabelView.h; sourceTree = "<group>"; };
 		6B3FEC0BB376CD516FCEED52 /* Pods-GoodView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodView.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoodView/Pods-GoodView.release.xcconfig"; sourceTree = "<group>"; };
 		D87861D39641187F56817B4E /* libPods-GoodView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoodView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFCD9A15BA0CEC0818EC111E /* Pods-GoodView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoodView/Pods-GoodView.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 		04A2176D21A43EA900DC2D2B /* GoodView */ = {
 			isa = PBXGroup;
 			children = (
+				62ED858021A55D5400245CA0 /* Model */,
 				04A217D821A445D200DC2D2B /* Image */,
 				04A2178621A43F4F00DC2D2B /* UIViewController */,
 				04A2178521A43F2500DC2D2B /* Base */,
@@ -195,6 +199,8 @@
 		04A2179721A4401E00DC2D2B /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				62ED857E21A537F900245CA0 /* SHLabelAndLabelView.h */,
+				62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */,
 				043B5C6321A5128300478CD8 /* SHImageAndTitleBtn.h */,
 				043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */,
 				04A2179821A4401E00DC2D2B /* JHLiveBaseNavigationBar.m */,
@@ -320,6 +326,13 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		62ED858021A55D5400245CA0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		7D191ECB045E18B4B993B28C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,15 +428,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-GoodView-checkManifestLockResult.txt",
 			);
@@ -448,6 +457,7 @@
 				04A2177E21A43EAA00DC2D2B /* main.m in Sources */,
 				043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */,
 				04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */,
+				62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,7 +601,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G5Q3E27AQ6;
+				DEVELOPMENT_TEAM = TDT34TC7ER;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoodView/Lib/UM",
@@ -614,7 +624,7 @@
 					"$(PROJECT_DIR)/GoodView/Lib/Technology/JHRoutingComponent",
 					"$(PROJECT_DIR)/GoodView/Lib/Technology/JHEncryptionComponent",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jinhao.GoodView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinher.testceshi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -626,7 +636,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G5Q3E27AQ6;
+				DEVELOPMENT_TEAM = TDT34TC7ER;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoodView/Lib/UM",
@@ -649,7 +659,7 @@
 					"$(PROJECT_DIR)/GoodView/Lib/Technology/JHRoutingComponent",
 					"$(PROJECT_DIR)/GoodView/Lib/Technology/JHEncryptionComponent",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jinhao.GoodView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinher.testceshi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
