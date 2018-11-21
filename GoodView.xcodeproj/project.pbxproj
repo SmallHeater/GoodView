@@ -25,6 +25,9 @@
 		04A217E021A44A9200DC2D2B /* me_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A217DE21A44A9200DC2D2B /* me_black@2x.png */; };
 		04A217E321A44B2200DC2D2B /* home_green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A217E121A44B2200DC2D2B /* home_green@2x.png */; };
 		04A217E421A44B2200DC2D2B /* home_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04A217E221A44B2200DC2D2B /* home_black@2x.png */; };
+		04D256A921A5697200624688 /* MyEntryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D256A821A5697200624688 /* MyEntryModel.m */; };
+		04D256AC21A56D0F00624688 /* draft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D256AB21A56D0F00624688 /* draft@2x.png */; };
+		04D256B021A56D6C00624688 /* MyEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D256AF21A56D6C00624688 /* MyEntryCell.m */; };
 		62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */; };
 		877899E402EEC60C8CF5BFC1 /* libPods-GoodView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D87861D39641187F56817B4E /* libPods-GoodView.a */; };
 /* End PBXBuildFile section */
@@ -83,6 +86,11 @@
 		04A217DE21A44A9200DC2D2B /* me_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me_black@2x.png"; sourceTree = "<group>"; };
 		04A217E121A44B2200DC2D2B /* home_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_green@2x.png"; sourceTree = "<group>"; };
 		04A217E221A44B2200DC2D2B /* home_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_black@2x.png"; sourceTree = "<group>"; };
+		04D256A721A5697200624688 /* MyEntryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyEntryModel.h; sourceTree = "<group>"; };
+		04D256A821A5697200624688 /* MyEntryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEntryModel.m; sourceTree = "<group>"; };
+		04D256AB21A56D0F00624688 /* draft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "draft@2x.png"; sourceTree = "<group>"; };
+		04D256AE21A56D6C00624688 /* MyEntryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyEntryCell.h; sourceTree = "<group>"; };
+		04D256AF21A56D6C00624688 /* MyEntryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEntryCell.m; sourceTree = "<group>"; };
 		62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHLabelAndLabelView.m; sourceTree = "<group>"; };
 		62ED857E21A537F900245CA0 /* SHLabelAndLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHLabelAndLabelView.h; sourceTree = "<group>"; };
 		6B3FEC0BB376CD516FCEED52 /* Pods-GoodView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodView.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoodView/Pods-GoodView.release.xcconfig"; sourceTree = "<group>"; };
@@ -123,7 +131,8 @@
 		04A2176D21A43EA900DC2D2B /* GoodView */ = {
 			isa = PBXGroup;
 			children = (
-				62ED858021A55D5400245CA0 /* Model */,
+				04D256AD21A56D5100624688 /* Cell */,
+				04D256A621A5691500624688 /* Model */,
 				04A217D821A445D200DC2D2B /* Image */,
 				04A2178621A43F4F00DC2D2B /* UIViewController */,
 				04A2178521A43F2500DC2D2B /* Base */,
@@ -318,6 +327,7 @@
 		04A217D821A445D200DC2D2B /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				04D256AB21A56D0F00624688 /* draft@2x.png */,
 				04A217E221A44B2200DC2D2B /* home_black@2x.png */,
 				04A217E121A44B2200DC2D2B /* home_green@2x.png */,
 				04A217DE21A44A9200DC2D2B /* me_black@2x.png */,
@@ -326,11 +336,22 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
-		62ED858021A55D5400245CA0 /* Model */ = {
+		04D256A621A5691500624688 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04D256A721A5697200624688 /* MyEntryModel.h */,
+				04D256A821A5697200624688 /* MyEntryModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		04D256AD21A56D5100624688 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04D256AE21A56D6C00624688 /* MyEntryCell.h */,
+				04D256AF21A56D6C00624688 /* MyEntryCell.m */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		7D191ECB045E18B4B993B28C /* Pods */ = {
@@ -416,6 +437,7 @@
 				04A217C321A4402600DC2D2B /* UMID.plist in Resources */,
 				04A217DF21A44A9200DC2D2B /* me_green@2x.png in Resources */,
 				04A217E321A44B2200DC2D2B /* home_green@2x.png in Resources */,
+				04D256AC21A56D0F00624688 /* draft@2x.png in Resources */,
 				04A217C421A4402600DC2D2B /* BuglyID.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +477,8 @@
 				04A217D121A4406B00DC2D2B /* MyViewController.m in Sources */,
 				04A217D421A4408800DC2D2B /* HomeViewController.m in Sources */,
 				04A2177E21A43EAA00DC2D2B /* main.m in Sources */,
+				04D256A921A5697200624688 /* MyEntryModel.m in Sources */,
+				04D256B021A56D6C00624688 /* MyEntryCell.m in Sources */,
 				043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */,
 				04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */,
 				62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */,

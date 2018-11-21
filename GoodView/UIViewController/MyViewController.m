@@ -8,7 +8,7 @@
 
 #import "MyViewController.h"
 #import "SHLabelAndLabelView.h"
-
+#import "MyEntryModel.h"
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 //头像区域
@@ -17,7 +17,7 @@
 @property (nonatomic,strong) UIView * middleView;
 //列表区域
 @property (nonatomic,strong) UITableView * tableView;
-@property (nonatomic,strong) NSMutableArray * dataArray;
+@property (nonatomic,strong) NSMutableArray<MyEntryModel *> * dataArray;
 //退出登录按钮
 @property (nonatomic,strong) UIButton * logOutBtn;
 
@@ -40,7 +40,7 @@
 #pragma mark  ----  UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 60;
+    return 40;
 }
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -174,6 +174,39 @@
         [_logOutBtn addTarget:self action:@selector(logOutBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     return _logOutBtn;
+}
+
+-(NSMutableArray<MyEntryModel *> *)dataArray{
+    
+    if (!_dataArray) {
+        
+        _dataArray = [[NSMutableArray alloc] init];
+        
+        //我的订单
+        MyEntryModel * myOrderModel = [[MyEntryModel alloc] init];
+        myOrderModel.iconName = @"draft@2x.png";
+        myOrderModel.title = @"我的订单";
+        myOrderModel.content = @"查看所有订单";
+        //扩音器订单
+        MyEntryModel * amplifierOrderModel = [[MyEntryModel alloc] init];
+        amplifierOrderModel.iconName = @"draft@2x.png";
+        amplifierOrderModel.title = @"扩音器订单";
+        amplifierOrderModel.content = @"查看所有订单";
+        //离线包管理
+        MyEntryModel * offlinePackageManagementModel = [[MyEntryModel alloc] init];
+        offlinePackageManagementModel.iconName = @"draft@2x.png";
+        offlinePackageManagementModel.title = @"离线包管理";
+        //关于景好
+        MyEntryModel * aboutJingjingModel = [[MyEntryModel alloc] init];
+        aboutJingjingModel.iconName = @"draft@2x.png";
+        aboutJingjingModel.title = @"关于景好";
+        //联系客服
+        MyEntryModel * contactCustomerServiceModel = [[MyEntryModel alloc] init];
+        contactCustomerServiceModel.iconName = @"draft@2x.png";
+        contactCustomerServiceModel.title = @"联系客服";
+        
+    }
+    return _dataArray;
 }
 
 @end

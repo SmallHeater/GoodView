@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A3A497EFEF0B0C1238E86544F0FFEDA6"
-               BlueprintName = "Pods-GoodView"
+               BlueprintIdentifier = "98273304A533C4A14CDA4E8019F97142"
+               BlueprintName = "JSONModel"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libPods-GoodView.a">
+               BuildableName = "libJSONModel.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

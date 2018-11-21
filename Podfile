@@ -8,5 +8,6 @@ target 'GoodView' do
   # Pods for GoodView
   platform :ios, '9.0' 
   pod 'Masonry','~>1.1.0'
+  pod 'JSONModel','~>1.8.0'
   
 end
