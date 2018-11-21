@@ -1,0 +1,18 @@
+//
+//  GoodView.pch
+//  GoodView
+//
+//  Created by mac on 2018/11/20.
+//  Copyright © 2018 mac. All rights reserved.
+//
+
+#ifndef GoodView_pch
+#define GoodView_pch
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#define MAINWIDTH [UIScreen mainScreen].bounds.size.width
+#define MAINHEIGHT [UIScreen mainScreen].bounds.size.height
+
+#endif /* GoodView_pch */
