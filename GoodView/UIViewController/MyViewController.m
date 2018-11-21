@@ -9,10 +9,16 @@
 #import "MyViewController.h"
 #import "SHLabelAndLabelView.h"
 #import "MyEntryModel.h"
+#import "MyEntryCell.h"
+
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 //头像区域
 @property (nonatomic,strong) UIView * headView;
+@property (nonatomic,strong) UIView * bgView;
+@property (nonatomic,strong) UIImageView * avatarImageView;
+//用户名
+@property (nonatomic,strong) UILabel * userNameLabel;
 //联系人，我的余额，我的收藏区域
 @property (nonatomic,strong) UIView * middleView;
 //列表区域
@@ -20,7 +26,8 @@
 @property (nonatomic,strong) NSMutableArray<MyEntryModel *> * dataArray;
 //退出登录按钮
 @property (nonatomic,strong) UIButton * logOutBtn;
-
+//底部灰条
+@property (nonatomic,strong) UILabel * bottomLabel;
 
 @end
 
@@ -45,26 +52,61 @@
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 0;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return nil;
+    static NSString * cellID = @"MyEntryCell";
+    MyEntryCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (!cell) {
+        
+        cell = [[MyEntryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //显示最右边的箭头
+    }
+    
+    MyEntryModel * model = self.dataArray[indexPath.row];
+    [cell setImage:model.iconName andTitle:model.title andContent:model.content];
+    return cell;
 }
 
 #pragma mark  ----  自定义函数
 -(void)setUI{
     
     [self.view addSubview:self.headView];
+    [self.headView addSubview:self.bgView];
+    [self.bgView addSubview:self.avatarImageView];
+    [self.headView addSubview:self.userNameLabel];
     [self.view addSubview:self.middleView];
-//    [self.view addSubview:self.tableView];
-//    [self.view addSubview:self.logOutBtn];
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.logOutBtn];
+    [self.view addSubview:self.bottomLabel];
     
     [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.top.right.offset(0);
         make.height.equalTo(self.headView.mas_width).multipliedBy(2.0/3.0f);
+    }];
+    
+    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.centerX.equalTo(self.headView.mas_centerX);
+        make.centerY.equalTo(self.headView.mas_centerY);
+        make.width.height.offset(80);
+    }];
+    
+    [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.centerX.equalTo(self.bgView.mas_centerX);
+        make.centerY.equalTo(self.bgView.mas_centerY);
+        make.width.height.offset(70);
+    }];
+    
+    [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.right.offset(0);
+        make.top.equalTo(self.bgView.mas_bottom).offset(5);
+        make.height.offset(15);
     }];
     
     [self.middleView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -74,20 +116,28 @@
         make.height.offset(70);
     }];
     
-//    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.right.offset(0);
-//        make.top.equalTo(self.middleView.mas_bottom).offset(0);
-//        make.height.offset(300);
-//    }];
-//
-//    [self.logOutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.right.offset(0);
-//        make.top.equalTo(self.tableView.mas_bottom).offset(0);
-//        make.height.offset(60);
-//    }];
     
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.right.offset(0);
+        make.top.equalTo(self.middleView.mas_bottom).offset(0);
+        make.height.offset(40 * 5);
+    }];
+
+    [self.logOutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.right.offset(0);
+        make.top.equalTo(self.tableView.mas_bottom).offset(0);
+        make.height.offset(60);
+    }];
+    
+    [self.bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.right.offset(0);
+        make.top.equalTo(self.logOutBtn.mas_bottom).offset(0);
+        make.bottom.offset(-49);
+    }];
 }
 
 //退出登录响应
@@ -102,10 +152,48 @@
         
         _headView = [[UIView alloc] init];
         _headView.backgroundColor = [UIColor greenColor];
+        
+        
+        
+        
     }
     return _headView;
 }
 
+-(UIView *)bgView{
+    
+    if (!_bgView) {
+        
+        _bgView = [[UIView alloc] init];
+        _bgView.backgroundColor = [UIColor whiteColor];
+        _bgView.layer.masksToBounds = YES;
+        _bgView.layer.cornerRadius = 40;
+    }
+    return _bgView;
+}
+
+-(UIImageView *)avatarImageView{
+    
+    if (!_avatarImageView) {
+        
+        _avatarImageView = [[UIImageView alloc] init];
+        _avatarImageView.backgroundColor = [UIColor redColor];
+        _avatarImageView.layer.masksToBounds = YES;
+        _avatarImageView.layer.cornerRadius = 35;
+    }
+    return _avatarImageView;
+}
+
+-(UILabel *)userNameLabel{
+    
+    if (!_userNameLabel) {
+        
+        _userNameLabel = [[UILabel alloc] init];
+        _userNameLabel.textAlignment = NSTextAlignmentCenter;
+        _userNameLabel.text = @"游客 >";
+    }
+    return _userNameLabel;
+}
 
 -(UIView *)middleView{
     
@@ -151,7 +239,7 @@
     
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.middleView.frame), MAINWIDTH, 60 * 5) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -171,6 +259,7 @@
         
         _logOutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_logOutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+        [_logOutBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_logOutBtn addTarget:self action:@selector(logOutBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     return _logOutBtn;
@@ -187,26 +276,40 @@
         myOrderModel.iconName = @"draft@2x.png";
         myOrderModel.title = @"我的订单";
         myOrderModel.content = @"查看所有订单";
+        [_dataArray addObject:myOrderModel];
         //扩音器订单
         MyEntryModel * amplifierOrderModel = [[MyEntryModel alloc] init];
         amplifierOrderModel.iconName = @"draft@2x.png";
         amplifierOrderModel.title = @"扩音器订单";
         amplifierOrderModel.content = @"查看所有订单";
+        [_dataArray addObject:amplifierOrderModel];
         //离线包管理
         MyEntryModel * offlinePackageManagementModel = [[MyEntryModel alloc] init];
         offlinePackageManagementModel.iconName = @"draft@2x.png";
         offlinePackageManagementModel.title = @"离线包管理";
+        [_dataArray addObject:offlinePackageManagementModel];
         //关于景好
         MyEntryModel * aboutJingjingModel = [[MyEntryModel alloc] init];
         aboutJingjingModel.iconName = @"draft@2x.png";
         aboutJingjingModel.title = @"关于景好";
+        [_dataArray addObject:aboutJingjingModel];
         //联系客服
         MyEntryModel * contactCustomerServiceModel = [[MyEntryModel alloc] init];
         contactCustomerServiceModel.iconName = @"draft@2x.png";
         contactCustomerServiceModel.title = @"联系客服";
-        
+        [_dataArray addObject:contactCustomerServiceModel];
     }
     return _dataArray;
+}
+
+-(UILabel *)bottomLabel{
+    
+    if (!_bottomLabel) {
+        
+        _bottomLabel = [[UILabel alloc] init];
+        _bottomLabel.backgroundColor = [UIColor grayColor];
+    }
+    return _bottomLabel;
 }
 
 @end
