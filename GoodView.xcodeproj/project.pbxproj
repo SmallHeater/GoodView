@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0427A51C21A59DEC00E1B175 /* PersonalInformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A51B21A59DEC00E1B175 /* PersonalInformationVC.m */; };
+		0427A51D21A5A3D000E1B175 /* JHLiveBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2178E21A4401D00DC2D2B /* JHLiveBaseTableViewController.m */; };
 		043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */; };
 		04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2176F21A43EA900DC2D2B /* AppDelegate.m */; };
 		04A2177621A43EA900DC2D2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2177421A43EA900DC2D2B /* Main.storyboard */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0427A51A21A59DEC00E1B175 /* PersonalInformationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalInformationVC.h; sourceTree = "<group>"; };
+		0427A51B21A59DEC00E1B175 /* PersonalInformationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalInformationVC.m; sourceTree = "<group>"; };
 		043B5C6321A5128300478CD8 /* SHImageAndTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHImageAndTitleBtn.h; sourceTree = "<group>"; };
 		043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHImageAndTitleBtn.m; sourceTree = "<group>"; };
 		04A2176B21A43EA900DC2D2B /* GoodView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +183,8 @@
 				04A217D021A4406B00DC2D2B /* MyViewController.m */,
 				04A217D221A4408800DC2D2B /* HomeViewController.h */,
 				04A217D321A4408800DC2D2B /* HomeViewController.m */,
+				0427A51A21A59DEC00E1B175 /* PersonalInformationVC.h */,
+				0427A51B21A59DEC00E1B175 /* PersonalInformationVC.m */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 			files = (
 				04A2178C21A43F6B00DC2D2B /* TabbarViewController.m in Sources */,
 				04A2179C21A4401E00DC2D2B /* JHLiveAdaptUI.m in Sources */,
+				0427A51D21A5A3D000E1B175 /* JHLiveBaseTableViewController.m in Sources */,
 				04A2179B21A4401E00DC2D2B /* JHLiveBaseViewController.m in Sources */,
 				04A2179E21A4401E00DC2D2B /* JHLiveBaseNavigationBar.m in Sources */,
 				04A217D121A4406B00DC2D2B /* MyViewController.m in Sources */,
@@ -481,6 +488,7 @@
 				04D256B021A56D6C00624688 /* MyEntryCell.m in Sources */,
 				043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */,
 				04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */,
+				0427A51C21A59DEC00E1B175 /* PersonalInformationVC.m in Sources */,
 				62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

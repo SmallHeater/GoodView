@@ -32,14 +32,25 @@
     
     HomeViewController * homeVC = [[HomeViewController alloc] initWithTitle:@"首页"];
     MyViewController * myVC = [[MyViewController alloc] initWithTitle:@"我的"];
-    self.viewControllers = @[homeVC,myVC];
+    UINavigationController * homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
+    UINavigationController * myNav = [[UINavigationController alloc] initWithRootViewController:myVC];
+    
+    self.viewControllers = @[homeNav,myNav];
     self.selectedIndex = 1;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+}
+
+
+#pragma mark  ----  自定义函数
 
 //首页,我的按钮的响应
 -(void)buttonClicked:(UIButton *)btn{
@@ -60,6 +71,16 @@
     }
 }
 
+//隐藏自定义tabbar
+-(void)hidTabbar{
+    
+    self.tabbarView.hidden = YES;
+}
+//显示自定义tabbar
+-(void)showTabbar{
+    
+    self.tabbarView.hidden = NO;
+}
 
     
 #pragma mark  ----  系统函数

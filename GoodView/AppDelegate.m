@@ -22,16 +22,6 @@
     // Override point for customization after application launch.
     
     TabbarViewController * tabbarController = [[TabbarViewController alloc] init];
-//    HomeViewController * homeVC = [[HomeViewController alloc]init];
-//    homeVC.tabBarItem.title= @"首页";
-//    homeVC.tabBarItem.image= [UIImage imageNamed:@"home_black.png"];
-//    homeVC.tabBarItem.selectedImage = [UIImage imageNamed:@"home_green.png"];
-//    MyViewController * myVC = [[MyViewController alloc]init];
-//    myVC.tabBarItem.title = @"我的";
-//    myVC.tabBarItem.image = [UIImage imageNamed:@"me_black.png"];
-//    myVC.tabBarItem.selectedImage = [UIImage imageNamed:@"me_green.png"];
-//    tabbarController.viewControllers=@[homeVC,myVC];
-//    tabbarController.selectedIndex = 0;
     self.window.rootViewController = tabbarController;
     
     return YES;

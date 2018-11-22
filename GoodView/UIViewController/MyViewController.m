@@ -10,7 +10,8 @@
 #import "SHLabelAndLabelView.h"
 #import "MyEntryModel.h"
 #import "MyEntryCell.h"
-
+#import "PersonalInformationVC.h"
+#import "TabbarViewController.h"
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 //头像区域
@@ -41,6 +42,18 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.busNavigationBar.hidden = YES;
     [self setUI];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    [control showTabbar];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark  ----  代理
@@ -145,6 +158,15 @@
     
 }
 
+//个人信息点击的响应
+-(void)userNameLabelTaped{
+    
+    PersonalInformationVC * vc = [[PersonalInformationVC alloc] initWithTitle:@"个人信息" andTableViewStyle:UITableViewStyleGrouped];
+    TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    [control hidTabbar];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark  ----  懒加载
 -(UIView *)headView{
     
@@ -191,6 +213,10 @@
         _userNameLabel = [[UILabel alloc] init];
         _userNameLabel.textAlignment = NSTextAlignmentCenter;
         _userNameLabel.text = @"游客 >";
+        _userNameLabel.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userNameLabelTaped)];
+        [_userNameLabel addGestureRecognizer:tap];
     }
     return _userNameLabel;
 }
