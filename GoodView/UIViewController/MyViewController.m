@@ -13,7 +13,7 @@
 #import "PersonalInformationVC.h"
 #import "TabbarViewController.h"
 #import "AboutViewController.h"
-
+#import "LoginViewController.h"
 
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -206,8 +206,11 @@
 //个人信息点击的响应
 -(void)userNameLabelTaped{
     
-    PersonalInformationVC * vc = [[PersonalInformationVC alloc] initWithTitle:@"个人信息" andTableViewStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:NO];
+//    PersonalInformationVC * vc = [[PersonalInformationVC alloc] initWithTitle:@"个人信息" andTableViewStyle:UITableViewStyleGrouped];
+//    [self.navigationController pushViewController:vc animated:NO];
+    
+    LoginViewController * logIn = [[LoginViewController alloc] initWithTitle:@"登录"];
+    [self.navigationController pushViewController:logIn animated:YES];
 }
 
 #pragma mark  ----  懒加载

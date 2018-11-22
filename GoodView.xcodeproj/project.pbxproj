@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0427A51C21A59DEC00E1B175 /* PersonalInformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A51B21A59DEC00E1B175 /* PersonalInformationVC.m */; };
 		0427A51D21A5A3D000E1B175 /* JHLiveBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2178E21A4401D00DC2D2B /* JHLiveBaseTableViewController.m */; };
+		0427A52021A6EAED00E1B175 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A51F21A6EAED00E1B175 /* LoginViewController.m */; };
 		043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */; };
 		04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2176F21A43EA900DC2D2B /* AppDelegate.m */; };
 		04A2177621A43EA900DC2D2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2177421A43EA900DC2D2B /* Main.storyboard */; };
@@ -40,6 +41,8 @@
 /* Begin PBXFileReference section */
 		0427A51A21A59DEC00E1B175 /* PersonalInformationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalInformationVC.h; sourceTree = "<group>"; };
 		0427A51B21A59DEC00E1B175 /* PersonalInformationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalInformationVC.m; sourceTree = "<group>"; };
+		0427A51E21A6EAED00E1B175 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		0427A51F21A6EAED00E1B175 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		043B5C6321A5128300478CD8 /* SHImageAndTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHImageAndTitleBtn.h; sourceTree = "<group>"; };
 		043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHImageAndTitleBtn.m; sourceTree = "<group>"; };
 		04A2176B21A43EA900DC2D2B /* GoodView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +201,8 @@
 				62ED859721A6C76A00245CA0 /* AboutViewController.m */,
 				62ED859921A6D88C00245CA0 /* AccountBindingVC.h */,
 				62ED859A21A6D88C00245CA0 /* AccountBindingVC.m */,
+				0427A51E21A6EAED00E1B175 /* LoginViewController.h */,
+				0427A51F21A6EAED00E1B175 /* LoginViewController.m */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				62ED859821A6C76A00245CA0 /* AboutViewController.m in Sources */,
 				04D256B021A56D6C00624688 /* MyEntryCell.m in Sources */,
 				043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */,
+				0427A52021A6EAED00E1B175 /* LoginViewController.m in Sources */,
 				04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */,
 				0427A51C21A59DEC00E1B175 /* PersonalInformationVC.m in Sources */,
 				62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */,
