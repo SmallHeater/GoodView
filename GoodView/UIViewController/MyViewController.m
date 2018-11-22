@@ -12,6 +12,9 @@
 #import "MyEntryCell.h"
 #import "PersonalInformationVC.h"
 #import "TabbarViewController.h"
+#import "AboutViewController.h"
+
+
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 //头像区域
@@ -54,6 +57,9 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
+    
+    TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    [control hidTabbar];
 }
 
 #pragma mark  ----  代理
@@ -62,6 +68,44 @@
     
     return 40;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
+    if (indexPath.row == 0) {
+        
+    }
+    else if (indexPath.row == 1){
+        
+    }
+    else if (indexPath.row == 2){
+        
+    }
+    else if (indexPath.row == 3){
+        
+        AboutViewController * aboutVC = [[AboutViewController alloc] initWithTitle:@"关于景好"];
+        [self.navigationController pushViewController:aboutVC animated:NO];
+    }
+    else if (indexPath.row == 4) {
+        
+        UIAlertController * alertControl = [UIAlertController alertControllerWithTitle:@"拨打电话" message:@"0571-29605717" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel:0571-29605717"]];
+        }];
+        
+        [alertControl addAction:cancleAction];
+        [alertControl addAction:sureAction];
+        [self presentViewController:alertControl animated:YES completion:^{
+            
+        }];
+    }
+}
+
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -76,10 +120,11 @@
         
         cell = [[MyEntryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //显示最右边的箭头
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     MyEntryModel * model = self.dataArray[indexPath.row];
-    [cell setImage:model.iconName andTitle:model.title andContent:model.content];
+    [cell setIconImage:model.iconName andTitle:model.title andContent:model.content andShowLine:YES];
     return cell;
 }
 
@@ -162,9 +207,7 @@
 -(void)userNameLabelTaped{
     
     PersonalInformationVC * vc = [[PersonalInformationVC alloc] initWithTitle:@"个人信息" andTableViewStyle:UITableViewStyleGrouped];
-    TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    [control hidTabbar];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 #pragma mark  ----  懒加载

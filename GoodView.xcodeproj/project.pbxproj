@@ -31,6 +31,9 @@
 		04D256AC21A56D0F00624688 /* draft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04D256AB21A56D0F00624688 /* draft@2x.png */; };
 		04D256B021A56D6C00624688 /* MyEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D256AF21A56D6C00624688 /* MyEntryCell.m */; };
 		62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */; };
+		62ED859321A69A6400245CA0 /* AvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED859221A69A6400245CA0 /* AvatarCell.m */; };
+		62ED859821A6C76A00245CA0 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED859721A6C76A00245CA0 /* AboutViewController.m */; };
+		62ED859B21A6D88C00245CA0 /* AccountBindingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED859A21A6D88C00245CA0 /* AccountBindingVC.m */; };
 		877899E402EEC60C8CF5BFC1 /* libPods-GoodView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D87861D39641187F56817B4E /* libPods-GoodView.a */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +100,12 @@
 		04D256AF21A56D6C00624688 /* MyEntryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEntryCell.m; sourceTree = "<group>"; };
 		62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHLabelAndLabelView.m; sourceTree = "<group>"; };
 		62ED857E21A537F900245CA0 /* SHLabelAndLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHLabelAndLabelView.h; sourceTree = "<group>"; };
+		62ED859121A69A6400245CA0 /* AvatarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvatarCell.h; sourceTree = "<group>"; };
+		62ED859221A69A6400245CA0 /* AvatarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AvatarCell.m; sourceTree = "<group>"; };
+		62ED859621A6C76A00245CA0 /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		62ED859721A6C76A00245CA0 /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		62ED859921A6D88C00245CA0 /* AccountBindingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountBindingVC.h; sourceTree = "<group>"; };
+		62ED859A21A6D88C00245CA0 /* AccountBindingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountBindingVC.m; sourceTree = "<group>"; };
 		6B3FEC0BB376CD516FCEED52 /* Pods-GoodView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodView.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoodView/Pods-GoodView.release.xcconfig"; sourceTree = "<group>"; };
 		D87861D39641187F56817B4E /* libPods-GoodView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoodView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFCD9A15BA0CEC0818EC111E /* Pods-GoodView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoodView/Pods-GoodView.debug.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +194,10 @@
 				04A217D321A4408800DC2D2B /* HomeViewController.m */,
 				0427A51A21A59DEC00E1B175 /* PersonalInformationVC.h */,
 				0427A51B21A59DEC00E1B175 /* PersonalInformationVC.m */,
+				62ED859621A6C76A00245CA0 /* AboutViewController.h */,
+				62ED859721A6C76A00245CA0 /* AboutViewController.m */,
+				62ED859921A6D88C00245CA0 /* AccountBindingVC.h */,
+				62ED859A21A6D88C00245CA0 /* AccountBindingVC.m */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -356,6 +369,8 @@
 			children = (
 				04D256AE21A56D6C00624688 /* MyEntryCell.h */,
 				04D256AF21A56D6C00624688 /* MyEntryCell.m */,
+				62ED859121A69A6400245CA0 /* AvatarCell.h */,
+				62ED859221A69A6400245CA0 /* AvatarCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -479,12 +494,15 @@
 				04A2178C21A43F6B00DC2D2B /* TabbarViewController.m in Sources */,
 				04A2179C21A4401E00DC2D2B /* JHLiveAdaptUI.m in Sources */,
 				0427A51D21A5A3D000E1B175 /* JHLiveBaseTableViewController.m in Sources */,
+				62ED859321A69A6400245CA0 /* AvatarCell.m in Sources */,
 				04A2179B21A4401E00DC2D2B /* JHLiveBaseViewController.m in Sources */,
 				04A2179E21A4401E00DC2D2B /* JHLiveBaseNavigationBar.m in Sources */,
 				04A217D121A4406B00DC2D2B /* MyViewController.m in Sources */,
 				04A217D421A4408800DC2D2B /* HomeViewController.m in Sources */,
+				62ED859B21A6D88C00245CA0 /* AccountBindingVC.m in Sources */,
 				04A2177E21A43EAA00DC2D2B /* main.m in Sources */,
 				04D256A921A5697200624688 /* MyEntryModel.m in Sources */,
+				62ED859821A6C76A00245CA0 /* AboutViewController.m in Sources */,
 				04D256B021A56D6C00624688 /* MyEntryCell.m in Sources */,
 				043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */,
 				04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */,

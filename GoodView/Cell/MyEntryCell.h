@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MyEntryCell : UITableViewCell
 
--(void)setImage:(NSString *)imageName andTitle:(NSString *)title andContent:(NSString *)content;
+-(void)setIconImage:(NSString *)imageName andTitle:(NSString *)title andContent:(NSString *)content andShowLine:(BOOL)isShow;
 
 @end
 

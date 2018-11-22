@@ -25,6 +25,7 @@
     if (self) {
         
         self.style = style;
+        [self.view addSubview:self.tableView];
     }
     return self;
 }
@@ -67,6 +68,11 @@
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        if (self.style == UITableViewStyleGrouped) {
+            
+            _tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINWIDTH, 0.01)];
+        }
+        
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
