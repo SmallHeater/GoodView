@@ -40,7 +40,7 @@
 -(void)viewDidLoad{
     
     [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor colorFromHexRGB:@"F5F5F5"];
+    self.view.backgroundColor = Color_F5F5F5;
     [self.view addSubview:self.busNavigationBar];
     
     NSString * lastInitClassName = NSStringFromClass([self class]);

@@ -26,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
     self.tabBar.hidden = YES;
     [self.view addSubview:self.tabbarView];
     
@@ -36,7 +35,7 @@
     UINavigationController * myNav = [[UINavigationController alloc] initWithRootViewController:myVC];
     
     self.viewControllers = @[homeNav,myNav];
-    self.selectedIndex = 1;
+    self.selectedIndex = 0;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

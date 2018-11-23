@@ -12,10 +12,41 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Masonry.h"
+#import "UIColor+SHTool.h"
+#import "NSString+SHTool.h"
+#import "UIImage+SHTool.h"
 
 
 
 #define MAINWIDTH [UIScreen mainScreen].bounds.size.width
 #define MAINHEIGHT [UIScreen mainScreen].bounds.size.height
+#define PADDING 10.0
+
+
+
+//浅绿色，导航色系
+#define Color_87BA4B  [UIColor colorFromHexRGB:@"87BA4B"]
+#define Color_C4C4C4  [UIColor colorFromHexRGB:@"C4C4C4"]
+//灰色，背景色
+#define Color_F5F5F5  [UIColor colorFromHexRGB:@"F5F5F5"]
+
+#define FONT12 [UIFont systemFontOfSize:12.0]
+#define FONT13 [UIFont systemFontOfSize:13.0]
+#define FONT14 [UIFont systemFontOfSize:14.0]
+#define FONT15 [UIFont systemFontOfSize:15.0]
+#define FONT16 [UIFont systemFontOfSize:16.0]
+#define FONT17 [UIFont systemFontOfSize:17.0]
+#define FONT18 [UIFont systemFontOfSize:18.0]
+#define FONT20 [UIFont systemFontOfSize:20.0]
+#define FONT24 [UIFont systemFontOfSize:24.0]
+
+#define BOLDFONT12 [UIFont boldSystemFontOfSize:12.0]
+#define BOLDFONT14 [UIFont boldSystemFontOfSize:14.0]
+#define BOLDFONT15 [UIFont boldSystemFontOfSize:15.0]
+#define BOLDFONT16 [UIFont boldSystemFontOfSize:16.0]
+#define BOLDFONT18 [UIFont boldSystemFontOfSize:18.0]
+#define BOLDFONT20 [UIFont boldSystemFontOfSize:20.0]
+#define BOLDFONT24 [UIFont boldSystemFontOfSize:24.0]
+
 
 #endif /* GoodView_pch */

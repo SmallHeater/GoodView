@@ -14,7 +14,7 @@
 #import "TabbarViewController.h"
 #import "AboutViewController.h"
 #import "LoginViewController.h"
-
+#import "SelectCityViewController.h"
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 //头像区域
@@ -42,7 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor whiteColor];
     self.busNavigationBar.hidden = YES;
     [self setUI];
 }
@@ -206,11 +206,14 @@
 //个人信息点击的响应
 -(void)userNameLabelTaped{
     
-//    PersonalInformationVC * vc = [[PersonalInformationVC alloc] initWithTitle:@"个人信息" andTableViewStyle:UITableViewStyleGrouped];
-//    [self.navigationController pushViewController:vc animated:NO];
+    PersonalInformationVC * vc = [[PersonalInformationVC alloc] initWithTitle:@"个人信息" andTableViewStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:vc animated:NO];
     
-    LoginViewController * logIn = [[LoginViewController alloc] initWithTitle:@"登录"];
-    [self.navigationController pushViewController:logIn animated:YES];
+//    LoginViewController * logIn = [[LoginViewController alloc] initWithTitle:@"登录"];
+//    [self.navigationController pushViewController:logIn animated:YES];
+    
+//    SelectCityViewController * vc = [[SelectCityViewController alloc] initWithTitle:@"选择城市"];
+//    [self.navigationController pushViewController:vc animated:NO];
 }
 
 #pragma mark  ----  懒加载

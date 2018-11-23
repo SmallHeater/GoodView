@@ -8,7 +8,7 @@
 
 #import "JHLiveBaseNavigationBar.h"
 #import "JHLiveAdaptUI.h"
-//#import "UIColor+Translate.h"
+
 
 
 #define NAVWIDTH  300
@@ -28,7 +28,7 @@
     self = [super initWithFrame:CGRectMake(0, 0, MAINWIDTH, 64 + [JHLiveAdaptUI heightOfLiuHai])];
     if (self) {
         
-        self.backgroundColor = [UIColor colorWithRed:252.0/255.0 green:252.0/255.0 blue:252.0/255.0 alpha:1];
+        self.backgroundColor = Color_87BA4B;
         [self addSubview:self.titleLabel];
         
         self.navTitle = title;
