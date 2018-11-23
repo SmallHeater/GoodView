@@ -7,13 +7,17 @@
 //
 
 #import "SelectCityViewController.h"
+#import "SHSearchBar.h"
+#import "CityCell.h"
 
 @interface SelectCityViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UISearchBar * searchBar;
+@property (nonatomic,strong) SHSearchBar * searchBar;
 //列表区域
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSMutableArray * dataArray;
+@property (nonatomic,strong) UIView * tableHeaderView;
+
 
 @end
 
@@ -36,7 +40,7 @@
 #pragma mark  ----  UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 40;
+    return 50;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -47,12 +51,36 @@
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return self.dataArray.count;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return nil;
+    static NSString * cellID = @"CityCell";
+    CityCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (!cell) {
+        
+        cell = [[CityCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    [cell setCity:@"北京"];
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 5;
+}
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    return @"A";
+}
+
+- (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
+    
+    return @[@"A",@"B",@"C",@"D",@"E",@"F"];
 }
 
 #pragma mark  ----  自定义函数
@@ -61,31 +89,39 @@
     [self.view addSubview:self.searchBar];
     [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.offset(0);
-        make.top.equalTo(self.busNavigationBar.mas_bottom).offset(0);
-        make.right.offset(0);
-        make.height.offset(70);
+        make.left.offset(10);
+        make.top.equalTo(self.busNavigationBar.mas_bottom).offset(10);
+        make.right.offset(-15);
+        make.height.offset(30);
     }];
    
-//    [self.view addSubview:self.tableView];
-//    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.right.offset(0);
-//        make.top.equalTo(self.searchBar.mas_bottom).offset(0);
-//        make.bottom.offset(0);
-//    }];
+    [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.right.offset(0);
+        make.top.equalTo(self.busNavigationBar.mas_bottom).offset(50);
+        make.bottom.offset(0);
+    }];
 }
 
+//定位城市的响应
+-(void)locationBtnClicked{
+    
+}
 
+//热门城市的响应
+-(void)btnClicked:(UIButton *)hotBtn{
+    
+}
 
 #pragma mark  ----  懒加载
--(UISearchBar *)searchBar{
+-(SHSearchBar *)searchBar{
     
     if (!_searchBar) {
         
-        _searchBar = [[UISearchBar alloc] init];
-        _searchBar.placeholder = @"请输入城市名或拼音";
-        _searchBar.backgroundImage = [UIImage imageWithColor:[UIColor clearColor]];
+        _searchBar = [[SHSearchBar alloc] initWithFrame:CGRectMake(0, 0, 0, 0) andPlaceholder:@"请输入城市名或拼音"];
+        _searchBar.backgroundColor = [UIColor whiteColor];
+        _searchBar.layer.cornerRadius = 4;
     }
     return _searchBar;
 }
@@ -97,6 +133,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.tableHeaderView = self.tableHeaderView;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
@@ -104,6 +141,7 @@
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
+        _tableView.backgroundColor = [UIColor whiteColor];
     }
     return _tableView;
 }
@@ -115,6 +153,50 @@
         _dataArray = [[NSMutableArray alloc] init];
     }
     return _dataArray;
+}
+
+-(UIView *)tableHeaderView{
+    
+    if (!_tableHeaderView) {
+        
+        _tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINWIDTH, 300)];
+        //定位城市
+        UILabel * locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 200, 15)];
+        locationLabel.font = FONT15;
+        locationLabel.text = @"定位城市";
+        [_tableHeaderView addSubview:locationLabel];
+        
+        UIButton * locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        locationBtn.frame = CGRectMake(15, CGRectGetMaxY(locationLabel.frame) + 10, 100, 40);
+        [locationBtn setBackgroundColor:Color_F5F5F5];
+        [locationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [locationBtn setTitle:@"北京市" forState:UIControlStateNormal];
+        [locationBtn addTarget:self action:@selector(locationBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_tableHeaderView addSubview:locationBtn];
+        
+        //热门城市
+        UILabel * hotLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(locationBtn.frame) + 20, 200, 15)];
+        hotLabel.font = FONT15;
+        hotLabel.text = @"热门城市";
+        [_tableHeaderView addSubview:hotLabel];
+        
+        //间距
+        NSUInteger padding = 10;
+        //按钮宽度
+        float btnWidth = (MAINWIDTH - 15 * 2 - 10 * 2) / 3;
+        
+        for (NSUInteger i = 0; i < 9; i++) {
+            
+            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setBackgroundColor:Color_F5F5F5];
+            btn.frame = CGRectMake(15 + (btnWidth + padding) * (i % 3), CGRectGetMaxY(hotLabel.frame) + 10 + (i / 3) * (40 + 10), 100, 40);
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn setTitle:@"北京市" forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [_tableHeaderView addSubview:btn];
+        }
+    }
+    return _tableHeaderView;
 }
 
 @end

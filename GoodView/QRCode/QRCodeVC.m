@@ -117,7 +117,7 @@
         [self.view addSubview:label];
         
         UIButton * endBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [endBtn setImage:[UIImage imageNamed:@"JHLivePlayBundle.bundle/cross.tiff"] forState:UIControlStateNormal];
+        [endBtn setImage:[UIImage imageNamed:@"cross.tiff"] forState:UIControlStateNormal];
         endBtn.frame = CGRectMake((MAINWIDTH - 42) / 2, CGRectGetMaxY(label.frame) + 83, 42, 42);
         [endBtn addTarget:self action:@selector(endBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:endBtn];

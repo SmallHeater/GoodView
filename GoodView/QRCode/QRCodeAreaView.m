@@ -38,7 +38,7 @@
     self.position = newPosition;
     
     // 绘制图片
-    UIImage *image = [UIImage imageNamed:@"JHLivePlayBundle.bundle/line.png"];
+    UIImage *image = [UIImage imageNamed:@"line.png"];
     [image drawAtPoint:self.position];
 }
 
@@ -46,7 +46,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
         
-        UIImageView *areaView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"JHLivePlayBundle.bundle/frame_icon.tiff"]];
+        UIImageView *areaView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"frame_icon@2x"]];
         areaView.width = self.width;
         areaView.height = self.height;
         [self addSubview:areaView];

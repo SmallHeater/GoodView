@@ -11,6 +11,8 @@
 #import "TabbarViewController.h"
 #import "SHSearchBar.h"
 #import "ScenicSpotCell.h"
+#import "QRCodeVC.h"
+#import "SelectCityViewController.h"
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -100,7 +102,7 @@
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINWIDTH, 50)];
     view.backgroundColor = [UIColor whiteColor];
     UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uu@2x.png"]];
-    imageView.frame = CGRectMake(10, 10, 30, 30);
+    imageView.frame = CGRectMake(10, 12, 26, 26);
     [view addSubview:imageView];
     
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 100, 30)];
@@ -129,7 +131,7 @@
        
         make.left.offset(20);
         make.top.offset(30);
-        make.right.offset(-75);
+        make.right.offset(-55);
         make.height.offset(30);
     }];
     
@@ -141,9 +143,9 @@
     
     [self.scanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.width.height.offset(30);
-        make.bottom.offset(-4);
-        make.right.offset(-20);
+        make.width.height.offset(25);
+        make.bottom.offset(-6);
+        make.right.offset(-15);
     }];
     
     
@@ -181,14 +183,15 @@
 //城市按钮的响应
 -(void)cityBtnClicked{
     
-    SelectCityViewController * vc = [[SelectCityViewController alloc] init];
+    SelectCityViewController * vc = [[SelectCityViewController alloc] initWithTitle:@"选择城市"];
     [self.navigationController pushViewController:vc animated:NO];
 }
 
 //扫一扫按钮的响应
 -(void)scanBtnClicked{
     
-    
+    QRCodeVC * vc = [[QRCodeVC alloc] init];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 #pragma mark  ----  懒加载
@@ -277,12 +280,9 @@
         _headlineView = [[UIView alloc] init];
         _headlineView.backgroundColor = [UIColor grayColor];
         
-        CALayer * bottomLayer = [CALayer layer];
-        bottomLayer.frame = CGRectMake(0, 39, MAINWIDTH, 1);
-        bottomLayer.backgroundColor = Color_F5F5F5.CGColor;
-        [_headlineView.layer addSublayer:bottomLayer];
         
-        UIImageView * imageView = [[UIImageView alloc] init];
+        
+        UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"headline@2x.jpg"]];
         imageView.backgroundColor = [UIColor greenColor];
         [_headlineView addSubview:imageView];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -303,6 +303,11 @@
             make.left.equalTo(imageView.mas_right).offset(0);
             make.top.right.bottom.offset(0);
         }];
+        
+        CALayer * bottomLayer = [CALayer layer];
+        bottomLayer.frame = CGRectMake(0, 39, MAINWIDTH, 1);
+        bottomLayer.backgroundColor = Color_F5F5F5.CGColor;
+        [_headlineView.layer addSublayer:bottomLayer];
     }
     return _headlineView;
 }
@@ -312,7 +317,7 @@
     if (!_newsLabel) {
         
         _newsLabel = [[UILabel alloc] init];
-        _newsLabel.backgroundColor = [UIColor orangeColor];
+        _newsLabel.backgroundColor = [UIColor whiteColor];
     }
     return _newsLabel;
 }
