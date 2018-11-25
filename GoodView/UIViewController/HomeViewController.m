@@ -13,8 +13,21 @@
 #import "ScenicSpotCell.h"
 #import "QRCodeVC.h"
 #import "SelectCityViewController.h"
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapFoundationKit/AMapServices.h>
+#import "ScenicModel.h"
+#import "ADModel.h"
+#import "SDCycleScrollView.h"
+#import "VerticalLoopView.h"
+#import "JHArticle.h"
 
-@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource>
+#define DefaultLocationTimeout 10
+#define DefaultReGeocodeTimeout 5
+
+@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate,SDCycleScrollViewDelegate,VerticalLoopDelegate>
+
+@property (nonatomic, strong) AMapLocationManager *locationManager;
+@property (nonatomic, copy) AMapLocatingCompletionBlock completionBlock;
 
 //自定义导航
 @property (nonatomic,strong) UIView * myNav;
@@ -25,13 +38,19 @@
 //扫码按钮
 @property (nonatomic,strong) UIButton * scanBtn;
 //轮播区
-@property (nonatomic,strong) UIScrollView * carouselScrollView;
+@property (nonatomic,strong) SDCycleScrollView * carouselScrollView;
 //景好头条
 @property (nonatomic,strong) UIView * headlineView;
+@property (nonatomic,strong) VerticalLoopView * verticalLoopV;
 @property (nonatomic,strong) UILabel * newsLabel;
 //列表区域
 @property (nonatomic,strong) UITableView * tableView;
-@property (nonatomic,strong) NSMutableArray * dataArray;
+//景区模型数组
+@property (nonatomic,strong) NSMutableArray<ScenicModel *> * dataArray;
+//广告模型数组
+@property (nonatomic,strong) NSMutableArray<ADModel *> * adModelArray;
+//景好头条模型数组
+@property (nonatomic,strong) NSMutableArray<JHArticle *> * toutiaoModelArray;
 
 
 @end
@@ -44,6 +63,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.busNavigationBar.hidden = YES;
+    [self startPositioning];
     [self setUI];
 }
 
@@ -59,6 +79,19 @@
     [super viewWillDisappear:animated];
     TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     [control hidTabbar];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    
+    [super viewDidDisappear:animated];
+    [self.verticalLoopV stop];
+}
+
+-(void)dealloc{
+    
+    [self cleanUpAction];
+    
+    self.completionBlock = nil;
 }
 
 #pragma mark  ----  代理
@@ -80,7 +113,7 @@
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 8;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -92,6 +125,9 @@
         cell = [[ScenicSpotCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    ScenicModel * model = self.dataArray[indexPath.row];
+    [cell setImage:[[NSString alloc] initWithFormat:@"%@%@",KIMGURL,model.scenic_img] scenicName:model.scenic_name scenicContent:model.scenics_text listen:model.listen_num distance:model.distance];
     return cell;
 }
 
@@ -115,8 +151,164 @@
 }
 
 
+#pragma mark  ----  VerticalLoopDelegate
+- (void)didClickContentAtIndex:(NSInteger)index{
+    
+}
+
+
+#pragma mark  ----  SDCycleScrollViewDelegate
+/** 点击图片回调 */
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    
+}
+
+/** 图片滚动回调 */
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
+    
+}
 
 #pragma mark  ----  自定义函数
+//开始定位
+-(void)startPositioning{
+    
+    [AMapServices sharedServices].apiKey = @"8753cfe1293deef38267201416d77a19";
+    self.locationManager = [[AMapLocationManager alloc] init];
+    [self.locationManager setDelegate:self];
+    //设置期望定位精度
+    [self.locationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //设置不允许系统暂停定位
+    [self.locationManager setPausesLocationUpdatesAutomatically:NO];
+    //设置定位超时时间
+    [self.locationManager setLocationTimeout:DefaultLocationTimeout];
+    //设置逆地理超时时间
+    [self.locationManager setReGeocodeTimeout:DefaultReGeocodeTimeout];
+    [self initCompleteBlock];
+    [self reGeocodeAction];
+}
+
+- (void)initCompleteBlock
+{
+    __weak HomeViewController *weakSelf = self;
+    self.completionBlock = ^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error)
+    {
+        if (error != nil && error.code == AMapLocationErrorLocateFailed)
+        {
+            //定位错误：此时location和regeocode没有返回值，不进行annotation的添加
+            NSLog(@"定位错误:{%ld - %@};", (long)error.code, error.localizedDescription);
+            return;
+        }
+        else if (error != nil
+                 && (error.code == AMapLocationErrorReGeocodeFailed
+                     || error.code == AMapLocationErrorTimeOut
+                     || error.code == AMapLocationErrorCannotFindHost
+                     || error.code == AMapLocationErrorBadURL
+                     || error.code == AMapLocationErrorNotConnectedToInternet
+                     || error.code == AMapLocationErrorCannotConnectToHost))
+        {
+            //逆地理错误：在带逆地理的单次定位中，逆地理过程可能发生错误，此时location有返回值，regeocode无返回值，进行annotation的添加
+            NSLog(@"逆地理错误:{%ld - %@};", (long)error.code, error.localizedDescription);
+        }
+        else if (error != nil && error.code == AMapLocationErrorRiskOfFakeLocation)
+        {
+            //存在虚拟定位的风险：此时location和regeocode没有返回值，不进行annotation的添加
+            NSLog(@"存在虚拟定位的风险:{%ld - %@};", (long)error.code, error.localizedDescription);
+            return;
+        }
+        else
+        {
+            //没有错误：location有返回值，regeocode是否有返回值取决于是否进行逆地理操作，进行annotation的添加
+        }
+        
+        //修改label显示内容
+        if (regeocode)
+        {
+            [AccountManager sharedManager].city = regeocode.city;
+            [AccountManager sharedManager].longitude = location.coordinate.longitude;
+            [AccountManager sharedManager].latitude = location.coordinate.latitude;
+            
+            UIButton * cityBtn = [weakSelf.searchBGView viewWithTag:1200];
+            [cityBtn setTitle:regeocode.city forState:UIControlStateNormal];
+            NSLog(@"%@",[NSString stringWithFormat:@"%@ \n %@-%@-%.2fm", regeocode.formattedAddress,regeocode.citycode, regeocode.adcode, location.horizontalAccuracy]);
+            [weakSelf loadHomeData];
+        }
+        else
+        {
+            NSLog(@"%@",[NSString stringWithFormat:@"lat:%f;lon:%f \n accuracy:%.2fm", location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy]);
+        }
+    };
+}
+
+- (void)reGeocodeAction
+{
+    //进行单次带逆地理定位请求
+    [self.locationManager requestLocationWithReGeocode:YES completionBlock:self.completionBlock];
+}
+
+- (void)cleanUpAction
+{
+    //停止定位
+    [self.locationManager stopUpdatingLocation];
+    [self.locationManager setDelegate:nil];
+}
+
+//获取首页数据
+-(void)loadHomeData{
+    
+    AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:KGENURL]];
+    [manager POST:@"Scenic/home" parameters:@{@"number":@"0",@"city":@"杭州市",@"latitude":[NSNumber numberWithFloat:[AccountManager sharedManager].latitude],@"longitude":[NSNumber numberWithFloat:[AccountManager sharedManager].longitude],@"user_id":@""} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSNumber * status = responseObject[@"status"];
+        if (status.integerValue == 1) {
+            
+            NSDictionary * dataDic = responseObject[@"result"];
+            NSArray * scenicsArray = dataDic[@"scenics"];
+            for (NSUInteger i = 0; i < scenicsArray.count; i++) {
+                
+                NSDictionary * dic = scenicsArray[i];
+                NSError * error;
+                ScenicModel * model = [[ScenicModel alloc] initWithDictionary:dic error:&error];
+                if (model) {
+                    
+                    [self.dataArray addObject:model];
+                }
+            }
+            [self.tableView reloadData];
+            
+            NSArray * adArray = dataDic[@"ad"];
+            for (NSUInteger j = 0; j < adArray.count; j++) {
+                
+                NSDictionary * dic = adArray[j];
+                NSError * error;
+                ADModel * model = [[ADModel alloc] initWithDictionary:dic error:&error];
+                if (model) {
+                    
+                    [self.adModelArray addObject:model];
+                }
+            }
+            [self createCarousel];
+            
+            NSArray * toutiaoArray = dataDic[@"toutiao"];
+            for (NSUInteger k = 0; k < toutiaoArray.count; k++) {
+                
+                NSDictionary * dic = toutiaoArray[k];
+                NSError * error;
+                JHArticle * model = [[JHArticle alloc] initWithDictionary:dic error:&error];
+                if (model) {
+                    
+                    [self.toutiaoModelArray addObject:model];
+                }
+            }
+            [self createToutiao];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        [MBProgressHUD showErrorMessage:@"请求失败，请检查网络"];
+    }];
+}
 -(void)setUI{
     
     [self.view addSubview:self.myNav];
@@ -164,11 +356,19 @@
     
     [self.view addSubview:self.headlineView];
     [self.headlineView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+
         make.left.right.offset(0);
         make.top.equalTo(self.carouselScrollView.mas_bottom).offset(0);
         make.height.offset(40);
     }];
+
+//    [self.view addSubview:self.verticalLoopV];
+//    [self.verticalLoopV mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//        make.left.right.offset(0);
+//        make.top.equalTo(self.carouselScrollView.mas_bottom).offset(0);
+//        make.height.offset(40);
+//    }];
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -177,6 +377,24 @@
         make.top.equalTo(self.headlineView.mas_bottom).offset(0);
         make.bottom.offset(-49);
     }];
+}
+
+//创建轮播区
+-(void)createCarousel{
+    
+    NSMutableArray * arr = [[NSMutableArray alloc] init];
+    for (NSUInteger i = 0; i < self.adModelArray.count; i++) {
+        
+        ADModel * model = self.adModelArray[i];
+        [arr addObject:[[NSString alloc] initWithFormat:@"%@%@",KIMGURL,model.ad_code]];
+    }
+    self.carouselScrollView.imageURLStringsGroup = arr;
+}
+//创建头条区
+-(void)createToutiao{
+    
+    self.verticalLoopV.verticalLoopContentArr = self.toutiaoModelArray;
+    [self.verticalLoopV start];
 }
 
 //城市按钮的响应
@@ -225,13 +443,14 @@
     if (!_cityBtn) {
         
         _cityBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_cityBtn setTitle:@"北京" forState:UIControlStateNormal];
+        _cityBtn.tag = 1200;
+        [_cityBtn setTitle:@"城市" forState:UIControlStateNormal];
         [_cityBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_cityBtn addTarget:self action:@selector(cityBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         [_cityBtn setImage:[UIImage imageNamed:@"ic_search_bar_arrow_down@2x"] forState:UIControlStateNormal];
         _cityBtn.titleLabel.font = FONT15;
-        [_cityBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 50, 0, 0)];
-        [_cityBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 25)];
+        [_cityBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 58, 0, 0)];
+        [_cityBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 12)];
         
         CALayer * rightLayer = [CALayer layer];
         rightLayer.frame = CGRectMake(69, 5, 1, 20);
@@ -262,14 +481,29 @@
     return _scanBtn;
 }
 
--(UIScrollView *)carouselScrollView{
+-(SDCycleScrollView *)carouselScrollView{
     
     if (!_carouselScrollView) {
         
-        _carouselScrollView = [[UIScrollView alloc] init];
+        _carouselScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, 0, 0) delegate:self placeholderImage:[UIImage imageNamed:@"default@2x.png"]];
         _carouselScrollView.backgroundColor = [UIColor whiteColor];
     }
     return _carouselScrollView;
+}
+
+-(VerticalLoopView *)verticalLoopV{
+    
+    if (!_verticalLoopV) {
+        
+        _verticalLoopV = [[VerticalLoopView alloc] initWithFrame:CGRectZero];
+        _verticalLoopV.loopDelegate = self;
+        _verticalLoopV.is_start = 1;
+        _verticalLoopV.backgroundColor = [UIColor whiteColor];
+//        _verticalLoopV.verticalLoopContentArr = _articleDataArr;
+        _verticalLoopV.verticalLoopAnimationDuration = 1;
+        _verticalLoopV.Direction = VerticalLoopDirectionDown;
+    }
+    return _verticalLoopV;
 }
 
 -(UIView *)headlineView{
@@ -296,8 +530,8 @@
         [imageView.layer addSublayer:rightLayer];
         
         
-        [_headlineView addSubview:self.newsLabel];
-        [self.newsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_headlineView addSubview:self.verticalLoopV];
+        [self.verticalLoopV mas_makeConstraints:^(MASConstraintMaker *make) {
            
             make.left.equalTo(imageView.mas_right).offset(0);
             make.top.right.bottom.offset(0);
@@ -338,6 +572,33 @@
         _tableView.backgroundColor = [UIColor whiteColor];
     }
     return _tableView;
+}
+
+-(NSMutableArray<ScenicModel *> *)dataArray{
+    
+    if (!_dataArray) {
+        
+        _dataArray = [[NSMutableArray alloc] init];
+    }
+    return _dataArray;
+}
+
+- (NSMutableArray<ADModel *> *)adModelArray{
+    
+    if (!_adModelArray) {
+        
+        _adModelArray = [[NSMutableArray alloc] init];
+    }
+    return _adModelArray;
+}
+
+-(NSMutableArray<JHArticle *> *)toutiaoModelArray{
+    
+    if (!_toutiaoModelArray) {
+        
+        _toutiaoModelArray = [[NSMutableArray alloc] init];
+    }
+    return _toutiaoModelArray;
 }
 
 @end

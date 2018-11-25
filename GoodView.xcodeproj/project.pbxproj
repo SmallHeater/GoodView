@@ -50,6 +50,20 @@
 		0427A58721AA871B00E1B175 /* CityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0427A58621AA871B00E1B175 /* CityData.plist */; };
 		0427A58A21AA87AE00E1B175 /* CityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A58921AA87AE00E1B175 /* CityModel.m */; };
 		0427A58C21AA96ED00E1B175 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A58B21AA96ED00E1B175 /* location@2x.png */; };
+		0427A59021AAA9A800E1B175 /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A58E21AAA9A800E1B175 /* AMapLocationKit.framework */; };
+		0427A59121AAA9A800E1B175 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A58F21AAA9A800E1B175 /* AMapFoundationKit.framework */; };
+		0427A59321AAAD5A00E1B175 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A59221AAAD5A00E1B175 /* SystemConfiguration.framework */; };
+		0427A59521AAAD6E00E1B175 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A59421AAAD6E00E1B175 /* CoreTelephony.framework */; };
+		0427A59721AAAD7700E1B175 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A59621AAAD7700E1B175 /* Security.framework */; };
+		0427A59921AAAD8400E1B175 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A59821AAAD8400E1B175 /* GLKit.framework */; };
+		0427A59B21AAAD8E00E1B175 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A59A21AAAD8E00E1B175 /* libz.tbd */; };
+		0427A59D21AAAD9800E1B175 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A59C21AAAD9800E1B175 /* libc++.tbd */; };
+		0427A59F21AAADBE00E1B175 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0427A59E21AAADBE00E1B175 /* ExternalAccessory.framework */; };
+		0427A5A221AABB7B00E1B175 /* ScenicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A5A121AABB7B00E1B175 /* ScenicModel.m */; };
+		0427A5A521AACE5200E1B175 /* ADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A5A421AACE5200E1B175 /* ADModel.m */; };
+		0427A5AB21AAE14100E1B175 /* default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A5AA21AAE14100E1B175 /* default@2x.png */; };
+		0427A5AF21AAE55100E1B175 /* VerticalLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A5AE21AAE55000E1B175 /* VerticalLoopView.m */; };
+		0427A5B221AAE77B00E1B175 /* JHArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A5B021AAE77B00E1B175 /* JHArticle.m */; };
 		043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */; };
 		04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2176F21A43EA900DC2D2B /* AppDelegate.m */; };
 		04A2177621A43EA900DC2D2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2177421A43EA900DC2D2B /* Main.storyboard */; };
@@ -208,6 +222,24 @@
 		0427A58821AA87AE00E1B175 /* CityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityModel.h; sourceTree = "<group>"; };
 		0427A58921AA87AE00E1B175 /* CityModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityModel.m; sourceTree = "<group>"; };
 		0427A58B21AA96ED00E1B175 /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
+		0427A58E21AAA9A800E1B175 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
+		0427A58F21AAA9A800E1B175 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		0427A59221AAAD5A00E1B175 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0427A59421AAAD6E00E1B175 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		0427A59621AAAD7700E1B175 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0427A59821AAAD8400E1B175 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		0427A59A21AAAD8E00E1B175 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		0427A59C21AAAD9800E1B175 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		0427A59E21AAADBE00E1B175 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		0427A5A021AABB7B00E1B175 /* ScenicModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScenicModel.h; sourceTree = "<group>"; };
+		0427A5A121AABB7B00E1B175 /* ScenicModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScenicModel.m; sourceTree = "<group>"; };
+		0427A5A321AACE5200E1B175 /* ADModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ADModel.h; sourceTree = "<group>"; };
+		0427A5A421AACE5200E1B175 /* ADModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ADModel.m; sourceTree = "<group>"; };
+		0427A5AA21AAE14100E1B175 /* default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default@2x.png"; sourceTree = "<group>"; };
+		0427A5AD21AAE55000E1B175 /* VerticalLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalLoopView.h; sourceTree = "<group>"; };
+		0427A5AE21AAE55000E1B175 /* VerticalLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalLoopView.m; sourceTree = "<group>"; };
+		0427A5B021AAE77B00E1B175 /* JHArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHArticle.m; sourceTree = "<group>"; };
+		0427A5B121AAE77B00E1B175 /* JHArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHArticle.h; sourceTree = "<group>"; };
 		043B5C6321A5128300478CD8 /* SHImageAndTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHImageAndTitleBtn.h; sourceTree = "<group>"; };
 		043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHImageAndTitleBtn.m; sourceTree = "<group>"; };
 		04A2176B21A43EA900DC2D2B /* GoodView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,6 +399,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0427A59F21AAADBE00E1B175 /* ExternalAccessory.framework in Frameworks */,
+				0427A59D21AAAD9800E1B175 /* libc++.tbd in Frameworks */,
+				0427A59B21AAAD8E00E1B175 /* libz.tbd in Frameworks */,
+				0427A59921AAAD8400E1B175 /* GLKit.framework in Frameworks */,
+				0427A59721AAAD7700E1B175 /* Security.framework in Frameworks */,
+				0427A59521AAAD6E00E1B175 /* CoreTelephony.framework in Frameworks */,
+				0427A59321AAAD5A00E1B175 /* SystemConfiguration.framework in Frameworks */,
+				0427A59021AAA9A800E1B175 /* AMapLocationKit.framework in Frameworks */,
+				0427A59121AAA9A800E1B175 /* AMapFoundationKit.framework in Frameworks */,
 				0427A52921A81DA500E1B175 /* AVFoundation.framework in Frameworks */,
 				877899E402EEC60C8CF5BFC1 /* libPods-GoodView.a in Frameworks */,
 			);
@@ -391,6 +432,26 @@
 				0427A55721A938C200E1B175 /* JKCountDownButton.m */,
 			);
 			path = JKCountDownButton;
+			sourceTree = "<group>";
+		};
+		0427A58D21AAA9A800E1B175 /* gaode */ = {
+			isa = PBXGroup;
+			children = (
+				0427A58E21AAA9A800E1B175 /* AMapLocationKit.framework */,
+				0427A58F21AAA9A800E1B175 /* AMapFoundationKit.framework */,
+			);
+			path = gaode;
+			sourceTree = "<group>";
+		};
+		0427A5AC21AAE55000E1B175 /* VerticalLoopView */ = {
+			isa = PBXGroup;
+			children = (
+				0427A5B121AAE77B00E1B175 /* JHArticle.h */,
+				0427A5B021AAE77B00E1B175 /* JHArticle.m */,
+				0427A5AD21AAE55000E1B175 /* VerticalLoopView.h */,
+				0427A5AE21AAE55000E1B175 /* VerticalLoopView.m */,
+			);
+			path = VerticalLoopView;
 			sourceTree = "<group>";
 		};
 		04A2176221A43EA800DC2D2B = {
@@ -441,6 +502,8 @@
 		04A2178421A43F2400DC2D2B /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				0427A5AC21AAE55000E1B175 /* VerticalLoopView */,
+				0427A58D21AAA9A800E1B175 /* gaode */,
 				0427A55521A938C200E1B175 /* JKCountDownButton */,
 				04A217BF21A4402600DC2D2B /* Bugly */,
 				04A2179F21A4402600DC2D2B /* Business */,
@@ -631,6 +694,7 @@
 		04A217D821A445D200DC2D2B /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				0427A5AA21AAE14100E1B175 /* default@2x.png */,
 				0427A58B21AA96ED00E1B175 /* location@2x.png */,
 				0427A57721A9887100E1B175 /* touxiang@2x.png */,
 				0427A57321A987FC00E1B175 /* QQ@2x.png */,
@@ -725,6 +789,10 @@
 				0427A55D21A93FEE00E1B175 /* JHUserModel.m */,
 				0427A58821AA87AE00E1B175 /* CityModel.h */,
 				0427A58921AA87AE00E1B175 /* CityModel.m */,
+				0427A5A021AABB7B00E1B175 /* ScenicModel.h */,
+				0427A5A121AABB7B00E1B175 /* ScenicModel.m */,
+				0427A5A321AACE5200E1B175 /* ADModel.h */,
+				0427A5A421AACE5200E1B175 /* ADModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -829,6 +897,13 @@
 		CBBC76759AF80C352187828A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0427A59E21AAADBE00E1B175 /* ExternalAccessory.framework */,
+				0427A59C21AAAD9800E1B175 /* libc++.tbd */,
+				0427A59A21AAAD8E00E1B175 /* libz.tbd */,
+				0427A59821AAAD8400E1B175 /* GLKit.framework */,
+				0427A59621AAAD7700E1B175 /* Security.framework */,
+				0427A59421AAAD6E00E1B175 /* CoreTelephony.framework */,
+				0427A59221AAAD5A00E1B175 /* SystemConfiguration.framework */,
 				0427A52A21A81DCC00E1B175 /* MobileCoreServices.framework */,
 				0427A52821A81DA500E1B175 /* AVFoundation.framework */,
 				D87861D39641187F56817B4E /* libPods-GoodView.a */,
@@ -991,6 +1066,7 @@
 				62ED86F421A7DFDC00245CA0 /* ic_titlebar_triangle.png in Resources */,
 				04A217C421A4402600DC2D2B /* BuglyID.plist in Resources */,
 				0427A54521A83BF400E1B175 /* 更换头像.jpg in Resources */,
+				0427A5AB21AAE14100E1B175 /* default@2x.png in Resources */,
 				0427A58721AA871B00E1B175 /* CityData.plist in Resources */,
 				62ED873821A7E26E00245CA0 /* setting.png in Resources */,
 				0427A56C21A97AD600E1B175 /* guanyu@2x.png in Resources */,
@@ -1068,15 +1144,18 @@
 				0427A58A21AA87AE00E1B175 /* CityModel.m in Sources */,
 				04A217D421A4408800DC2D2B /* HomeViewController.m in Sources */,
 				0427A58121AA779100E1B175 /* LoudspeakerOrderVC.m in Sources */,
+				0427A5B221AAE77B00E1B175 /* JHArticle.m in Sources */,
 				0427A57E21AA5E9200E1B175 /* MyOrderVC.m in Sources */,
 				62ED859B21A6D88C00245CA0 /* AccountBindingVC.m in Sources */,
 				62ED867F21A79A9C00245CA0 /* SelectCityViewController.m in Sources */,
+				0427A5AF21AAE55100E1B175 /* VerticalLoopView.m in Sources */,
 				62ED86A121A7A4CF00245CA0 /* NSString+NormalMethod.m in Sources */,
 				04A2177E21A43EAA00DC2D2B /* main.m in Sources */,
 				0427A52E21A8233D00E1B175 /* CityCell.m in Sources */,
 				62ED86AD21A7C3D800245CA0 /* UIColor+SHTool.m in Sources */,
 				62ED86AA21A7C33200245CA0 /* UIImage+SHTool.m in Sources */,
 				04D256A921A5697200624688 /* MyEntryModel.m in Sources */,
+				0427A5A521AACE5200E1B175 /* ADModel.m in Sources */,
 				62ED86B021A7C3E900245CA0 /* NSString+SHTool.m in Sources */,
 				62ED859821A6C76A00245CA0 /* AboutViewController.m in Sources */,
 				62ED872321A7E1CD00245CA0 /* QRCodeBacgrouView.m in Sources */,
@@ -1084,6 +1163,7 @@
 				043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */,
 				0427A55F21A9444500E1B175 /* JHUserModel.m in Sources */,
 				0427A52021A6EAED00E1B175 /* LoginViewController.m in Sources */,
+				0427A5A221AABB7B00E1B175 /* ScenicModel.m in Sources */,
 				04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */,
 				62ED872221A7E1CD00245CA0 /* QRCodeAreaView.m in Sources */,
 				0427A58421AA77C200E1B175 /* OfflinePackageVC.m in Sources */,
@@ -1237,6 +1317,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoodView/Lib/UM",
 					"$(PROJECT_DIR)/GoodView/Lib/Bugly",
+					"$(PROJECT_DIR)/GoodView/Lib/gaode",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GoodView/GoodView.pch";
 				INFOPLIST_FILE = GoodView/Info.plist;
@@ -1255,7 +1336,7 @@
 					"$(PROJECT_DIR)/GoodView/Lib/Technology/JHRoutingComponent",
 					"$(PROJECT_DIR)/GoodView/Lib/Technology/JHEncryptionComponent",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jinher.testceshi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinghao.cloudGuide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1272,6 +1353,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GoodView/Lib/UM",
 					"$(PROJECT_DIR)/GoodView/Lib/Bugly",
+					"$(PROJECT_DIR)/GoodView/Lib/gaode",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GoodView/GoodView.pch";
 				INFOPLIST_FILE = GoodView/Info.plist;
@@ -1290,7 +1372,7 @@
 					"$(PROJECT_DIR)/GoodView/Lib/Technology/JHRoutingComponent",
 					"$(PROJECT_DIR)/GoodView/Lib/Technology/JHEncryptionComponent",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jinher.testceshi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jinghao.cloudGuide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -11,5 +11,6 @@ target 'GoodView' do
   pod 'JSONModel','~>1.8.0'
   pod 'MBProgressHUD+JDragon','~>0.0.4'
   pod 'AFNetworking','~>3.2.1'
+  pod 'SDCycleScrollView','~>1.75'
   
 end

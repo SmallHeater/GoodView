@@ -20,6 +20,8 @@
 #import "JHLiveAdaptUI.h"
 #import "AFNetworking.h"
 #import "URLHeader.h"
+#import "UIImageView+WebCache.h"
+
 
 
 #define MAINWIDTH [UIScreen mainScreen].bounds.size.width

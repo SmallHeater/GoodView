@@ -106,6 +106,42 @@
     }];
 }
 
+//图片地址，景区名，景区描述，听得人数，距离
+-(void)setImage:(NSString *)imageUrlStr scenicName:(NSString *)name scenicContent:(NSString *)content listen:(NSString *)listen distance:(NSString *)distance{
+    
+    self.myImageView.image = [UIImage imageNamed:@"default@2x.png"];
+    self.nameLabel.text = @"";
+    self.contentLabel.text = @"";
+    self.listenLabel.text = @"";
+    self.locationLabel.text = @"";
+    
+    if (![NSString contentIsNullORNil:imageUrlStr]) {
+        
+        [self.myImageView sd_setImageWithURL:[NSURL URLWithString:imageUrlStr] placeholderImage:[UIImage imageNamed:@"default@2x.png"]];
+        self.myImageView.layer.cornerRadius = 8;
+    }
+    
+    if (![NSString contentIsNullORNil:name]) {
+        
+        self.nameLabel.text = name;
+    }
+    
+    if (![NSString contentIsNullORNil:content]) {
+        
+        self.contentLabel.text = content;
+    }
+    
+    if (![NSString contentIsNullORNil:listen]) {
+        
+        self.listenLabel.text = listen;
+    }
+    
+    if (![NSString contentIsNullORNil:distance]) {
+        
+        self.locationLabel.text = distance;
+    }
+    
+}
 
 #pragma mark  ---- 懒加载
 -(UIImageView *)myImageView{
@@ -113,8 +149,9 @@
     if (!_myImageView) {
         
         _myImageView = [[UIImageView alloc] init];
-        _myImageView.backgroundColor = [UIColor redColor];
+        _myImageView.image = [UIImage imageNamed:@"default@2x.png"];
         _myImageView.layer.cornerRadius = 8;
+        _myImageView.layer.masksToBounds = YES;
     }
     return _myImageView;
 }
@@ -126,7 +163,6 @@
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.font = FONT16;
         _nameLabel.textColor = [UIColor blackColor];
-        _nameLabel.text = @"太湖";
     }
     return _nameLabel;
 }
@@ -138,8 +174,8 @@
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.textColor = [UIColor grayColor];
         _contentLabel.font = FONT14;
+        _contentLabel.numberOfLines = 0;
         _contentLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        _contentLabel.text = @"太湖是个好地方";
     }
     return _contentLabel;
 }
@@ -161,7 +197,6 @@
         _listenLabel = [[UILabel alloc] init];
         _listenLabel.textColor = [UIColor grayColor];
         _listenLabel.font = FONT14;
-        _listenLabel.text = @"344";
     }
     return _listenLabel;
 }
@@ -183,7 +218,6 @@
         _locationLabel = [[UILabel alloc] init];
         _locationLabel.font = FONT14;
         _locationLabel.textColor = [UIColor grayColor];
-        _locationLabel.text = @"123.0KM";
     }
     return _locationLabel;
 }

@@ -19,12 +19,18 @@ PODS:
   - MBProgressHUD (0.9.2)
   - "MBProgressHUD+JDragon (0.0.4)":
     - MBProgressHUD (~> 0.9.2)
+  - SDCycleScrollView (1.75):
+    - SDWebImage (>= 4.0.0)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.2.1)
   - JSONModel (~> 1.8.0)
   - Masonry (~> 1.1.0)
   - "MBProgressHUD+JDragon (~> 0.0.4)"
+  - SDCycleScrollView (~> 1.75)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -33,6 +39,8 @@ SPEC REPOS:
     - Masonry
     - MBProgressHUD
     - "MBProgressHUD+JDragon"
+    - SDCycleScrollView
+    - SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -40,7 +48,9 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   "MBProgressHUD+JDragon": 51958736b3a9f97adc176371544ffa257a0ba058
+  SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
 
-PODFILE CHECKSUM: 4e7590a140ab6e9eaac1222d0e60d78a3d644955
+PODFILE CHECKSUM: fc276a2a4ac1668e65cf22643a1de1566d3e24c6
 
 COCOAPODS: 1.5.3

@@ -10,4 +10,7 @@
 
 @interface ScenicSpotCell : UITableViewCell
 
+//图片地址，景区名，景区描述，听得人数，距离
+-(void)setImage:(NSString *)imageUrlStr scenicName:(NSString *)name scenicContent:(NSString *)content listen:(NSString *)listen distance:(NSString *)distance;
+
 @end
