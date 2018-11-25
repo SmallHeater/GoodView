@@ -10,4 +10,7 @@
 
 @interface SelectCityViewController : SHBaseViewController
 
+//定位城市
+-(instancetype)initWithTitle:(NSString *)navTitle locationCity:(NSString *)locationCity;
+
 @end

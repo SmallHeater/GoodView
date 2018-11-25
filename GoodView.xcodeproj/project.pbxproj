@@ -47,6 +47,9 @@
 		0427A57E21AA5E9200E1B175 /* MyOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A57C21AA5E9200E1B175 /* MyOrderVC.m */; };
 		0427A58121AA779100E1B175 /* LoudspeakerOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A58021AA779100E1B175 /* LoudspeakerOrderVC.m */; };
 		0427A58421AA77C200E1B175 /* OfflinePackageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A58321AA77C200E1B175 /* OfflinePackageVC.m */; };
+		0427A58721AA871B00E1B175 /* CityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0427A58621AA871B00E1B175 /* CityData.plist */; };
+		0427A58A21AA87AE00E1B175 /* CityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A58921AA87AE00E1B175 /* CityModel.m */; };
+		0427A58C21AA96ED00E1B175 /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A58B21AA96ED00E1B175 /* location@2x.png */; };
 		043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */; };
 		04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2176F21A43EA900DC2D2B /* AppDelegate.m */; };
 		04A2177621A43EA900DC2D2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2177421A43EA900DC2D2B /* Main.storyboard */; };
@@ -201,6 +204,10 @@
 		0427A58021AA779100E1B175 /* LoudspeakerOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoudspeakerOrderVC.m; sourceTree = "<group>"; };
 		0427A58221AA77C200E1B175 /* OfflinePackageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OfflinePackageVC.h; sourceTree = "<group>"; };
 		0427A58321AA77C200E1B175 /* OfflinePackageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OfflinePackageVC.m; sourceTree = "<group>"; };
+		0427A58621AA871B00E1B175 /* CityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CityData.plist; sourceTree = "<group>"; };
+		0427A58821AA87AE00E1B175 /* CityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CityModel.h; sourceTree = "<group>"; };
+		0427A58921AA87AE00E1B175 /* CityModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CityModel.m; sourceTree = "<group>"; };
+		0427A58B21AA96ED00E1B175 /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
 		043B5C6321A5128300478CD8 /* SHImageAndTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHImageAndTitleBtn.h; sourceTree = "<group>"; };
 		043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHImageAndTitleBtn.m; sourceTree = "<group>"; };
 		04A2176B21A43EA900DC2D2B /* GoodView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -407,6 +414,7 @@
 		04A2176D21A43EA900DC2D2B /* GoodView */ = {
 			isa = PBXGroup;
 			children = (
+				0427A58621AA871B00E1B175 /* CityData.plist */,
 				0427A54A21A8F1B300E1B175 /* Control */,
 				62ED871B21A7E1CD00245CA0 /* QRCode */,
 				62ED868821A7A34D00245CA0 /* UIView */,
@@ -623,6 +631,7 @@
 		04A217D821A445D200DC2D2B /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				0427A58B21AA96ED00E1B175 /* location@2x.png */,
 				0427A57721A9887100E1B175 /* touxiang@2x.png */,
 				0427A57321A987FC00E1B175 /* QQ@2x.png */,
 				0427A57421A987FC00E1B175 /* weixin@2x.png */,
@@ -714,6 +723,8 @@
 				04D256A821A5697200624688 /* MyEntryModel.m */,
 				0427A55C21A93FEE00E1B175 /* JHUserModel.h */,
 				0427A55D21A93FEE00E1B175 /* JHUserModel.m */,
+				0427A58821AA87AE00E1B175 /* CityModel.h */,
+				0427A58921AA87AE00E1B175 /* CityModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -967,6 +978,7 @@
 				62ED86BF21A7DB8400245CA0 /* jing_hao120.png in Resources */,
 				0427A54421A83BF400E1B175 /* 详情5.jpg in Resources */,
 				62ED866B21A790E200245CA0 /* logo29@2x.png in Resources */,
+				0427A58C21AA96ED00E1B175 /* location@2x.png in Resources */,
 				62267AE221A7FA8000110EAB /* ic_near_scenic_earphone@2x.png in Resources */,
 				62ED873521A7E26E00245CA0 /* ic_main_me_myorder.png in Resources */,
 				0427A53C21A83BF400E1B175 /* 详情2.jpg in Resources */,
@@ -979,6 +991,7 @@
 				62ED86F421A7DFDC00245CA0 /* ic_titlebar_triangle.png in Resources */,
 				04A217C421A4402600DC2D2B /* BuglyID.plist in Resources */,
 				0427A54521A83BF400E1B175 /* 更换头像.jpg in Resources */,
+				0427A58721AA871B00E1B175 /* CityData.plist in Resources */,
 				62ED873821A7E26E00245CA0 /* setting.png in Resources */,
 				0427A56C21A97AD600E1B175 /* guanyu@2x.png in Resources */,
 				62ED86FB21A7DFDC00245CA0 /* ic_titlebar_back.png in Resources */,
@@ -1052,6 +1065,7 @@
 				62267AE021A7F45400110EAB /* ScenicSpotCell.m in Sources */,
 				04A2179E21A4401E00DC2D2B /* JHLiveBaseNavigationBar.m in Sources */,
 				04A217D121A4406B00DC2D2B /* MyViewController.m in Sources */,
+				0427A58A21AA87AE00E1B175 /* CityModel.m in Sources */,
 				04A217D421A4408800DC2D2B /* HomeViewController.m in Sources */,
 				0427A58121AA779100E1B175 /* LoudspeakerOrderVC.m in Sources */,
 				0427A57E21AA5E9200E1B175 /* MyOrderVC.m in Sources */,

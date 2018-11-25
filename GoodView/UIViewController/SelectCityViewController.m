@@ -9,6 +9,8 @@
 #import "SelectCityViewController.h"
 #import "SHSearchBar.h"
 #import "CityCell.h"
+#import "CityModel.h"
+
 
 @interface SelectCityViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -17,13 +19,45 @@
 @property (nonatomic,strong) UITableView * tableView;
 @property (nonatomic,strong) NSMutableArray * dataArray;
 @property (nonatomic,strong) UIView * tableHeaderView;
-
+//热门城市数组
+@property (nonatomic,strong) NSMutableArray * hotCitysArray;
+//定位城市模型
+@property (nonatomic,strong) CityModel * locationCityModel;
 
 @end
 
 @implementation SelectCityViewController
 
 #pragma mark  ----  生命周期函数
+
+-(instancetype)initWithTitle:(NSString *)navTitle locationCity:(NSString *)locationCity{
+    
+    self = [super initWithTitle:navTitle];
+    if (self) {
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+           
+            for (NSDictionary * dic in self.dataArray) {
+                
+                NSArray * modelsArray = dic[@"citysModel"];
+                for (CityModel * model in modelsArray) {
+                    
+                    if ([model.city_name isEqualToString:locationCity] || [model.short_name isEqualToString:locationCity]) {
+                        
+                        self.locationCityModel = model;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                           
+                            UIButton * btn = [self.tableHeaderView viewWithTag:1111];
+                            [btn setTitle:model.city_name forState:UIControlStateNormal];
+                        });
+                        break;
+                    }
+                }
+            }
+        });
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,7 +85,9 @@
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 10;
+    NSDictionary * dic = self.dataArray[section];
+    NSArray * cityModelsArray = dic[@"citysModel"];
+    return cityModelsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -64,23 +100,33 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    [cell setCity:@"北京"];
+    NSDictionary * dic = self.dataArray[indexPath.section];
+    NSArray * cityModelsArray = dic[@"citysModel"];
+    CityModel * model = cityModelsArray[indexPath.row];
+    [cell setCity:model.city_name];
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 5;
+    return self.dataArray.count;
 }
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
-    return @"A";
+    NSDictionary * dic = self.dataArray[section];
+    return dic[@"initial"];
 }
 
 - (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
     
-    return @[@"A",@"B",@"C",@"D",@"E",@"F"];
+    NSMutableArray * array = [[NSMutableArray alloc] init];
+    for (NSUInteger i = 0; i < self.dataArray.count; i++) {
+        
+        NSDictionary * dic = self.dataArray[i];
+        [array addObject:dic[@"initial"]];
+    }
+    return array;
 }
 
 #pragma mark  ----  自定义函数
@@ -151,6 +197,23 @@
     if (!_dataArray) {
         
         _dataArray = [[NSMutableArray alloc] init];
+        NSArray *array = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CityData" ofType:@"plist"]];
+        for (NSUInteger i = 0; i < array.count; i++) {
+            
+            NSDictionary * dic = array[i];
+            NSMutableDictionary * citysDic = [[NSMutableDictionary alloc] init];
+            [citysDic setObject:dic[@"initial"] forKey:@"initial"];
+            
+            NSArray * cityArray = dic[@"citys"];
+            NSMutableArray * cityModelsArray = [[NSMutableArray alloc] init];
+            for (NSUInteger j = 0; j < cityArray.count; j++) {
+                
+                CityModel * model = [[CityModel alloc] initWithDictionary:cityArray[j] error:nil];
+                [cityModelsArray addObject:model];
+            }
+            [citysDic setObject:cityModelsArray forKey:@"citysModel"];
+            [_dataArray addObject:citysDic];
+        }
     }
     return _dataArray;
 }
@@ -167,10 +230,23 @@
         [_tableHeaderView addSubview:locationLabel];
         
         UIButton * locationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        locationBtn.tag = 1111;
         locationBtn.frame = CGRectMake(15, CGRectGetMaxY(locationLabel.frame) + 10, 100, 40);
         [locationBtn setBackgroundColor:Color_F5F5F5];
         [locationBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [locationBtn setTitle:@"北京市" forState:UIControlStateNormal];
+        if (self.locationCityModel) {
+            
+            [locationBtn setTitle:self.locationCityModel.city_name forState:UIControlStateNormal];
+        }
+        else{
+            
+            [locationBtn setTitle:@"定位中" forState:UIControlStateNormal];
+        }
+        
+        [locationBtn setImage:[UIImage imageNamed:@"location@2x.png"] forState:UIControlStateNormal];
+        [locationBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 60)];
+        [locationBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+        
         [locationBtn addTarget:self action:@selector(locationBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         [_tableHeaderView addSubview:locationBtn];
         
@@ -185,18 +261,66 @@
         //按钮宽度
         float btnWidth = (MAINWIDTH - 15 * 2 - 10 * 2) / 3;
         
-        for (NSUInteger i = 0; i < 9; i++) {
+        
+        for (NSUInteger i = 0; i < self.hotCitysArray.count; i++) {
             
+            CityModel * model = self.hotCitysArray[i];
             UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
             [btn setBackgroundColor:Color_F5F5F5];
             btn.frame = CGRectMake(15 + (btnWidth + padding) * (i % 3), CGRectGetMaxY(hotLabel.frame) + 10 + (i / 3) * (40 + 10), 100, 40);
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [btn setTitle:@"北京市" forState:UIControlStateNormal];
+            [btn setTitle:model.city_name forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(btnClicked:) forControlEvents:UIControlEventTouchUpInside];
             [_tableHeaderView addSubview:btn];
         }
     }
     return _tableHeaderView;
+}
+
+-(NSMutableArray *)hotCitysArray{
+    
+    if (!_hotCitysArray) {
+        
+        _hotCitysArray = [[NSMutableArray alloc] init];
+        
+        //北京
+        NSDictionary * firstDic = @{@"city_key":@"100010000",@"city_name":@"北京市",@"initials":@"bj",@"pinyin":@"beijing",@"short_name":@"北京"};
+        CityModel * firstModel = [[CityModel alloc] initWithDictionary:firstDic error:nil];
+        [_hotCitysArray addObject:firstModel];
+        //上海
+        NSDictionary * secondDic = @{@"city_key":@"200010000",@"city_name":@"上海市",@"initials":@"sh",@"pinyin":@"shanghai",@"short_name":@"上海"};
+        CityModel * secondModel = [[CityModel alloc] initWithDictionary:secondDic error:nil];
+        [_hotCitysArray addObject:secondModel];
+        //广州
+        NSDictionary * thirdDic = @{@"city_key":@"300110000",@"city_name":@"广州市",@"initials":@"gz",@"pinyin":@"guangzhou",@"short_name":@"广州"};
+        CityModel * thirdModel = [[CityModel alloc] initWithDictionary:thirdDic error:nil];
+        [_hotCitysArray addObject:thirdModel];
+        //深圳
+        NSDictionary * forthDic = @{@"city_key":@"300210000",@"city_name":@"深圳市",@"initials":@"sz",@"pinyin":@"shenzhen",@"short_name":@"深圳"};
+        CityModel * forthModel = [[CityModel alloc] initWithDictionary:forthDic error:nil];
+        [_hotCitysArray addObject:forthModel];
+        //杭州
+        NSDictionary * fifthDic = @{@"city_key":@"600010000",@"city_name":@"杭州市",@"initials":@"hz",@"pinyin":@"hangzhou",@"short_name":@"杭州"};
+        CityModel * fifthModel = [[CityModel alloc] initWithDictionary:fifthDic error:nil];
+        [_hotCitysArray addObject:fifthModel];
+        //南京
+        NSDictionary * sixthDic = @{@"city_key":@"700010000",@"city_name":@"南京市",@"initials":@"nj",@"pinyin":@"nanjing",@"short_name":@"南京"};
+        CityModel * sixthModel = [[CityModel alloc] initWithDictionary:sixthDic error:nil];
+        [_hotCitysArray addObject:sixthModel];
+        //天津
+        NSDictionary * seventhDic = @{@"city_key":@"500010000",@"city_name":@"天津市",@"initials":@"tj",@"pinyin":@"tianjin",@"short_name":@"天津"};
+        CityModel * seventhModel = [[CityModel alloc] initWithDictionary:seventhDic error:nil];
+        [_hotCitysArray addObject:seventhModel];
+        //武汉
+        NSDictionary * eighthDic = @{@"city_key":@"400010000",@"city_name":@"武汉市",@"initials":@"wh",@"pinyin":@"wuhan",@"short_name":@"武汉"};
+        CityModel * eighthModel = [[CityModel alloc] initWithDictionary:eighthDic error:nil];
+        [_hotCitysArray addObject:eighthModel];
+        //重庆
+        NSDictionary * ninthDic = @{@"city_key":@"900010000",@"city_name":@"重庆市",@"initials":@"cq",@"pinyin":@"chongqing",@"short_name":@"重庆"};
+        CityModel * ninthModel = [[CityModel alloc] initWithDictionary:ninthDic error:nil];
+        [_hotCitysArray addObject:ninthModel];
+    }
+    return _hotCitysArray;
 }
 
 @end

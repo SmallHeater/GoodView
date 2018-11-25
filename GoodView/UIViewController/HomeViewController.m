@@ -182,7 +182,7 @@
 //城市按钮的响应
 -(void)cityBtnClicked{
     
-    SelectCityViewController * vc = [[SelectCityViewController alloc] initWithTitle:@"选择城市"];
+    SelectCityViewController * vc = [[SelectCityViewController alloc] initWithTitle:@"选择城市" locationCity:@"杭州"];
     [self.navigationController pushViewController:vc animated:NO];
 }
 
