@@ -9,5 +9,7 @@ target 'GoodView' do
   platform :ios, '9.0' 
   pod 'Masonry','~>1.1.0'
   pod 'JSONModel','~>1.8.0'
+  pod 'MBProgressHUD+JDragon','~>0.0.4'
+  pod 'AFNetworking','~>3.2.1'
   
 end

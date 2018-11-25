@@ -33,12 +33,14 @@
     //名字模型
     MyEntryModel * nameModel = [[MyEntryModel alloc] init];
     nameModel.title = @"名字";
-    nameModel.content = @"测试";
+    nameModel.content = [AccountManager sharedManager].userModel.nickname;
     [self.dataArray addObject:nameModel];
     //电话号码模型
     MyEntryModel * phoneNumberModel = [[MyEntryModel alloc] init];
     phoneNumberModel.title = @"电话号码";
-    phoneNumberModel.content = @"15010111111";
+    NSMutableString * phoneNumber = [[NSMutableString alloc] initWithString:[AccountManager sharedManager].userModel.jhmobile];
+    NSString * newPhoneNumber = [phoneNumber stringByReplacingCharactersInRange:NSMakeRange(3, 5) withString:@"*****"];
+    phoneNumberModel.content = newPhoneNumber;
     [self.dataArray addObject:phoneNumberModel];
     //账号绑定模型
     MyEntryModel * bindingModel = [[MyEntryModel alloc] init];
@@ -49,7 +51,6 @@
     areaModel.title = @"地区";
     [self.dataArray addObject:areaModel];
     
-    self.tableView.backgroundColor = [UIColor grayColor];
     self.tableView.scrollEnabled = NO;
 }
 
@@ -60,15 +61,15 @@
     
     if (indexPath.section == 0) {
         
-        return 60;
+        return 70;
     }
     else if (indexPath.section == 1){
         
-        return 30;
+        return 50;
     }
     else if (indexPath.section == 2){
         
-        return 30;
+        return 50;
     }
     return 0;
 }
@@ -80,7 +81,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 20;
+    return 15;
 }
 
 
@@ -88,7 +89,7 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
 
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINWIDTH, 20)];
-    view.backgroundColor = [UIColor grayColor];
+    view.backgroundColor = Color_F5F5F5;
     return view;
 }
 
@@ -131,7 +132,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         MyEntryModel * avatarModel = self.dataArray[0];
-        [cell setTitle:avatarModel.title andImage:@"draft@2x.png"];
+        [cell setTitle:avatarModel.title andImage:@""];
         return cell;
     }
     else if (indexPath.section == 1){

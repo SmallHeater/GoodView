@@ -6,10 +6,10 @@
 //  Copyright © 2018年 pk. All rights reserved.
 //  tableViewController基类
 
-#import "JHLiveBaseViewController.h"
+#import "SHBaseViewController.h"
 
 
-@interface JHLiveBaseTableViewController : JHLiveBaseViewController
+@interface SHBaseTableViewController : SHBaseViewController
 
 
 @property (nonatomic,strong) UITableView * tableView;

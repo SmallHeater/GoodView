@@ -47,9 +47,9 @@
     [self setUI];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated{
     
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     [control showTabbar];
 }
@@ -57,7 +57,6 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-    
     TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     [control hidTabbar];
 }
@@ -200,7 +199,7 @@
     if (!_myNav) {
         
         _myNav = [[UIView alloc] init];
-        _myNav.backgroundColor = Color_87BA4B;
+        _myNav.backgroundColor = Color_1FBF9A;
         
         [_myNav addSubview:self.searchBGView];
         [_myNav addSubview:self.scanBtn];

@@ -6,8 +6,8 @@
 //  Copyright © 2018年 mac. All rights reserved.
 //  选择城市页面
 
-#import "JHLiveBaseViewController.h"
+#import "SHBaseViewController.h"
 
-@interface SelectCityViewController : JHLiveBaseViewController
+@interface SelectCityViewController : SHBaseViewController
 
 @end

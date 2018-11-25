@@ -15,7 +15,11 @@
 #import "UIColor+SHTool.h"
 #import "NSString+SHTool.h"
 #import "UIImage+SHTool.h"
-
+#import "AccountManager.h"
+#import "MBProgressHUD+JDragon.h"
+#import "JHLiveAdaptUI.h"
+#import "AFNetworking.h"
+#import "URLHeader.h"
 
 
 #define MAINWIDTH [UIScreen mainScreen].bounds.size.width
@@ -25,7 +29,7 @@
 
 
 //浅绿色，导航色系
-#define Color_87BA4B  [UIColor colorFromHexRGB:@"87BA4B"]
+#define Color_1FBF9A  [UIColor colorFromHexRGB:@"1FBF9A"]
 #define Color_C4C4C4  [UIColor colorFromHexRGB:@"C4C4C4"]
 //灰色，背景色
 #define Color_F5F5F5  [UIColor colorFromHexRGB:@"F5F5F5"]

@@ -53,19 +53,11 @@
         [self addSubview:self.iconImageView];
         [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.left.offset(5);
-            make.bottom.offset(-5);
+            make.top.left.offset(8);
+            make.bottom.offset(-8);
             make.width.equalTo(self.iconImageView.mas_height).multipliedBy(1.0f);
         }];
         self.iconImageView.image = [UIImage imageNamed:imageName];
-    }
-    else{
-        
-        [self addSubview:self.iconImageView];
-        [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.top.left.right.bottom.offset(0);
-        }];
     }
     
     if (title && title.length > 0) {
@@ -75,7 +67,7 @@
             
             [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 
-                make.left.equalTo(self.iconImageView.mas_right).offset(5);
+                make.left.equalTo(self.iconImageView.mas_right).offset(10);
                 make.top.offset(5);
                 make.bottom.offset(-5);
                 make.width.offset(120);
@@ -86,7 +78,7 @@
             //如果没有图片，需要另设置约束
             [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 
-                make.left.offset(5);
+                make.left.offset(10);
                 make.top.offset(5);
                 make.bottom.offset(-5);
                 make.width.offset(120);
@@ -136,7 +128,7 @@
     if (!_titleLabel) {
         
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.backgroundColor = [UIColor greenColor];
+        _titleLabel.font = FONT15;
     }
     return _titleLabel;
 }
@@ -147,7 +139,8 @@
         
         _contentLabel = [[UILabel alloc] init];
         _contentLabel.textAlignment = NSTextAlignmentRight;
-        _contentLabel.backgroundColor = [UIColor orangeColor];
+        _contentLabel.textColor = [UIColor grayColor];
+        _contentLabel.font = FONT13;
     }
     return _contentLabel;
 }
@@ -157,7 +150,7 @@
     if (!_lineLabel) {
         
         _lineLabel = [[UILabel alloc] init];
-        _lineLabel.backgroundColor = [UIColor grayColor];
+        _lineLabel.backgroundColor = Color_F5F5F5;
     }
     return _lineLabel;
 }

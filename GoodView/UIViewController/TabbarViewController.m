@@ -36,6 +36,8 @@
     
     self.viewControllers = @[homeNav,myNav];
     self.selectedIndex = 0;
+    SHImageAndTitleBtn * homeBtn = [self.tabbarView viewWithTag:1100];
+    homeBtn.selected = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -100,15 +102,23 @@
         float imageWidth = 25;
         _tabbarView = [[UIView alloc] initWithFrame:CGRectMake(0, MAINHEIGHT - btnHeight, MAINWIDTH, btnHeight)];
         
+        CALayer * layer = [CALayer layer];
+        layer.frame = CGRectMake(0, 0, MAINWIDTH, 1);
+        layer.backgroundColor = Color_F5F5F5.CGColor;
+        [_tabbarView.layer addSublayer:layer];
+        
+        _tabbarView.backgroundColor = [UIColor whiteColor];
         SHImageAndTitleBtn * homeBtn = [[SHImageAndTitleBtn alloc] initWithFrame:CGRectMake(0, 0, btnWidth, CGRectGetHeight(_tabbarView.frame)) andImageFrame:CGRectMake((btnWidth - imageWidth) / 2, 5, imageWidth, imageWidth) andTitleFrame:CGRectMake(0, imageWidth + 5, btnWidth, btnHeight - imageWidth - 5) andImageName:@"home_black@2x.png" andSelectedImageName:@"home_green@2x.png" andTitle:@"首页" andTarget:self andAction:@selector(buttonClicked:)];
         homeBtn.tag = 1100;
-        [homeBtn setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
+        [homeBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [homeBtn setTitleColor:Color_1FBF9A forState:UIControlStateSelected];
         [_tabbarView addSubview:homeBtn];
         
         
         SHImageAndTitleBtn * myBtn = [[SHImageAndTitleBtn alloc] initWithFrame:CGRectMake(CGRectGetMaxX(homeBtn.frame), 0, btnWidth, CGRectGetHeight(_tabbarView.frame)) andImageFrame:CGRectMake((btnWidth - imageWidth) / 2, 5,imageWidth, imageWidth) andTitleFrame:CGRectMake(0, imageWidth + 5, btnWidth, btnHeight - imageWidth - 5) andImageName:@"me_black@2x.png" andSelectedImageName:@"me_green@2x.png" andTitle:@"我的" andTarget:self andAction:@selector(buttonClicked:)];
         myBtn.tag = 1101;
-        [myBtn setTitleColor:[UIColor greenColor] forState:UIControlStateSelected];
+        [myBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [myBtn setTitleColor:Color_1FBF9A forState:UIControlStateSelected];
         [_tabbarView addSubview:myBtn];
     }
     return _tabbarView;

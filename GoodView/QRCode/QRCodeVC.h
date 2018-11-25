@@ -6,10 +6,10 @@
 //  Copyright © 2016年 淘发现1. All rights reserved.
 //
 
-#import "JHLiveBaseViewController.h"
+#import "SHBaseViewController.h"
 
 typedef void (^myBlock) (NSString *resuat);
 
-@interface QRCodeVC : JHLiveBaseViewController
+@interface QRCodeVC : SHBaseViewController
 @property (copy,nonatomic)myBlock resuatBlock;
 @end

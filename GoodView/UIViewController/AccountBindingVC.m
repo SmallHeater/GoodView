@@ -28,7 +28,7 @@
     //昵称模型
     MyEntryModel * nicknameModel = [[MyEntryModel alloc] init];
     nicknameModel.title = @"昵称";
-    nicknameModel.content = @"11";
+    nicknameModel.content = [AccountManager sharedManager].userModel.nickname;
     [self.dataArray addObject:nicknameModel];
     //登录密码模型
     MyEntryModel * passwordModel = [[MyEntryModel alloc] init];
@@ -37,24 +37,27 @@
     [self.dataArray addObject:passwordModel];
     //手机模型
     MyEntryModel * phoneNumberModel = [[MyEntryModel alloc] init];
-    phoneNumberModel.iconName = @"draft@2x.png";
+    phoneNumberModel.iconName = @"shouji@2x.png";
     phoneNumberModel.title = @"手机号";
-    phoneNumberModel.content = @"15010111111";
+    
+    NSMutableString * phoneNumber = [[NSMutableString alloc] initWithString:[AccountManager sharedManager].userModel.jhmobile];
+    NSString * newPhoneNumber = [phoneNumber stringByReplacingCharactersInRange:NSMakeRange(3, 5) withString:@"*****"];
+    
+    phoneNumberModel.content = newPhoneNumber;
     [self.dataArray addObject:phoneNumberModel];
     //微信模型
     MyEntryModel * wechatModel = [[MyEntryModel alloc] init];
-    wechatModel.iconName = @"draft@2x.png";
+    wechatModel.iconName = @"weixin@2x.png";
     wechatModel.title = @"微信";
     wechatModel.content = @"未绑定";
     [self.dataArray addObject:wechatModel];
     //QQ模型
     MyEntryModel * QQModel = [[MyEntryModel alloc] init];
-    QQModel.iconName = @"draft@2x.png";
+    QQModel.iconName = @"QQ@2x.png";
     QQModel.title = @"QQ";
     QQModel.content = @"已绑定";
     [self.dataArray addObject:QQModel];
     
-    self.tableView.backgroundColor = [UIColor grayColor];
     self.tableView.scrollEnabled = NO;
 }
 
@@ -63,7 +66,7 @@
 #pragma mark  ----  UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-   return 30;
+   return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -73,7 +76,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 20;
+    return 10;
 }
 
 
@@ -81,7 +84,7 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINWIDTH, 20)];
-    view.backgroundColor = [UIColor grayColor];
+    view.backgroundColor = Color_F5F5F5;
     return view;
 }
 
@@ -113,6 +116,7 @@
             
             cell = [[MyEntryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //显示最右边的箭头
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         MyEntryModel * model = self.dataArray[indexPath.row];
         [cell setIconImage:@"" andTitle:model.title andContent:model.content andShowLine:indexPath.row == 1?NO:YES];
@@ -126,6 +130,7 @@
             
             cell = [[MyEntryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //显示最右边的箭头
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         MyEntryModel * model = self.dataArray[indexPath.row + 2];
         [cell setIconImage:model.iconName andTitle:model.title andContent:model.content andShowLine:indexPath.row == 2?NO:YES];

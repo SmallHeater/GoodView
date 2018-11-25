@@ -100,19 +100,19 @@
     if (selected) {
         
         self.imageView.image = [UIImage imageNamed:self.selectedImageName];
-        self.titleLabel.text = self.normalTitle;
-        if (self.normalTitleColor) {
-         
-            self.titleLabel.textColor = self.normalTitleColor;
+        self.titleLabel.text = self.selectedlTitle?self.selectedlTitle:self.normalTitle;
+        if (self.selectedTitleColor) {
+            
+            self.titleLabel.textColor = self.selectedTitleColor;
         }
     }
     else{
         
         self.imageView.image = [UIImage imageNamed:self.imageName];
-        self.titleLabel.text = self.selectedlTitle;
-        if (self.selectedTitleColor) {
+        self.titleLabel.text = self.normalTitle;
+        if (self.normalTitleColor) {
             
-            self.titleLabel.textColor = self.selectedTitleColor;
+            self.titleLabel.textColor = self.normalTitleColor;
         }
     }
 }

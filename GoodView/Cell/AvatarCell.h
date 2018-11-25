@@ -10,6 +10,6 @@
 
 @interface AvatarCell : UITableViewCell
 
--(void)setTitle:(NSString *)title andImage:(NSString *)imageName;
+-(void)setTitle:(NSString *)title andImage:(NSString *)imageUrl;
 
 @end

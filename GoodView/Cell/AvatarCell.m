@@ -40,7 +40,7 @@
    
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.offset(5);
+        make.left.offset(10);
         make.top.offset(5);
         make.bottom.offset(-5);
         make.width.offset(120);
@@ -60,7 +60,7 @@
 }
 
 
--(void)setTitle:(NSString *)title andImage:(NSString *)imageName{
+-(void)setTitle:(NSString *)title andImage:(NSString *)imageUrl{
     
     self.avatarImageView.image = nil;
     self.titleLabel.text = @"";
@@ -70,9 +70,13 @@
         self.titleLabel.text = title;
     }
 
-    if (imageName) {
+    if (![NSString contentIsNullORNil:imageUrl]) {
         
-        self.avatarImageView.image = [UIImage imageNamed:imageName];
+        self.avatarImageView.image = [UIImage imageNamed:imageUrl];
+    }
+    else{
+        
+        self.avatarImageView.image = [UIImage imageNamed:@"touxiang@2x.png"];
     }
 }
 
@@ -91,7 +95,7 @@
     if (!_avatarImageView) {
         
         _avatarImageView = [[UIImageView alloc] init];
-        _avatarImageView.backgroundColor = [UIColor redColor];
+        _avatarImageView.image = [UIImage imageNamed:@"touxiang@2x.png"];
     }
     return _avatarImageView;
 }

@@ -11,7 +11,7 @@
 #import "JHLiveAdaptUI.h"
 
 
-@interface JHLiveBaseViewController : UIViewController
+@interface SHBaseViewController : UIViewController
 
 @property (nonatomic,strong) JHLiveBaseNavigationBar * busNavigationBar;
 @property (nonatomic,strong) NSString * navTitle;

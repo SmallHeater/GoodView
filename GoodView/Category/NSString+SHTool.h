@@ -10,4 +10,13 @@
 
 @interface NSString (SHTool)
 
+/**
+ *  非空判断
+ *
+ *  @return 空 为 YES , 非空 NO
+ */
+- (BOOL)isEmpty;
+
++ (BOOL)contentIsNullORNil:(NSString *)content;
+
 @end

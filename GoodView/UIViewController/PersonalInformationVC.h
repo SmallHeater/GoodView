@@ -6,11 +6,11 @@
 //  Copyright © 2018 mac. All rights reserved.
 //  个人信息页面
 
-#import "JHLiveBaseTableViewController.h"
+#import "SHBaseTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PersonalInformationVC : JHLiveBaseTableViewController
+@interface PersonalInformationVC : SHBaseTableViewController
 
 @end
 

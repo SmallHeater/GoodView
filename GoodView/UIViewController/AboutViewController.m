@@ -46,7 +46,7 @@
 #pragma mark  ----  UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 40;
+    return 50;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -131,14 +131,14 @@
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.top.offset(20);
-        make.width.height.offset(50);
-        make.left.offset((MAINWIDTH - 50) / 2);
+        make.width.height.offset(80);
+        make.left.offset((MAINWIDTH - 80) / 2);
     }];
     
     [self.versionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.right.offset(0);
-        make.top.equalTo(self.iconImageView.mas_bottom).offset(10);
+        make.top.equalTo(self.iconImageView.mas_bottom).offset(20);
         make.height.offset(15);
     }];
     
@@ -147,7 +147,7 @@
        
         make.left.right.offset(0);
         make.top.equalTo(self.headerView.mas_bottom).offset(0);
-        make.height.offset(40 * 3);
+        make.height.offset(50 * 3);
     }];
     
     [self.view addSubview:self.bottomView];
@@ -183,7 +183,7 @@
     if (!_headerView) {
         
         _headerView = [[UIView alloc] init];
-        _headerView.backgroundColor = [UIColor redColor];
+        _headerView.backgroundColor = Color_F5F5F5;
         [_headerView addSubview:self.iconImageView];
         [_headerView addSubview:self.versionLabel];
     }
@@ -195,7 +195,7 @@
     if (!_iconImageView) {
         
         _iconImageView = [[UIImageView alloc] init];
-        _iconImageView.backgroundColor = [UIColor greenColor];
+        _iconImageView.image = [UIImage imageNamed:@"logo60@2x.png"];
     }
     return _iconImageView;
 }
@@ -270,6 +270,8 @@
         
         _protocolLabel = [[UILabel alloc] init];
         _protocolLabel.textAlignment = NSTextAlignmentCenter;
+        _protocolLabel.textColor = [UIColor lightGrayColor];
+        _protocolLabel.font = FONT15;
         _protocolLabel.text = @"协议";
         _protocolLabel.userInteractionEnabled = YES;
         
@@ -285,6 +287,8 @@
         
         _remarksLabel = [[UILabel alloc] init];
         _remarksLabel.textAlignment = NSTextAlignmentCenter;
+        _remarksLabel.font = FONT14;
+        _remarksLabel.textColor = [UIColor lightGrayColor];
         _remarksLabel.numberOfLines = 0;
         _remarksLabel.font = [UIFont systemFontOfSize:14];
         _remarksLabel.text = @"景好公司 版权所有\n2014";

@@ -28,7 +28,7 @@
     self = [super initWithFrame:CGRectMake(0, 0, MAINWIDTH, 64 + [JHLiveAdaptUI heightOfLiuHai])];
     if (self) {
         
-        self.backgroundColor = Color_87BA4B;
+        self.backgroundColor = Color_1FBF9A;
         [self addSubview:self.titleLabel];
         
         self.navTitle = title;

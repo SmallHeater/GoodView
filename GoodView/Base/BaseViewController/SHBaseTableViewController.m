@@ -6,17 +6,17 @@
 //  Copyright © 2018年 pk. All rights reserved.
 //
 
-#import "JHLiveBaseTableViewController.h"
+#import "SHBaseTableViewController.h"
 
 
 
-@interface JHLiveBaseTableViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SHBaseTableViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,assign) UITableViewStyle style;
 
 @end
 
-@implementation JHLiveBaseTableViewController
+@implementation SHBaseTableViewController
 
 #pragma mark  ----  生命周期函数
 -(instancetype)initWithTitle:(NSString *)navTitle andTableViewStyle:(UITableViewStyle)style{
@@ -49,11 +49,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return nil;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 0;
 }
 
 #pragma mark  ----  自定义函数

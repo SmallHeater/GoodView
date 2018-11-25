@@ -15,11 +15,14 @@
 #import "AboutViewController.h"
 #import "LoginViewController.h"
 #import "SelectCityViewController.h"
+#import "JHUserModel.h"
+#import "MyOrderVC.h"
+#import "LoudspeakerOrderVC.h"
+#import "OfflinePackageVC.h"
 
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 //头像区域
 @property (nonatomic,strong) UIView * headView;
-@property (nonatomic,strong) UIView * bgView;
 @property (nonatomic,strong) UIImageView * avatarImageView;
 //用户名
 @property (nonatomic,strong) UILabel * userNameLabel;
@@ -30,8 +33,6 @@
 @property (nonatomic,strong) NSMutableArray<MyEntryModel *> * dataArray;
 //退出登录按钮
 @property (nonatomic,strong) UIButton * logOutBtn;
-//底部灰条
-@property (nonatomic,strong) UILabel * bottomLabel;
 
 @end
 
@@ -42,14 +43,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.view.backgroundColor = [UIColor whiteColor];
     self.busNavigationBar.hidden = YES;
     [self setUI];
 }
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated{
     
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     [control showTabbar];
 }
@@ -57,7 +57,6 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
-    
     TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     [control hidTabbar];
 }
@@ -73,12 +72,18 @@
  
     if (indexPath.row == 0) {
         
+        MyOrderVC * orderVC = [[MyOrderVC alloc] initWithTitle:@"我的订单" andTableViewStyle:UITableViewStylePlain];
+        [self.navigationController pushViewController:orderVC animated:NO];
     }
     else if (indexPath.row == 1){
         
+        LoudspeakerOrderVC * orderVC = [[LoudspeakerOrderVC alloc] initWithTitle:@"扩音器订单" andTableViewStyle:UITableViewStylePlain];
+        [self.navigationController pushViewController:orderVC animated:NO];
     }
     else if (indexPath.row == 2){
         
+        OfflinePackageVC * orderVC = [[OfflinePackageVC alloc] initWithTitle:@"离线包管理" andTableViewStyle:UITableViewStylePlain];
+        [self.navigationController pushViewController:orderVC animated:NO];
     }
     else if (indexPath.row == 3){
         
@@ -132,13 +137,11 @@
 -(void)setUI{
     
     [self.view addSubview:self.headView];
-    [self.headView addSubview:self.bgView];
-    [self.bgView addSubview:self.avatarImageView];
+    [self.headView addSubview:self.avatarImageView];
     [self.headView addSubview:self.userNameLabel];
     [self.view addSubview:self.middleView];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.logOutBtn];
-    [self.view addSubview:self.bottomLabel];
     
     [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
        
@@ -146,24 +149,17 @@
         make.height.equalTo(self.headView.mas_width).multipliedBy(2.0/3.0f);
     }];
     
-    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.centerX.equalTo(self.headView.mas_centerX);
         make.centerY.equalTo(self.headView.mas_centerY);
-        make.width.height.offset(80);
-    }];
-    
-    [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.centerX.equalTo(self.bgView.mas_centerX);
-        make.centerY.equalTo(self.bgView.mas_centerY);
-        make.width.height.offset(70);
+        make.width.height.offset(90);
     }];
     
     [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.right.offset(0);
-        make.top.equalTo(self.bgView.mas_bottom).offset(5);
+        make.top.equalTo(self.avatarImageView.mas_bottom).offset(10);
         make.height.offset(15);
     }];
     
@@ -187,14 +183,7 @@
 
         make.left.right.offset(0);
         make.top.equalTo(self.tableView.mas_bottom).offset(0);
-        make.height.offset(60);
-    }];
-    
-    [self.bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.right.offset(0);
-        make.top.equalTo(self.logOutBtn.mas_bottom).offset(0);
-        make.bottom.offset(-49);
+        make.height.offset(50);
     }];
 }
 
@@ -206,14 +195,27 @@
 //个人信息点击的响应
 -(void)userNameLabelTaped{
     
-    PersonalInformationVC * vc = [[PersonalInformationVC alloc] initWithTitle:@"个人信息" andTableViewStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:NO];
-    
-//    LoginViewController * logIn = [[LoginViewController alloc] initWithTitle:@"登录"];
-//    [self.navigationController pushViewController:logIn animated:YES];
-    
-//    SelectCityViewController * vc = [[SelectCityViewController alloc] initWithTitle:@"选择城市"];
-//    [self.navigationController pushViewController:vc animated:NO];
+    if ([AccountManager sharedManager].isLogIn) {
+        
+        //已登录
+        PersonalInformationVC * vc = [[PersonalInformationVC alloc] initWithTitle:@"个人信息" andTableViewStyle:UITableViewStyleGrouped];
+        [self.navigationController pushViewController:vc animated:NO];
+    }
+    else{
+        
+        //未登录
+        LoginViewController * logIn = [[LoginViewController alloc] initWithTitle:@"登录"];
+        logIn.block = ^{
+          
+            //登录成功的回调
+            if (![NSString contentIsNullORNil:[AccountManager sharedManager].userModel.nickname]) {
+             
+                self.userNameLabel.text = [AccountManager sharedManager].userModel.nickname;
+            }
+            
+        };
+        [self.navigationController pushViewController:logIn animated:YES];
+    }
 }
 
 #pragma mark  ----  懒加载
@@ -222,25 +224,9 @@
     if (!_headView) {
         
         _headView = [[UIView alloc] init];
-        _headView.backgroundColor = [UIColor greenColor];
-        
-        
-        
-        
+        _headView.backgroundColor = Color_1FBF9A;
     }
     return _headView;
-}
-
--(UIView *)bgView{
-    
-    if (!_bgView) {
-        
-        _bgView = [[UIView alloc] init];
-        _bgView.backgroundColor = [UIColor whiteColor];
-        _bgView.layer.masksToBounds = YES;
-        _bgView.layer.cornerRadius = 40;
-    }
-    return _bgView;
 }
 
 -(UIImageView *)avatarImageView{
@@ -248,9 +234,9 @@
     if (!_avatarImageView) {
         
         _avatarImageView = [[UIImageView alloc] init];
-        _avatarImageView.backgroundColor = [UIColor redColor];
+        _avatarImageView.image = [UIImage imageNamed:@"scenic_me_avatar_no_login@2x.png"];
         _avatarImageView.layer.masksToBounds = YES;
-        _avatarImageView.layer.cornerRadius = 35;
+        _avatarImageView.layer.cornerRadius = 45;
     }
     return _avatarImageView;
 }
@@ -275,36 +261,37 @@
     if (!_middleView) {
         
         _middleView = [[UIView alloc] init];
-//        _middleView.backgroundColor = [UIColor whiteColor];
+        _middleView.backgroundColor = [UIColor whiteColor];
         //每个子view的平均宽度
         float viewWidth = MAINWIDTH / 3;
+        UIColor * redColor = [UIColor colorWithRed:214.0/255.0 green:87.0/255 blue:97.0/255 alpha:1];
         //联系人
-        SHLabelAndLabelView * contactView = [[SHLabelAndLabelView alloc] initWithFrame:CGRectMake(0, 10, viewWidth, 50) andFirstLabelFrame:CGRectMake(0, 0, viewWidth, 20) andSecondLabelFrame:CGRectMake(0, 30, viewWidth, 20) andFirstLabelText:@"0" andSecondLabelText:@"联系人"];
-        [contactView refreshFirstLabelFont:nil textColor:nil textAlignment:NSTextAlignmentCenter];
-        [contactView refreshSecondLabelFont:nil textColor:nil textAlignment:NSTextAlignmentCenter];
+        SHLabelAndLabelView * contactView = [[SHLabelAndLabelView alloc] initWithFrame:CGRectMake(0, 10, viewWidth, 50) andFirstLabelFrame:CGRectMake(0, 0, viewWidth, 25) andSecondLabelFrame:CGRectMake(0, 25, viewWidth, 20) andFirstLabelText:@"0" andSecondLabelText:@"联系人"];
+        [contactView refreshFirstLabelFont:FONT24 textColor:redColor textAlignment:NSTextAlignmentCenter];
+        [contactView refreshSecondLabelFont:FONT14 textColor:[UIColor blackColor] textAlignment:NSTextAlignmentCenter];
         [_middleView addSubview:contactView];
         //我的余额
-        SHLabelAndLabelView * myBalanceView = [[SHLabelAndLabelView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(contactView.frame), CGRectGetMinY(contactView.frame), viewWidth, CGRectGetHeight(contactView.frame)) andFirstLabelFrame:CGRectMake(0, 0, viewWidth, 20) andSecondLabelFrame:CGRectMake(0, 30, viewWidth, 20) andFirstLabelText:@"0" andSecondLabelText:@"我的余额"];
-        [myBalanceView refreshFirstLabelFont:nil textColor:nil textAlignment:NSTextAlignmentCenter];
-        [myBalanceView refreshSecondLabelFont:nil textColor:nil textAlignment:NSTextAlignmentCenter];
+        SHLabelAndLabelView * myBalanceView = [[SHLabelAndLabelView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(contactView.frame), CGRectGetMinY(contactView.frame), viewWidth, CGRectGetHeight(contactView.frame)) andFirstLabelFrame:CGRectMake(0, 0, viewWidth, 25) andSecondLabelFrame:CGRectMake(0, 25, viewWidth, 20) andFirstLabelText:@"￥0" andSecondLabelText:@"我的余额"];
+        [myBalanceView refreshFirstLabelFont:FONT24 textColor:redColor textAlignment:NSTextAlignmentCenter];
+        [myBalanceView refreshSecondLabelFont:FONT14 textColor:[UIColor blackColor] textAlignment:NSTextAlignmentCenter];
         [_middleView addSubview:myBalanceView];
         CALayer *leftLayer = [CALayer layer];
         leftLayer.frame = CGRectMake(0, 0, 1, CGRectGetHeight(myBalanceView.frame));
-        leftLayer.backgroundColor = [UIColor greenColor].CGColor;
+        leftLayer.backgroundColor = Color_F5F5F5.CGColor;
         [myBalanceView.layer addSublayer:leftLayer];
         CALayer *rightLayer = [CALayer layer];
         rightLayer.frame = CGRectMake(CGRectGetWidth(myBalanceView.frame) - 1, 0, 1, CGRectGetHeight(myBalanceView.frame));
-        rightLayer.backgroundColor = [UIColor grayColor].CGColor;
+        rightLayer.backgroundColor = Color_F5F5F5.CGColor;
         [myBalanceView.layer addSublayer:rightLayer];
         //我的收藏
-        SHLabelAndLabelView * myCollectionView = [[SHLabelAndLabelView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(myBalanceView.frame), CGRectGetMinY(contactView.frame), viewWidth, CGRectGetHeight(contactView.frame)) andFirstLabelFrame:CGRectMake(0, 0, viewWidth, 20) andSecondLabelFrame:CGRectMake(0, 30, viewWidth, 20) andFirstLabelText:@"0" andSecondLabelText:@"我的收藏"];
-        [myCollectionView refreshFirstLabelFont:nil textColor:nil textAlignment:NSTextAlignmentCenter];
-        [myCollectionView refreshSecondLabelFont:nil textColor:nil textAlignment:NSTextAlignmentCenter];
+        SHLabelAndLabelView * myCollectionView = [[SHLabelAndLabelView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(myBalanceView.frame), CGRectGetMinY(contactView.frame), viewWidth, CGRectGetHeight(contactView.frame)) andFirstLabelFrame:CGRectMake(0, 0, viewWidth, 25) andSecondLabelFrame:CGRectMake(0, 25, viewWidth, 20) andFirstLabelText:@"0" andSecondLabelText:@"我的收藏"];
+        [myCollectionView refreshFirstLabelFont:FONT24 textColor:redColor textAlignment:NSTextAlignmentCenter];
+        [myCollectionView refreshSecondLabelFont:FONT14 textColor:[UIColor blackColor] textAlignment:NSTextAlignmentCenter];
         [_middleView addSubview:myCollectionView];
         //底部灰框
         UILabel * bottomLabel = [[UILabel alloc] init];
         bottomLabel.frame = CGRectMake(0, CGRectGetMaxY(contactView.frame), MAINWIDTH, 10);
-        bottomLabel.backgroundColor = [UIColor grayColor];
+        bottomLabel.backgroundColor = Color_F5F5F5;
         [_middleView addSubview:bottomLabel];
     }
     return _middleView;
@@ -334,8 +321,9 @@
         
         _logOutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_logOutBtn setTitle:@"退出登录" forState:UIControlStateNormal];
-        [_logOutBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_logOutBtn setTitleColor:[UIColor colorWithRed:214.0/255.0 green:87.0/255 blue:97.0/255 alpha:1] forState:UIControlStateNormal];
         [_logOutBtn addTarget:self action:@selector(logOutBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [_logOutBtn setBackgroundColor:[UIColor whiteColor]];
     }
     return _logOutBtn;
 }
@@ -348,43 +336,33 @@
         
         //我的订单
         MyEntryModel * myOrderModel = [[MyEntryModel alloc] init];
-        myOrderModel.iconName = @"draft@2x.png";
+        myOrderModel.iconName = @"wodedingdan@2x.png";
         myOrderModel.title = @"我的订单";
         myOrderModel.content = @"查看所有订单";
         [_dataArray addObject:myOrderModel];
         //扩音器订单
         MyEntryModel * amplifierOrderModel = [[MyEntryModel alloc] init];
-        amplifierOrderModel.iconName = @"draft@2x.png";
+        amplifierOrderModel.iconName = @"kuoyinqidingdan@2x.png";
         amplifierOrderModel.title = @"扩音器订单";
         amplifierOrderModel.content = @"查看所有订单";
         [_dataArray addObject:amplifierOrderModel];
         //离线包管理
         MyEntryModel * offlinePackageManagementModel = [[MyEntryModel alloc] init];
-        offlinePackageManagementModel.iconName = @"draft@2x.png";
+        offlinePackageManagementModel.iconName = @"lixianbaoguanli@2x.png";
         offlinePackageManagementModel.title = @"离线包管理";
         [_dataArray addObject:offlinePackageManagementModel];
         //关于景好
         MyEntryModel * aboutJingjingModel = [[MyEntryModel alloc] init];
-        aboutJingjingModel.iconName = @"draft@2x.png";
+        aboutJingjingModel.iconName = @"guanyu@2x.png";
         aboutJingjingModel.title = @"关于景好";
         [_dataArray addObject:aboutJingjingModel];
         //联系客服
         MyEntryModel * contactCustomerServiceModel = [[MyEntryModel alloc] init];
-        contactCustomerServiceModel.iconName = @"draft@2x.png";
+        contactCustomerServiceModel.iconName = @"kefu@2x.png";
         contactCustomerServiceModel.title = @"联系客服";
         [_dataArray addObject:contactCustomerServiceModel];
     }
     return _dataArray;
-}
-
--(UILabel *)bottomLabel{
-    
-    if (!_bottomLabel) {
-        
-        _bottomLabel = [[UILabel alloc] init];
-        _bottomLabel.backgroundColor = [UIColor grayColor];
-    }
-    return _bottomLabel;
 }
 
 @end

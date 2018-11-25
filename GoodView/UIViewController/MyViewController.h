@@ -6,11 +6,11 @@
 //  Copyright © 2018 mac. All rights reserved.
 //  我的页面
 
-#import "JHLiveBaseViewController.h"
+#import "SHBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MyViewController : JHLiveBaseViewController
+@interface MyViewController : SHBaseViewController
 
 @end
 

@@ -6,8 +6,8 @@
 //  Copyright © 2018年 mac. All rights reserved.
 //  账号绑定页面
 
-#import "JHLiveBaseTableViewController.h"
+#import "SHBaseTableViewController.h"
 
-@interface AccountBindingVC : JHLiveBaseTableViewController
+@interface AccountBindingVC : SHBaseTableViewController
 
 @end

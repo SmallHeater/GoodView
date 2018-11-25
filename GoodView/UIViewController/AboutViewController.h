@@ -6,8 +6,8 @@
 //  Copyright © 2018年 mac. All rights reserved.
 //  关于景好页面
 
-#import "JHLiveBaseViewController.h"
+#import "SHBaseViewController.h"
 
-@interface AboutViewController : JHLiveBaseViewController
+@interface AboutViewController : SHBaseViewController
 
 @end

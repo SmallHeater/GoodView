@@ -6,11 +6,15 @@
 //  Copyright © 2018 mac. All rights reserved.
 //  登录页面
 
-#import "JHLiveBaseViewController.h"
+#import "SHBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LoginViewController : JHLiveBaseViewController
+typedef void(^ReturnBlock)();
+
+@interface LoginViewController : SHBaseViewController
+
+@property (nonatomic,copy) ReturnBlock block;
 
 @end
 

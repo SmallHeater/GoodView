@@ -6,16 +6,16 @@
 //  Copyright © 2017年 pk. All rights reserved.
 //
 
-#import "JHLiveBaseViewController.h"
+#import "SHBaseViewController.h"
 //#import "UIColor+Translate.h"
 //#import "JHRoutingComponent.h"
 
 
-@interface JHLiveBaseViewController ()
+@interface SHBaseViewController ()
 
 @end
 
-@implementation JHLiveBaseViewController
+@implementation SHBaseViewController
 
 
 #pragma mark  ----  生命周期函数
