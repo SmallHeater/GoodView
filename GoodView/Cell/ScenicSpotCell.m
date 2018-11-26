@@ -138,7 +138,7 @@
     
     if (![NSString contentIsNullORNil:distance]) {
         
-        self.locationLabel.text = distance;
+        self.locationLabel.text = [[NSString alloc] initWithFormat:@"%@km",distance];
     }
     
 }

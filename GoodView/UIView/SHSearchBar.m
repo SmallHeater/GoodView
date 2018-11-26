@@ -13,7 +13,9 @@
 -(instancetype)initWithFrame:(CGRect)frame andPlaceholder:(NSString *)placeHolder{
     self = [super initWithFrame:frame];
     if (self) {
+        
         self.backgroundColor = [UIColor whiteColor];
+        self.returnKeyType = UIReturnKeySearch;
         NSAttributedString * placeString = [[NSAttributedString alloc] initWithString:placeHolder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f],NSForegroundColorAttributeName:Color_C4C4C4}];
         self.attributedPlaceholder = placeString;
         //图片距离左边14

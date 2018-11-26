@@ -52,6 +52,8 @@
     [super viewDidAppear:animated];
     TabbarViewController * control = (TabbarViewController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     [control showTabbar];
+    
+    [self showData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -190,6 +192,24 @@
 //退出登录响应
 -(void)logOutBtnClicked{
     
+    UIAlertController * alertControl = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确认退出登录" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+       
+        [AccountManager sharedManager].isLogIn = NO;
+        LoginViewController * logInVC = [[LoginViewController alloc] initWithTitle:@"登录"];
+        [self.navigationController pushViewController:logInVC animated:NO];
+    }];
+    
+    [alertControl addAction:cancleAction];
+    [alertControl addAction:sureAction];
+    [self presentViewController:alertControl animated:YES completion:^{
+        
+    }];
 }
 
 //个人信息点击的响应
@@ -215,6 +235,36 @@
             
         };
         [self.navigationController pushViewController:logIn animated:YES];
+    }
+}
+
+
+//设置头像，名字，联系人，余额，收藏,加载数据
+-(void)showData{
+    
+    if ([AccountManager sharedManager].isLogIn) {
+        
+        //头像
+        if([[AccountManager sharedManager].userModel.nickname hasPrefix:@"http://"]){
+            
+            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",[AccountManager sharedManager].userModel.nickname]]placeholderImage:[UIImage imageNamed:@"scenic_me_avatar_no_login@2x.png"]];
+        }else{
+            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:KGetHtml@"%@",[AccountManager sharedManager].userModel.nickname]] placeholderImage:[UIImage imageNamed:@"scenic_me_avatar_no_login@2x.png"]];
+        }
+        
+        //名字
+        
+        self.userNameLabel.text = [AccountManager sharedManager].userModel.nickname;
+        
+        //联系人
+        
+        //余额
+        
+        //收藏
+    }
+    else{
+        
+        //未登录
     }
 }
 

@@ -10,6 +10,7 @@
 #import "SHImageAndTitleBtn.h"
 #import "JKCountDownButton.h"
 #import "JHUserModel.h"
+#import <UMShare/UMShare.h>
 
 
 @interface LoginViewController ()<UITextFieldDelegate>
@@ -233,6 +234,63 @@
 //三方登录的响应
 -(void)thirdLogIn:(SHImageAndTitleBtn *)btn{
     
+    if (btn.tag == 1250) {
+        
+        //微信
+        [self getUserInfoForPlatform:UMSocialPlatformType_WechatSession];
+    }
+    else if (btn.tag == 1251){
+        
+        //QQ
+        [self getUserInfoForPlatform:UMSocialPlatformType_QQ];
+    }
+}
+
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType
+{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:nil completion:^(id result, NSError *error) {
+        
+        UMSocialUserInfoResponse *resp = result;
+        
+        //QQ
+        if (error) {
+            
+        } else {
+            UMSocialUserInfoResponse *resp = result;
+            // 授权信息
+            NSLog(@"QQ uid: %@", resp.uid);
+            NSLog(@"QQ openid: %@", resp.openid);
+            NSLog(@"QQ unionid: %@", resp.unionId);
+            NSLog(@"QQ accessToken: %@", resp.accessToken);
+            NSLog(@"QQ expiration: %@", resp.expiration);
+            // 用户信息
+            NSLog(@"QQ name: %@", resp.name);
+            NSLog(@"QQ iconurl: %@", resp.iconurl);
+            NSLog(@"QQ gender: %@", resp.unionGender);
+            // 第三方平台SDK源数据
+            NSLog(@"QQ originalResponse: %@", resp.originalResponse);
+        }
+        
+        //微信
+        if (error) {
+            
+        } else {
+            UMSocialUserInfoResponse *resp = result;
+            // 授权信息
+            NSLog(@"Wechat uid: %@", resp.uid);
+            NSLog(@"Wechat openid: %@", resp.openid);
+            NSLog(@"Wechat unionid: %@", resp.unionId);
+            NSLog(@"Wechat accessToken: %@", resp.accessToken);
+            NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
+            NSLog(@"Wechat expiration: %@", resp.expiration);
+            // 用户信息
+            NSLog(@"Wechat name: %@", resp.name);
+            NSLog(@"Wechat iconurl: %@", resp.iconurl);
+            NSLog(@"Wechat gender: %@", resp.unionGender);
+            // 第三方平台SDK源数据
+            NSLog(@"Wechat originalResponse: %@", resp.originalResponse);
+        }
+    }];
 }
 
 #pragma mark  ----  懒加载
@@ -396,6 +454,7 @@
     if (!_wechatBtn) {
         
         _wechatBtn = [[SHImageAndTitleBtn alloc] initWithFrame:CGRectMake((MAINWIDTH - 135 - 40 * 2) / 2, CGRectGetMaxY(self.titleLabel.frame) + 60, 40, 60) andImageFrame:CGRectMake(0, 0, 40, 36) andTitleFrame:CGRectMake(0, 45, 40, 15) andImageName:@"ic_login_wechat@2x.png" andSelectedImageName:@"" andTitle:@"微信" andTarget:self andAction:@selector(thirdLogIn:)];
+        _wechatBtn.tag = 1250;
     }
     return _wechatBtn;
 }
@@ -405,6 +464,7 @@
     if (!_QQBtn) {
         
         _QQBtn = [[SHImageAndTitleBtn alloc] initWithFrame:CGRectMake((MAINWIDTH - 135 - 40 * 2) / 2 + 135 + 40, CGRectGetMaxY(self.titleLabel.frame) + 60, 40, 60) andImageFrame:CGRectMake(2, 0, 36, 38) andTitleFrame:CGRectMake(0, 45, 40, 15) andImageName:@"ic_login_qq@2x.png" andSelectedImageName:@"" andTitle:@"QQ" andTarget:self andAction:@selector(thirdLogIn:)];
+        _QQBtn.tag = 1251;
     }
     return _QQBtn;
 }

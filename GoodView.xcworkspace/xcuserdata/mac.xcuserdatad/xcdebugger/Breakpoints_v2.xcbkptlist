@@ -57,13 +57,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GoodView/UIViewController/HomeViewController.m"
-            timestampString = "564850981.851099"
+            filePath = "GoodView/UIViewController/LoginViewController.m"
+            timestampString = "564934744.989884"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "-thirdLogIn:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoodView/UIViewController/LoginViewController.m"
+            timestampString = "564934744.991158"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "-thirdLogIn:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -27,7 +27,7 @@
 #define DefaultLocationTimeout 10
 #define DefaultReGeocodeTimeout 5
 
-@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate,SDCycleScrollViewDelegate,VerticalLoopDelegate>
+@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate,SDCycleScrollViewDelegate,VerticalLoopDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, copy) AMapLocatingCompletionBlock completionBlock;
@@ -74,6 +74,7 @@
     // Do any additional setup after loading the view.
     self.busNavigationBar.hidden = YES;
     self.scenicNumber = @"0";
+    self.needLoadMore = YES;
     [self startPositioning];
     [self setUI];
     
@@ -138,7 +139,7 @@
     }
     
     ScenicModel * model = self.dataArray[indexPath.row];
-    [cell setImage:[[NSString alloc] initWithFormat:@"%@%@",KIMGURL,model.scenic_img] scenicName:model.scenic_name scenicContent:model.scenics_text listen:model.listen_num distance:model.distance];
+    [cell setImage:[[NSString alloc] initWithFormat:@"%@%@",KIMGURL,model.scenic_img] scenicName:model.scenic_name scenicContent:model.scenics_text listen:model.listen_num distance:model.km];
     return cell;
 }
 
@@ -165,6 +166,9 @@
 #pragma mark  ----  VerticalLoopDelegate
 - (void)didClickContentAtIndex:(NSInteger)index{
     
+    JHArticle *article =  self.toutiaoModelArray[index];
+    WKWebViewController * controller = [[WKWebViewController alloc] initWithTitle:article.title andURLStr:[NSString stringWithFormat:KGENURL@"Load/Html_article?article_id=%@",article.article_id]];
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 
@@ -202,7 +206,7 @@
         if (!self.hadLoadMore) {
             CGSize contentSize = scrollView.contentSize;
             //未显示的tableView高度
-            float remainingHeight = contentSize.height - contentOffset.y;
+            float remainingHeight = contentSize.height - contentOffset.y - 100 * 3;
             if (contentOffset.y > 0 && contentOffset.y - self.lastContentY > 0) {
                 //大于0，才是上拉；小于0，是下拉
                 if (contentSize.height < MAINHEIGHT) {
@@ -210,7 +214,7 @@
                 }
                 else
                 {
-                    if (remainingHeight < self.tableView.frame.size.height * 2) {
+                    if (remainingHeight < 100 * 3 * 2) {
                         if (!self.needLoadMore) {
                             
                             [MBProgressHUD showErrorMessage:@"无更多数据！"];
@@ -219,7 +223,6 @@
     
                             self.hadLoadMore = YES;
                             [self loadHomeData];
-//                            [self loadMoreData];
                         }
                     }
                 }
@@ -232,6 +235,13 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     
     self.hadEndDrag = YES;
+}
+
+#pragma mark  ----  UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma mark  ----  自定义函数
@@ -329,9 +339,13 @@
         NSNumber * status = responseObject[@"status"];
         if (status.integerValue == 1) {
             
+            self.hadLoadMore = NO;
             NSDictionary * dataDic = responseObject[@"result"];
             NSArray * scenicsArray = dataDic[@"scenics"];
-            self.scenicNumber = [[NSString alloc] initWithFormat:@"%ld",scenicsArray.count];
+            if (scenicsArray.count == 0) {
+                
+                self.needLoadMore = NO;
+            }
             for (NSUInteger i = 0; i < scenicsArray.count; i++) {
                 
                 NSDictionary * dic = scenicsArray[i];
@@ -342,6 +356,8 @@
                     [self.dataArray addObject:model];
                 }
             }
+            
+            self.scenicNumber = [[NSString alloc] initWithFormat:@"%ld",self.dataArray.count];
             [self.tableView reloadData];
             
             NSArray * adArray = dataDic[@"ad"];
@@ -398,7 +414,7 @@
     [self.cityBtn mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.top.bottom.offset(0);
-        make.width.offset(70);
+        make.width.offset(75);
     }];
     
     [self.scanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -430,14 +446,6 @@
         make.top.equalTo(self.carouselScrollView.mas_bottom).offset(0);
         make.height.offset(40);
     }];
-
-//    [self.view addSubview:self.verticalLoopV];
-//    [self.verticalLoopV mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//        make.left.right.offset(0);
-//        make.top.equalTo(self.carouselScrollView.mas_bottom).offset(0);
-//        make.height.offset(40);
-//    }];
     
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -451,6 +459,7 @@
 //创建轮播区
 -(void)createCarousel{
     
+    self.carouselScrollView.imageURLStringsGroup = nil;
     NSMutableArray * arr = [[NSMutableArray alloc] init];
     for (NSUInteger i = 0; i < self.adModelArray.count; i++) {
         
@@ -462,6 +471,8 @@
 //创建头条区
 -(void)createToutiao{
     
+    [self.verticalLoopV stop];
+    self.verticalLoopV.verticalLoopContentArr = nil;
     self.verticalLoopV.verticalLoopContentArr = self.toutiaoModelArray;
     [self.verticalLoopV start];
 }
@@ -518,11 +529,11 @@
         [_cityBtn addTarget:self action:@selector(cityBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         [_cityBtn setImage:[UIImage imageNamed:@"ic_search_bar_arrow_down@2x"] forState:UIControlStateNormal];
         _cityBtn.titleLabel.font = FONT15;
-        [_cityBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 58, 0, 0)];
-        [_cityBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 12)];
+        [_cityBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 61, 0, 0)];
+        [_cityBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 15)];
         
         CALayer * rightLayer = [CALayer layer];
-        rightLayer.frame = CGRectMake(69, 5, 1, 20);
+        rightLayer.frame = CGRectMake(74, 5, 1, 20);
         rightLayer.backgroundColor = Color_F5F5F5.CGColor;
         [_cityBtn.layer addSublayer:rightLayer];
     }
@@ -534,6 +545,7 @@
     if (!_searchBar) {
         
         _searchBar = [[SHSearchBar alloc] initWithFrame:CGRectMake(0, 0, 0, 0) andPlaceholder:@"请输入景区或者目的地"];
+        _searchBar.delegate = self;
     }
     return _searchBar;
 }
@@ -568,7 +580,6 @@
         _verticalLoopV.loopDelegate = self;
         _verticalLoopV.is_start = 1;
         _verticalLoopV.backgroundColor = [UIColor whiteColor];
-//        _verticalLoopV.verticalLoopContentArr = _articleDataArr;
         _verticalLoopV.verticalLoopAnimationDuration = 1;
         _verticalLoopV.Direction = VerticalLoopDirectionDown;
     }

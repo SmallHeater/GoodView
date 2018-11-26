@@ -272,10 +272,6 @@
 		04A217AA21A4402600DC2D2B /* libJHDataStatisticsComponent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libJHDataStatisticsComponent.a; sourceTree = "<group>"; };
 		04A217AC21A4402600DC2D2B /* libJHAccountSystemComponent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libJHAccountSystemComponent.a; sourceTree = "<group>"; };
 		04A217AD21A4402600DC2D2B /* JHAccountSystemComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHAccountSystemComponent.h; sourceTree = "<group>"; };
-		04A217AF21A4402600DC2D2B /* UMCommonLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommonLog.framework; sourceTree = "<group>"; };
-		04A217B021A4402600DC2D2B /* UMCommonLog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UMCommonLog.bundle; sourceTree = "<group>"; };
-		04A217B121A4402600DC2D2B /* UMCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMCommon.framework; sourceTree = "<group>"; };
-		04A217B221A4402600DC2D2B /* UMAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMAnalytics.framework; sourceTree = "<group>"; };
 		04A217B521A4402600DC2D2B /* libJHMiddlewareComponent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libJHMiddlewareComponent.a; sourceTree = "<group>"; };
 		04A217B621A4402600DC2D2B /* JHMiddlewareComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHMiddlewareComponent.h; sourceTree = "<group>"; };
 		04A217B921A4402600DC2D2B /* CommandList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandList.h; sourceTree = "<group>"; };
@@ -513,7 +509,6 @@
 				04A217BF21A4402600DC2D2B /* Bugly */,
 				04A2179F21A4402600DC2D2B /* Business */,
 				04A217B321A4402600DC2D2B /* Technology */,
-				04A217AE21A4402600DC2D2B /* UM */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -639,17 +634,6 @@
 				04A217AD21A4402600DC2D2B /* JHAccountSystemComponent.h */,
 			);
 			path = JHAccountSystemComponent;
-			sourceTree = "<group>";
-		};
-		04A217AE21A4402600DC2D2B /* UM */ = {
-			isa = PBXGroup;
-			children = (
-				04A217AF21A4402600DC2D2B /* UMCommonLog.framework */,
-				04A217B021A4402600DC2D2B /* UMCommonLog.bundle */,
-				04A217B121A4402600DC2D2B /* UMCommon.framework */,
-				04A217B221A4402600DC2D2B /* UMAnalytics.framework */,
-			);
-			path = UM;
 			sourceTree = "<group>";
 		};
 		04A217B321A4402600DC2D2B /* Technology */ = {
@@ -1115,10 +1099,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GoodView/Pods-GoodView-resources.sh",
 				"${PODS_ROOT}/MBProgressHUD+JDragon/MBProgressHUD+JDragon/MBProgressHUD+JDragon.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/UMCShare/UMShare/UMSocialUI/UMSocialSDKResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MBProgressHUD+JDragon.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/UMSocialSDKResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

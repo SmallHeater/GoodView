@@ -19,18 +19,41 @@ PODS:
   - MBProgressHUD (0.9.2)
   - "MBProgressHUD+JDragon (0.0.4)":
     - MBProgressHUD (~> 0.9.2)
+  - MJRefresh (3.1.15.7)
   - SDCycleScrollView (1.75):
     - SDWebImage (>= 4.0.0)
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
+  - UMCAnalytics (5.5.2):
+    - UMCCommon
+  - UMCCommon (1.5.3)
+  - UMCSecurityPlugins (1.0.6)
+  - UMCShare/Core (6.9.5):
+    - UMCCommon
+  - UMCShare/Social/ReducedQQ (6.9.5):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedWeChat (6.9.5):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/UI (6.9.5):
+    - UMCCommon
+    - UMCShare/Core
 
 DEPENDENCIES:
   - AFNetworking (~> 3.2.1)
   - JSONModel (~> 1.8.0)
   - Masonry (~> 1.1.0)
   - "MBProgressHUD+JDragon (~> 0.0.4)"
+  - MJRefresh (~> 3.1.15.7)
   - SDCycleScrollView (~> 1.75)
+  - UMCAnalytics
+  - UMCCommon
+  - UMCSecurityPlugins
+  - UMCShare/Social/ReducedQQ
+  - UMCShare/Social/ReducedWeChat
+  - UMCShare/UI
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -39,8 +62,13 @@ SPEC REPOS:
     - Masonry
     - MBProgressHUD
     - "MBProgressHUD+JDragon"
+    - MJRefresh
     - SDCycleScrollView
     - SDWebImage
+    - UMCAnalytics
+    - UMCCommon
+    - UMCSecurityPlugins
+    - UMCShare
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -48,9 +76,14 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   "MBProgressHUD+JDragon": 51958736b3a9f97adc176371544ffa257a0ba058
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  UMCAnalytics: 6654fd3c8201ff6da5c86a3ae29cd5c8436d3b7b
+  UMCCommon: 016af43c0f769feb1ae1861d65aaf2b23b89c9c7
+  UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
+  UMCShare: 552b29753f1b4da87b51d96545ed19e6263df397
 
-PODFILE CHECKSUM: fc276a2a4ac1668e65cf22643a1de1566d3e24c6
+PODFILE CHECKSUM: 972f4b3c63f98284354ced6d1f1ea43d9362c1bb
 
 COCOAPODS: 1.5.3

@@ -49,18 +49,20 @@
 #pragma mark  ----  在发送请求之前，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
     
+    decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
 #pragma mark  ----  在收到响应后，决定是否跳转
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
     
-
+    decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
 
 #pragma mark  ---- 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation{
     
+    [MBProgressHUD showHUDAddedTo:self.webView animated:YES];
 }
 
 #pragma mark  ---- 接收到服务器跳转请求之后调用:接收到服务重定向时，会回调此方法
@@ -71,6 +73,7 @@
 #pragma mark ---- 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     
+    [MBProgressHUD hideHUD];
 }
 
 #pragma mark  ----  当内容开始返回时调用
@@ -81,6 +84,7 @@
 #pragma mark  ----  网页加载完成
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
     
+    [MBProgressHUD hideHUD];
 }
 
 #pragma mark  ----  通过导航跳转失败的时候调用
@@ -91,6 +95,7 @@
 #pragma mark    ----  这与用于授权验证的API，与AFN、UIWebView的授权验证API是一样的
 - (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler{
     
+    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling ,nil);
 }
 
 
@@ -165,6 +170,8 @@
         
         WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) configuration:configuration];
+        _webView.UIDelegate = self;
+        _webView.navigationDelegate = self;
     }
     return _webView;
 }
