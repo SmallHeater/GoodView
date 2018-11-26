@@ -85,6 +85,8 @@
 		62267AE021A7F45400110EAB /* ScenicSpotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62267ADF21A7F45400110EAB /* ScenicSpotCell.m */; };
 		62267AE221A7FA8000110EAB /* ic_near_scenic_earphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62267AE121A7FA7F00110EAB /* ic_near_scenic_earphone@2x.png */; };
 		62267AE421A7FB9100110EAB /* uu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62267AE321A7FB9100110EAB /* uu@2x.png */; };
+		62E5EB8121AC0BAC00C0F952 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E5EB8021AC0BAC00C0F952 /* WKWebViewController.m */; };
+		62E5EB8321AC0F3500C0F952 /* back.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 62E5EB8221AC0F3500C0F952 /* back.tiff */; };
 		62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */; };
 		62ED859321A69A6400245CA0 /* AvatarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED859221A69A6400245CA0 /* AvatarCell.m */; };
 		62ED859821A6C76A00245CA0 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED859721A6C76A00245CA0 /* AboutViewController.m */; };
@@ -298,6 +300,9 @@
 		62267ADF21A7F45400110EAB /* ScenicSpotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScenicSpotCell.m; sourceTree = "<group>"; };
 		62267AE121A7FA7F00110EAB /* ic_near_scenic_earphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_near_scenic_earphone@2x.png"; sourceTree = "<group>"; };
 		62267AE321A7FB9100110EAB /* uu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uu@2x.png"; sourceTree = "<group>"; };
+		62E5EB7F21AC0BAC00C0F952 /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
+		62E5EB8021AC0BAC00C0F952 /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
+		62E5EB8221AC0F3500C0F952 /* back.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = back.tiff; sourceTree = "<group>"; };
 		62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHLabelAndLabelView.m; sourceTree = "<group>"; };
 		62ED857E21A537F900245CA0 /* SHLabelAndLabelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHLabelAndLabelView.h; sourceTree = "<group>"; };
 		62ED859121A69A6400245CA0 /* AvatarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvatarCell.h; sourceTree = "<group>"; };
@@ -548,6 +553,8 @@
 				0427A58021AA779100E1B175 /* LoudspeakerOrderVC.m */,
 				0427A58221AA77C200E1B175 /* OfflinePackageVC.h */,
 				0427A58321AA77C200E1B175 /* OfflinePackageVC.m */,
+				62E5EB7F21AC0BAC00C0F952 /* WKWebViewController.h */,
+				62E5EB8021AC0BAC00C0F952 /* WKWebViewController.m */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -694,6 +701,7 @@
 		04A217D821A445D200DC2D2B /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				62E5EB8221AC0F3500C0F952 /* back.tiff */,
 				0427A5AA21AAE14100E1B175 /* default@2x.png */,
 				0427A58B21AA96ED00E1B175 /* location@2x.png */,
 				0427A57721A9887100E1B175 /* touxiang@2x.png */,
@@ -1027,6 +1035,7 @@
 				62ED873D21A7E26E00245CA0 /* line.png in Resources */,
 				0427A57521A987FC00E1B175 /* QQ@2x.png in Resources */,
 				0427A54321A83BF400E1B175 /* 我的.jpg in Resources */,
+				62E5EB8321AC0F3500C0F952 /* back.tiff in Resources */,
 				62ED86F821A7DFDC00245CA0 /* ic_scenic_offlinepack.png in Resources */,
 				0427A57621A987FC00E1B175 /* weixin@2x.png in Resources */,
 				62ED86D021A7DDB600245CA0 /* ic_search_bar_arrow_down@2x.png in Resources */,
@@ -1103,15 +1112,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GoodView/Pods-GoodView-resources.sh",
 				"${PODS_ROOT}/MBProgressHUD+JDragon/MBProgressHUD+JDragon/MBProgressHUD+JDragon.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MBProgressHUD+JDragon.bundle",
 			);
@@ -1167,6 +1172,7 @@
 				04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */,
 				62ED872221A7E1CD00245CA0 /* QRCodeAreaView.m in Sources */,
 				0427A58421AA77C200E1B175 /* OfflinePackageVC.m in Sources */,
+				62E5EB8121AC0BAC00C0F952 /* WKWebViewController.m in Sources */,
 				0427A51C21A59DEC00E1B175 /* PersonalInformationVC.m in Sources */,
 				62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */,
 			);

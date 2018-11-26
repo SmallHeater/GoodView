@@ -71,7 +71,7 @@
         _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_backBtn setFrame:CGRectMake(0, 20 + [JHLiveAdaptUI heightOfLiuHai], 60, 44)];
         _backBtn.contentEdgeInsets = UIEdgeInsetsMake(11, 11, 11, 27);
-        [_backBtn setImage:[UIImage imageNamed:@"JHLiveCommonImages.bundle/back.tiff"] forState:UIControlStateNormal];
+        [_backBtn setImage:[UIImage imageNamed:@"back.tiff"] forState:UIControlStateNormal];
     }
     return _backBtn;
 }

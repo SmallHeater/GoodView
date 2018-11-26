@@ -20,6 +20,9 @@
 #import "SDCycleScrollView.h"
 #import "VerticalLoopView.h"
 #import "JHArticle.h"
+#import "WKWebViewController.h"
+
+
 
 #define DefaultLocationTimeout 10
 #define DefaultReGeocodeTimeout 5
@@ -45,14 +48,21 @@
 @property (nonatomic,strong) UILabel * newsLabel;
 //列表区域
 @property (nonatomic,strong) UITableView * tableView;
+//当前景区数量，第一次是0
+@property (nonatomic,strong) NSString * scenicNumber;
 //景区模型数组
 @property (nonatomic,strong) NSMutableArray<ScenicModel *> * dataArray;
 //广告模型数组
 @property (nonatomic,strong) NSMutableArray<ADModel *> * adModelArray;
 //景好头条模型数组
 @property (nonatomic,strong) NSMutableArray<JHArticle *> * toutiaoModelArray;
-
-
+//滑动是否已松手 (松手之后，不去触发上拉或者下拉)
+@property (nonatomic,assign) BOOL hadEndDrag;
+//是否已触发上拉加载下拉刷新
+@property (nonatomic,assign) BOOL hadLoadMore;
+@property (nonatomic,assign) float lastContentY;
+//是否还需要加载更多（无更多数据后，置为NO）
+@property (nonatomic,assign) BOOL needLoadMore;
 @end
 
 @implementation HomeViewController
@@ -63,8 +73,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.busNavigationBar.hidden = YES;
+    self.scenicNumber = @"0";
     [self startPositioning];
     [self setUI];
+    
+    NSLog(@"宽高：%ld,%ld",(long)MAINWIDTH,(long)MAINHEIGHT);
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -84,13 +97,11 @@
 -(void)viewDidDisappear:(BOOL)animated{
     
     [super viewDidDisappear:animated];
-    [self.verticalLoopV stop];
 }
 
 -(void)dealloc{
     
     [self cleanUpAction];
-    
     self.completionBlock = nil;
 }
 
@@ -161,11 +172,66 @@
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
+    ADModel * model = self.adModelArray[index];
+    if ([model.ad_type isEqualToString:@"0"]) {
+        
+        //网页
+        WKWebViewController * controller = [[WKWebViewController alloc] initWithTitle:model.ad_name andURLStr:@"https:www.baidu.com"];
+        [self.navigationController pushViewController:controller animated:NO];
+    }
+    else if ([model.ad_type isEqualToString:@"1"]){
+        
+        //景区
+    }
 }
 
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
     
+}
+
+#pragma mark  ----  UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
+    self.hadEndDrag = NO;
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    CGPoint contentOffset = scrollView.contentOffset;
+    if (!self.hadEndDrag) {
+        if (!self.hadLoadMore) {
+            CGSize contentSize = scrollView.contentSize;
+            //未显示的tableView高度
+            float remainingHeight = contentSize.height - contentOffset.y;
+            if (contentOffset.y > 0 && contentOffset.y - self.lastContentY > 0) {
+                //大于0，才是上拉；小于0，是下拉
+                if (contentSize.height < MAINHEIGHT) {
+                    //显示数据不到一屏，无加载更多功能
+                }
+                else
+                {
+                    if (remainingHeight < self.tableView.frame.size.height * 2) {
+                        if (!self.needLoadMore) {
+                            
+                            [MBProgressHUD showErrorMessage:@"无更多数据！"];
+                        }
+                        else{
+    
+                            self.hadLoadMore = YES;
+                            [self loadHomeData];
+//                            [self loadMoreData];
+                        }
+                    }
+                }
+            }
+        }
+    }
+    self.lastContentY = contentOffset.y;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    
+    self.hadEndDrag = YES;
 }
 
 #pragma mark  ----  自定义函数
@@ -256,7 +322,7 @@
 -(void)loadHomeData{
     
     AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:KGENURL]];
-    [manager POST:@"Scenic/home" parameters:@{@"number":@"0",@"city":@"杭州市",@"latitude":[NSNumber numberWithFloat:[AccountManager sharedManager].latitude],@"longitude":[NSNumber numberWithFloat:[AccountManager sharedManager].longitude],@"user_id":@""} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager POST:@"Scenic/home" parameters:@{@"number":self.scenicNumber,@"city":@"杭州市",@"latitude":[NSNumber numberWithFloat:[AccountManager sharedManager].latitude],@"longitude":[NSNumber numberWithFloat:[AccountManager sharedManager].longitude],@"user_id":@""} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -265,6 +331,7 @@
             
             NSDictionary * dataDic = responseObject[@"result"];
             NSArray * scenicsArray = dataDic[@"scenics"];
+            self.scenicNumber = [[NSString alloc] initWithFormat:@"%ld",scenicsArray.count];
             for (NSUInteger i = 0; i < scenicsArray.count; i++) {
                 
                 NSDictionary * dic = scenicsArray[i];
@@ -278,6 +345,7 @@
             [self.tableView reloadData];
             
             NSArray * adArray = dataDic[@"ad"];
+            [self.adModelArray removeAllObjects];
             for (NSUInteger j = 0; j < adArray.count; j++) {
                 
                 NSDictionary * dic = adArray[j];
@@ -290,6 +358,7 @@
             }
             [self createCarousel];
             
+            [self.toutiaoModelArray removeAllObjects];
             NSArray * toutiaoArray = dataDic[@"toutiao"];
             for (NSUInteger k = 0; k < toutiaoArray.count; k++) {
                 
