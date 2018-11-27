@@ -64,6 +64,10 @@
 		0427A5AB21AAE14100E1B175 /* default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0427A5AA21AAE14100E1B175 /* default@2x.png */; };
 		0427A5AF21AAE55100E1B175 /* VerticalLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A5AE21AAE55000E1B175 /* VerticalLoopView.m */; };
 		0427A5B221AAE77B00E1B175 /* JHArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 0427A5B021AAE77B00E1B175 /* JHArticle.m */; };
+		0430105621AD7D8000C632F5 /* CarouselCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430105521AD7D8000C632F5 /* CarouselCell.m */; };
+		0430105921AD7D9E00C632F5 /* JHToutiaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430105821AD7D9E00C632F5 /* JHToutiaoCell.m */; };
+		0430105C21AD804500C632F5 /* UIView+SHTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430105B21AD804500C632F5 /* UIView+SHTool.m */; };
+		0430105F21AD83A400C632F5 /* NearScenicHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430105E21AD83A400C632F5 /* NearScenicHeadCell.m */; };
 		043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */; };
 		04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2176F21A43EA900DC2D2B /* AppDelegate.m */; };
 		04A2177621A43EA900DC2D2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2177421A43EA900DC2D2B /* Main.storyboard */; };
@@ -242,6 +246,14 @@
 		0427A5AE21AAE55000E1B175 /* VerticalLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerticalLoopView.m; sourceTree = "<group>"; };
 		0427A5B021AAE77B00E1B175 /* JHArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHArticle.m; sourceTree = "<group>"; };
 		0427A5B121AAE77B00E1B175 /* JHArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHArticle.h; sourceTree = "<group>"; };
+		0430105421AD7D8000C632F5 /* CarouselCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarouselCell.h; sourceTree = "<group>"; };
+		0430105521AD7D8000C632F5 /* CarouselCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarouselCell.m; sourceTree = "<group>"; };
+		0430105721AD7D9E00C632F5 /* JHToutiaoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHToutiaoCell.h; sourceTree = "<group>"; };
+		0430105821AD7D9E00C632F5 /* JHToutiaoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JHToutiaoCell.m; sourceTree = "<group>"; };
+		0430105A21AD804500C632F5 /* UIView+SHTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SHTool.h"; sourceTree = "<group>"; };
+		0430105B21AD804500C632F5 /* UIView+SHTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SHTool.m"; sourceTree = "<group>"; };
+		0430105D21AD83A400C632F5 /* NearScenicHeadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearScenicHeadCell.h; sourceTree = "<group>"; };
+		0430105E21AD83A400C632F5 /* NearScenicHeadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NearScenicHeadCell.m; sourceTree = "<group>"; };
 		043B5C6321A5128300478CD8 /* SHImageAndTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHImageAndTitleBtn.h; sourceTree = "<group>"; };
 		043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHImageAndTitleBtn.m; sourceTree = "<group>"; };
 		04A2176B21A43EA900DC2D2B /* GoodView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -802,6 +814,12 @@
 				0427A52D21A8233D00E1B175 /* CityCell.m */,
 				0427A57921AA49C500E1B175 /* MyOrderCell.h */,
 				0427A57A21AA49C500E1B175 /* MyOrderCell.m */,
+				0430105421AD7D8000C632F5 /* CarouselCell.h */,
+				0430105521AD7D8000C632F5 /* CarouselCell.m */,
+				0430105721AD7D9E00C632F5 /* JHToutiaoCell.h */,
+				0430105821AD7D9E00C632F5 /* JHToutiaoCell.m */,
+				0430105D21AD83A400C632F5 /* NearScenicHeadCell.h */,
+				0430105E21AD83A400C632F5 /* NearScenicHeadCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -841,6 +859,8 @@
 				62ED86AC21A7C3D800245CA0 /* UIColor+SHTool.m */,
 				62ED86AE21A7C3E900245CA0 /* NSString+SHTool.h */,
 				62ED86AF21A7C3E900245CA0 /* NSString+SHTool.m */,
+				0430105A21AD804500C632F5 /* UIView+SHTool.h */,
+				0430105B21AD804500C632F5 /* UIView+SHTool.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1135,12 +1155,14 @@
 				04A2179E21A4401E00DC2D2B /* JHLiveBaseNavigationBar.m in Sources */,
 				04A217D121A4406B00DC2D2B /* MyViewController.m in Sources */,
 				0427A58A21AA87AE00E1B175 /* CityModel.m in Sources */,
+				0430105621AD7D8000C632F5 /* CarouselCell.m in Sources */,
 				04A217D421A4408800DC2D2B /* HomeViewController.m in Sources */,
 				0427A58121AA779100E1B175 /* LoudspeakerOrderVC.m in Sources */,
 				0427A5B221AAE77B00E1B175 /* JHArticle.m in Sources */,
 				0427A57E21AA5E9200E1B175 /* MyOrderVC.m in Sources */,
 				62ED859B21A6D88C00245CA0 /* AccountBindingVC.m in Sources */,
 				62ED867F21A79A9C00245CA0 /* SelectCityViewController.m in Sources */,
+				0430105F21AD83A400C632F5 /* NearScenicHeadCell.m in Sources */,
 				0427A5AF21AAE55100E1B175 /* VerticalLoopView.m in Sources */,
 				62ED86A121A7A4CF00245CA0 /* NSString+NormalMethod.m in Sources */,
 				04A2177E21A43EAA00DC2D2B /* main.m in Sources */,
@@ -1150,9 +1172,11 @@
 				04D256A921A5697200624688 /* MyEntryModel.m in Sources */,
 				0427A5A521AACE5200E1B175 /* ADModel.m in Sources */,
 				62ED86B021A7C3E900245CA0 /* NSString+SHTool.m in Sources */,
+				0430105C21AD804500C632F5 /* UIView+SHTool.m in Sources */,
 				62ED859821A6C76A00245CA0 /* AboutViewController.m in Sources */,
 				62ED872321A7E1CD00245CA0 /* QRCodeBacgrouView.m in Sources */,
 				04D256B021A56D6C00624688 /* MyEntryCell.m in Sources */,
+				0430105921AD7D9E00C632F5 /* JHToutiaoCell.m in Sources */,
 				043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */,
 				0427A55F21A9444500E1B175 /* JHUserModel.m in Sources */,
 				0427A52021A6EAED00E1B175 /* LoginViewController.m in Sources */,

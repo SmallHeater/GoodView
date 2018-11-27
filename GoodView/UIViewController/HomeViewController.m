@@ -17,8 +17,10 @@
 #import <AMapFoundationKit/AMapServices.h>
 #import "ScenicModel.h"
 #import "ADModel.h"
-#import "SDCycleScrollView.h"
-#import "VerticalLoopView.h"
+#import "CarouselCell.h"
+#import "JHToutiaoCell.h"
+#import "NearScenicHeadCell.h"
+
 #import "JHArticle.h"
 #import "WKWebViewController.h"
 
@@ -27,7 +29,7 @@
 #define DefaultLocationTimeout 10
 #define DefaultReGeocodeTimeout 5
 
-@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate,SDCycleScrollViewDelegate,VerticalLoopDelegate,UITextFieldDelegate>
+@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,AMapLocationManagerDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) AMapLocationManager *locationManager;
 @property (nonatomic, copy) AMapLocatingCompletionBlock completionBlock;
@@ -40,18 +42,15 @@
 @property (nonatomic,strong) SHSearchBar * searchBar;
 //扫码按钮
 @property (nonatomic,strong) UIButton * scanBtn;
-//轮播区
-@property (nonatomic,strong) SDCycleScrollView * carouselScrollView;
-//景好头条
-@property (nonatomic,strong) UIView * headlineView;
-@property (nonatomic,strong) VerticalLoopView * verticalLoopV;
+
+
 @property (nonatomic,strong) UILabel * newsLabel;
 //列表区域
-@property (nonatomic,strong) UITableView * tableView;
+//@property (nonatomic,strong) UITableView * tableView;
 //当前景区数量，第一次是0
 @property (nonatomic,strong) NSString * scenicNumber;
 //景区模型数组
-@property (nonatomic,strong) NSMutableArray<ScenicModel *> * dataArray;
+//@property (nonatomic,strong) NSMutableArray<ScenicModel *> * dataArray;
 //广告模型数组
 @property (nonatomic,strong) NSMutableArray<ADModel *> * adModelArray;
 //景好头条模型数组
@@ -110,13 +109,28 @@
 #pragma mark  ----  UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 100;
+    if (indexPath.row == 0) {
+        
+        //轮播区高度
+        return MAINWIDTH * 335.0/750.0;
+    }
+    else if (indexPath.row == 1){
+        
+        //头条区高度
+        return 40;
+    }
+    else if (indexPath.row == 2){
+        
+        //附近景区高度
+        return 50;
+    }
+    else{
+        
+        //景区cell高度
+        return 100;
+    }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    return 50;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -125,73 +139,62 @@
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return self.dataArray.count;
+    return self.dataArray.count + 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString * cellID = @"ScenicSpotCell";
-    ScenicSpotCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (!cell) {
-
-        cell = [[ScenicSpotCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    ScenicModel * model = self.dataArray[indexPath.row];
-    [cell setImage:[[NSString alloc] initWithFormat:@"%@%@",KIMGURL,model.scenic_img] scenicName:model.scenic_name scenicContent:model.scenics_text listen:model.listen_num distance:model.km];
-    return cell;
-}
-
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MAINWIDTH, 50)];
-    view.backgroundColor = [UIColor whiteColor];
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uu@2x.png"]];
-    imageView.frame = CGRectMake(10, 12, 26, 26);
-    [view addSubview:imageView];
-    
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 100, 30)];
-    label.text = @"附近景区";
-    [view addSubview:label];
-    
-    UILabel * lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 49, MAINWIDTH, 1)];
-    lineLabel.backgroundColor = Color_F5F5F5;
-    [view addSubview:lineLabel];
-    return view;
-}
-
-
-#pragma mark  ----  VerticalLoopDelegate
-- (void)didClickContentAtIndex:(NSInteger)index{
-    
-    JHArticle *article =  self.toutiaoModelArray[index];
-    WKWebViewController * controller = [[WKWebViewController alloc] initWithTitle:article.title andURLStr:[NSString stringWithFormat:KGENURL@"Load/Html_article?article_id=%@",article.article_id]];
-    [self.navigationController pushViewController:controller animated:NO];
-}
-
-
-#pragma mark  ----  SDCycleScrollViewDelegate
-/** 点击图片回调 */
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    
-    ADModel * model = self.adModelArray[index];
-    if ([model.ad_type isEqualToString:@"0"]) {
+    if (indexPath.row == 0) {
         
-        //网页
-        WKWebViewController * controller = [[WKWebViewController alloc] initWithTitle:model.ad_name andURLStr:@"https:www.baidu.com"];
-        [self.navigationController pushViewController:controller animated:NO];
-    }
-    else if ([model.ad_type isEqualToString:@"1"]){
+        static NSString * firstCellID = @"CarouselCell";
+        CarouselCell * cell = [tableView dequeueReusableCellWithIdentifier:firstCellID];
+        if (!cell) {
+            
+            cell = [[CarouselCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:firstCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
         
-        //景区
+        [cell setCarouselData:self.adModelArray];
+        return cell;
     }
-}
-
-/** 图片滚动回调 */
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index{
-    
+    else if (indexPath.row == 1){
+        
+        static NSString * secondCellID = @"CarouselCell";
+        JHToutiaoCell * cell = [tableView dequeueReusableCellWithIdentifier:secondCellID];
+        if (!cell) {
+            
+            cell = [[JHToutiaoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:secondCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        [cell setToutiaoData:self.toutiaoModelArray];
+        return cell;
+    }
+    else if (indexPath.row == 2){
+        
+        static NSString * thirdCellID = @"NearScenicHeadCell";
+        NearScenicHeadCell * cell = [tableView dequeueReusableCellWithIdentifier:thirdCellID];
+        if (!cell) {
+            
+            cell = [[NearScenicHeadCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:thirdCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        return cell;
+    }
+    else{
+        
+        static NSString * forthCellID = @"ScenicSpotCell";
+        ScenicSpotCell * cell = [tableView dequeueReusableCellWithIdentifier:forthCellID];
+        if (!cell) {
+            
+            cell = [[ScenicSpotCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:forthCellID];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        ScenicModel * model = self.dataArray[indexPath.row - 3];
+        [cell setImage:[[NSString alloc] initWithFormat:@"%@%@",KIMGURL,model.scenic_img] scenicName:model.scenic_name scenicContent:model.scenics_text listen:model.listen_num distance:model.km];
+        return cell;
+    }
 }
 
 #pragma mark  ----  UIScrollViewDelegate
@@ -214,7 +217,7 @@
                 }
                 else
                 {
-                    if (remainingHeight < 100 * 3 * 2) {
+                    if (remainingHeight < MAINHEIGHT * 2) {
                         if (!self.needLoadMore) {
                             
                             [MBProgressHUD showErrorMessage:@"无更多数据！"];
@@ -346,19 +349,6 @@
                 
                 self.needLoadMore = NO;
             }
-            for (NSUInteger i = 0; i < scenicsArray.count; i++) {
-                
-                NSDictionary * dic = scenicsArray[i];
-                NSError * error;
-                ScenicModel * model = [[ScenicModel alloc] initWithDictionary:dic error:&error];
-                if (model) {
-                    
-                    [self.dataArray addObject:model];
-                }
-            }
-            
-            self.scenicNumber = [[NSString alloc] initWithFormat:@"%ld",self.dataArray.count];
-            [self.tableView reloadData];
             
             NSArray * adArray = dataDic[@"ad"];
             [self.adModelArray removeAllObjects];
@@ -372,7 +362,7 @@
                     [self.adModelArray addObject:model];
                 }
             }
-            [self createCarousel];
+            
             
             [self.toutiaoModelArray removeAllObjects];
             NSArray * toutiaoArray = dataDic[@"toutiao"];
@@ -386,7 +376,20 @@
                     [self.toutiaoModelArray addObject:model];
                 }
             }
-            [self createToutiao];
+            
+            for (NSUInteger i = 0; i < scenicsArray.count; i++) {
+                
+                NSDictionary * dic = scenicsArray[i];
+                NSError * error;
+                ScenicModel * model = [[ScenicModel alloc] initWithDictionary:dic error:&error];
+                if (model) {
+                    
+                    [self.dataArray addObject:model];
+                }
+            }
+            
+            self.scenicNumber = [[NSString alloc] initWithFormat:@"%ld",self.dataArray.count];
+            [self.tableView reloadData];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -431,50 +434,13 @@
         make.top.right.bottom.offset(0);
     }];
     
-    [self.view addSubview:self.carouselScrollView];
-    [self.carouselScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-       
-        make.left.right.offset(0);
-        make.top.equalTo(self.myNav.mas_bottom).offset(0);
-        make.height.equalTo(self.carouselScrollView.mas_width).multipliedBy(335.0/750.0f);
-    }];
-    
-    [self.view addSubview:self.headlineView];
-    [self.headlineView mas_makeConstraints:^(MASConstraintMaker *make) {
-
-        make.left.right.offset(0);
-        make.top.equalTo(self.carouselScrollView.mas_bottom).offset(0);
-        make.height.offset(40);
-    }];
-    
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.left.right.offset(0);
-        make.top.equalTo(self.headlineView.mas_bottom).offset(0);
+        make.top.equalTo(self.myNav.mas_bottom).offset(0);
         make.bottom.offset(-49);
     }];
-}
-
-//创建轮播区
--(void)createCarousel{
-    
-    self.carouselScrollView.imageURLStringsGroup = nil;
-    NSMutableArray * arr = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0; i < self.adModelArray.count; i++) {
-        
-        ADModel * model = self.adModelArray[i];
-        [arr addObject:[[NSString alloc] initWithFormat:@"%@%@",KIMGURL,model.ad_code]];
-    }
-    self.carouselScrollView.imageURLStringsGroup = arr;
-}
-//创建头条区
--(void)createToutiao{
-    
-    [self.verticalLoopV stop];
-    self.verticalLoopV.verticalLoopContentArr = nil;
-    self.verticalLoopV.verticalLoopContentArr = self.toutiaoModelArray;
-    [self.verticalLoopV start];
 }
 
 //城市按钮的响应
@@ -562,120 +528,19 @@
     return _scanBtn;
 }
 
--(SDCycleScrollView *)carouselScrollView{
-    
-    if (!_carouselScrollView) {
-        
-        _carouselScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, 0, 0) delegate:self placeholderImage:[UIImage imageNamed:@"default@2x.png"]];
-        _carouselScrollView.backgroundColor = [UIColor whiteColor];
-    }
-    return _carouselScrollView;
-}
-
--(VerticalLoopView *)verticalLoopV{
-    
-    if (!_verticalLoopV) {
-        
-        _verticalLoopV = [[VerticalLoopView alloc] initWithFrame:CGRectZero];
-        _verticalLoopV.loopDelegate = self;
-        _verticalLoopV.is_start = 1;
-        _verticalLoopV.backgroundColor = [UIColor whiteColor];
-        _verticalLoopV.verticalLoopAnimationDuration = 1;
-        _verticalLoopV.Direction = VerticalLoopDirectionDown;
-    }
-    return _verticalLoopV;
-}
-
--(UIView *)headlineView{
-    
-    if (!_headlineView) {
-        
-        _headlineView = [[UIView alloc] init];
-        _headlineView.backgroundColor = [UIColor grayColor];
-        
-        
-        
-        UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"headline@2x.jpg"]];
-        imageView.backgroundColor = [UIColor greenColor];
-        [_headlineView addSubview:imageView];
-        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.top.bottom.offset(0);
-            make.width.offset(100);
-        }];
-        
-        CALayer * rightLayer = [CALayer layer];
-        rightLayer.frame = CGRectMake(99, 0, 1, 39);
-        rightLayer.backgroundColor = Color_F5F5F5.CGColor;
-        [imageView.layer addSublayer:rightLayer];
-        
-        
-        [_headlineView addSubview:self.verticalLoopV];
-        [self.verticalLoopV mas_makeConstraints:^(MASConstraintMaker *make) {
-           
-            make.left.equalTo(imageView.mas_right).offset(0);
-            make.top.right.bottom.offset(0);
-        }];
-        
-        CALayer * bottomLayer = [CALayer layer];
-        bottomLayer.frame = CGRectMake(0, 39, MAINWIDTH, 1);
-        bottomLayer.backgroundColor = Color_F5F5F5.CGColor;
-        [_headlineView.layer addSublayer:bottomLayer];
-    }
-    return _headlineView;
-}
-
--(UILabel *)newsLabel{
-    
-    if (!_newsLabel) {
-        
-        _newsLabel = [[UILabel alloc] init];
-        _newsLabel.backgroundColor = [UIColor whiteColor];
-    }
-    return _newsLabel;
-}
-
--(UITableView *)tableView{
-    
-    if (!_tableView) {
-        
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.showsVerticalScrollIndicator = NO;
-        //取消contentSize和contentOffset的改的，解决闪屏问题
-        _tableView.estimatedRowHeight = 0;
-        _tableView.estimatedSectionHeaderHeight = 0;
-        _tableView.estimatedSectionFooterHeight = 0;
-        _tableView.backgroundColor = [UIColor whiteColor];
-    }
-    return _tableView;
-}
-
--(NSMutableArray<ScenicModel *> *)dataArray{
-    
-    if (!_dataArray) {
-        
-        _dataArray = [[NSMutableArray alloc] init];
-    }
-    return _dataArray;
-}
-
 - (NSMutableArray<ADModel *> *)adModelArray{
-    
+
     if (!_adModelArray) {
-        
+
         _adModelArray = [[NSMutableArray alloc] init];
     }
     return _adModelArray;
 }
 
 -(NSMutableArray<JHArticle *> *)toutiaoModelArray{
-    
+
     if (!_toutiaoModelArray) {
-        
+
         _toutiaoModelArray = [[NSMutableArray alloc] init];
     }
     return _toutiaoModelArray;

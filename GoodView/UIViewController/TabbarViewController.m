@@ -29,7 +29,7 @@
     self.tabBar.hidden = YES;
     [self.view addSubview:self.tabbarView];
     
-    HomeViewController * homeVC = [[HomeViewController alloc] initWithTitle:@"首页"];
+    HomeViewController * homeVC = [[HomeViewController alloc] initWithTitle:@"首页" andTableViewStyle:UITableViewStylePlain];
     MyViewController * myVC = [[MyViewController alloc] initWithTitle:@"我的"];
     UINavigationController * homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
     UINavigationController * myNav = [[UINavigationController alloc] initWithRootViewController:myVC];
