@@ -92,7 +92,7 @@
     [self addSubview:self.countLabel];
     [self.countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        
-        make.top.equalTo(self.commodityLabel.mas_top);
+        make.top.equalTo(self.commodityLabel.mas_top).offset(2);
         make.right.offset(0);
         make.height.offset(15);
         make.width.offset(20);
@@ -135,6 +135,81 @@
     }];
     
     [self setNeedsDisplay];
+}
+
+//设置景区图片，景区名，是否支付，价格，支付方式，购买时间
+-(void)setIcon:(NSString *)iconUrlStr scenicName:(NSString *)scenicName isPay:(NSString *)isPay price:(NSString *)price payType:(NSString *)type buyTime:(NSString *)time{
+    
+    self.avatar.image = [UIImage imageNamed:@""];
+    self.nameLabel.text = @"";
+    self.stateLabel.text = @"";
+    self.commodityLabel.text = @"";
+    self.paymentLabel.text = @"共一件商品，实付￥";
+    self.paymentMethodLabel.text = @"支付方式:";
+    self.buyTimeLabel.text = @"购买时间:";
+    
+    if (![NSString contentIsNullORNil:iconUrlStr]) {
+        
+        [self.avatar sd_setImageWithURL:[NSURL URLWithString:iconUrlStr] placeholderImage:nil];
+    }
+    
+    
+    if (![NSString contentIsNullORNil:scenicName]) {
+        
+        self.nameLabel.text = scenicName;
+        self.commodityLabel.text = [[NSString alloc] initWithFormat:@"%@的智能导游授权\n(自动定位讲解)",scenicName];
+    }
+    
+    if (![NSString contentIsNullORNil:isPay]) {
+        
+        NSString * state = @"";
+        if ([isPay isEqualToString:@"0"]) {
+            
+            state = @"未授权";
+        }
+        else if ([isPay isEqualToString:@"1"]){
+            
+            state = @"已授权";
+        }
+        self.stateLabel.text = state;
+    }
+    
+    if (![NSString contentIsNullORNil:price]) {
+     
+        NSString * str = [[NSString alloc] initWithFormat:@"共一件商品，实付￥%@",price];
+        
+        NSMutableAttributedString * attributedStr = [[NSMutableAttributedString alloc] initWithString:str];
+        [attributedStr setAttributes:@{NSFontAttributeName:FONT15,NSForegroundColorAttributeName:[UIColor blackColor]} range:NSMakeRange(8, attributedStr.length - 8)];
+        self.paymentLabel.attributedText = attributedStr;
+    }
+    
+    if (![NSString contentIsNullORNil:type]) {
+        
+        NSString * payType = @"";
+        if ([type isEqualToString:@"1"]) {
+            
+            payType = @"微信";
+        }
+        else if ([type isEqualToString:@"2"]){
+            
+            payType = @"支付宝";
+        }
+        else if ([type isEqualToString:@"3"]){
+            
+            payType = @"余额";
+        }
+        else if ([type isEqualToString:@"4"]){
+            
+            payType = @"激活码";
+        }
+        self.paymentMethodLabel.text = [[NSString alloc] initWithFormat:@"支付方式:%@",payType];
+    }
+    
+    if (![NSString contentIsNullORNil:time]) {
+        
+        self.buyTimeLabel.text = [[NSString alloc] initWithFormat:@"购买时间:%@",time];
+    }
+    
 }
 
 //绘制虚线
@@ -208,7 +283,6 @@
         _nameLabel = [[UILabel alloc] init];
         _nameLabel.font = FONT18;
         _nameLabel.textColor = [UIColor blackColor];
-        _nameLabel.text = @"钓鱼台";
     }
     return _nameLabel;
 }
@@ -221,7 +295,6 @@
         _stateLabel.font = FONT15;
         _stateLabel.textAlignment = NSTextAlignmentRight;
         _stateLabel.textColor = [UIColor lightGrayColor];
-        _stateLabel.text = @"已授权";
     }
     return _stateLabel;
 }
@@ -231,9 +304,9 @@
     if (!_commodityLabel) {
         
         _commodityLabel = [[UILabel alloc] init];
-        _countLabel.font = FONT16;
-        _commodityLabel.textColor = [UIColor lightGrayColor];
-        _commodityLabel.text = @"导游授权";
+        _commodityLabel.font = FONT16;
+        _commodityLabel.textColor = [UIColor grayColor];
+        _commodityLabel.numberOfLines = 0;
     }
     return _commodityLabel;
 }
@@ -256,7 +329,7 @@
         _paymentLabel = [[UILabel alloc] init];
         _paymentLabel.font = FONT14;
         _paymentLabel.textAlignment = NSTextAlignmentRight;
-        _paymentLabel.text = @"共一件商品，实付￥8.00";
+        _paymentLabel.textColor = [UIColor grayColor];
     }
     return _paymentLabel;
 }
@@ -267,8 +340,7 @@
         
         _paymentMethodLabel = [[UILabel alloc] init];
         _paymentMethodLabel.font = FONT14;
-        _paymentMethodLabel.textColor = [UIColor lightGrayColor];
-        _paymentMethodLabel.text = @"支付方式：（余额）";
+        _paymentMethodLabel.textColor = [UIColor grayColor];
     }
     return _paymentMethodLabel;
 }
@@ -279,9 +351,8 @@
         
         _buyTimeLabel = [[UILabel alloc] init];
         _buyTimeLabel.font = FONT14;
-        _buyTimeLabel.textColor = [UIColor lightGrayColor];
+        _buyTimeLabel.textColor = [UIColor grayColor];
         _buyTimeLabel.textAlignment = NSTextAlignmentRight;
-        _buyTimeLabel.text = @"购买时间:2018-11-08 12:23:45";
     }
     return _buyTimeLabel;
 }

@@ -1,15 +1,16 @@
 //
-//  UserModel.m
+//  OrderModel.m
 //  GoodView
 //
-//  Created by mac on 2018/11/24.
+//  Created by mac on 2018/11/28.
 //  Copyright © 2018 mac. All rights reserved.
 //
 
-#import "JHUserModel.h"
+#import "OrderModel.h"
 
-@implementation JHUserModel
+@implementation OrderModel
 
+//属性可选
 +(BOOL)propertyIsOptional:(NSString *)propertyName{
     
     return YES;

@@ -8,6 +8,8 @@
 
 #import "SearchViewController.h"
 #import "SHSearchBar.h"
+#import "ScenicModel.h"
+
 
 @interface SearchViewController ()<UITextFieldDelegate>
 
@@ -43,6 +45,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [textField resignFirstResponder];
+    [self search:self.searchBar.text];
     return YES;
 }
 
@@ -70,7 +73,7 @@
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 2;
+    return self.dataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -85,7 +88,8 @@
 //        cell.backgroundColor = [UIColor whiteColor];
     }
     
-    cell.textLabel.text = @"杭州西湖";
+    ScenicModel * model = self.dataArray[indexPath.row];
+    cell.textLabel.text = model.scenic_name;
     
     return cell;
 }
@@ -115,7 +119,10 @@
 //搜索按钮的响应
 -(void)searchBtnClicked{
     
-    
+    if ([NSString contentIsNullORNil:self.searchBar.text]) {
+        
+        [self search:self.searchBar.text];
+    }
 }
 
 //创建搜索过地方的按钮
@@ -133,6 +140,40 @@
         btn.layer.cornerRadius = 5;
         [self.headerView addSubview:btn];
     }
+}
+
+//搜索
+-(void)search:(NSString *)text{
+    
+    AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:KGENURL]];
+    [manager POST:@"Scenic/searchScenic" parameters:@{@"scenicName":@"万象",@"city":@"济南市",@"user_id":@"12"} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSNumber * status = responseObject[@"status"];
+        if (status.integerValue == 1) {
+            
+            NSDictionary * dataDic = responseObject[@"result"];
+            NSArray * scenicsArray = dataDic[@"scenics"];
+            
+            for (NSUInteger i = 0; i < scenicsArray.count; i++) {
+                
+                NSDictionary * dic = scenicsArray[i];
+                NSError * error;
+                ScenicModel * model = [[ScenicModel alloc] initWithDictionary:dic error:&error];
+                if (model) {
+                    
+                    [self.dataArray addObject:model];
+                }
+            }
+            
+            [self.tableView reloadData];
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        [MBProgressHUD showErrorMessage:@"请求失败，请检查网络"];
+    }];
 }
 
 #pragma mark  ----  懒加载

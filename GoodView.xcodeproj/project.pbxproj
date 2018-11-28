@@ -68,6 +68,8 @@
 		0430105921AD7D9E00C632F5 /* JHToutiaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430105821AD7D9E00C632F5 /* JHToutiaoCell.m */; };
 		0430105C21AD804500C632F5 /* UIView+SHTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430105B21AD804500C632F5 /* UIView+SHTool.m */; };
 		0430105F21AD83A400C632F5 /* NearScenicHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430105E21AD83A400C632F5 /* NearScenicHeadCell.m */; };
+		0430106221AED70D00C632F5 /* CodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430106121AED70D00C632F5 /* CodeModel.m */; };
+		0430106521AED79200C632F5 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0430106421AED79200C632F5 /* OrderModel.m */; };
 		043B5C6521A5128400478CD8 /* SHImageAndTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */; };
 		04A2177021A43EA900DC2D2B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A2176F21A43EA900DC2D2B /* AppDelegate.m */; };
 		04A2177621A43EA900DC2D2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A2177421A43EA900DC2D2B /* Main.storyboard */; };
@@ -255,6 +257,10 @@
 		0430105B21AD804500C632F5 /* UIView+SHTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SHTool.m"; sourceTree = "<group>"; };
 		0430105D21AD83A400C632F5 /* NearScenicHeadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NearScenicHeadCell.h; sourceTree = "<group>"; };
 		0430105E21AD83A400C632F5 /* NearScenicHeadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NearScenicHeadCell.m; sourceTree = "<group>"; };
+		0430106021AED70D00C632F5 /* CodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeModel.h; sourceTree = "<group>"; };
+		0430106121AED70D00C632F5 /* CodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodeModel.m; sourceTree = "<group>"; };
+		0430106321AED79200C632F5 /* OrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
+		0430106421AED79200C632F5 /* OrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
 		043B5C6321A5128300478CD8 /* SHImageAndTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHImageAndTitleBtn.h; sourceTree = "<group>"; };
 		043B5C6421A5128400478CD8 /* SHImageAndTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHImageAndTitleBtn.m; sourceTree = "<group>"; };
 		04A2176B21A43EA900DC2D2B /* GoodView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -804,6 +810,10 @@
 				0427A5A121AABB7B00E1B175 /* ScenicModel.m */,
 				0427A5A321AACE5200E1B175 /* ADModel.h */,
 				0427A5A421AACE5200E1B175 /* ADModel.m */,
+				0430106021AED70D00C632F5 /* CodeModel.h */,
+				0430106121AED70D00C632F5 /* CodeModel.m */,
+				0430106321AED79200C632F5 /* OrderModel.h */,
+				0430106421AED79200C632F5 /* OrderModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1169,6 +1179,7 @@
 				62ED867F21A79A9C00245CA0 /* SelectCityViewController.m in Sources */,
 				622F54B621AEAF8100C61C8A /* SearchViewController.m in Sources */,
 				0430105F21AD83A400C632F5 /* NearScenicHeadCell.m in Sources */,
+				0430106221AED70D00C632F5 /* CodeModel.m in Sources */,
 				0427A5AF21AAE55100E1B175 /* VerticalLoopView.m in Sources */,
 				62ED86A121A7A4CF00245CA0 /* NSString+NormalMethod.m in Sources */,
 				04A2177E21A43EAA00DC2D2B /* main.m in Sources */,
@@ -1176,6 +1187,7 @@
 				62ED86AD21A7C3D800245CA0 /* UIColor+SHTool.m in Sources */,
 				62ED86AA21A7C33200245CA0 /* UIImage+SHTool.m in Sources */,
 				04D256A921A5697200624688 /* MyEntryModel.m in Sources */,
+				0430106521AED79200C632F5 /* OrderModel.m in Sources */,
 				0427A5A521AACE5200E1B175 /* ADModel.m in Sources */,
 				62ED86B021A7C3E900245CA0 /* NSString+SHTool.m in Sources */,
 				0430105C21AD804500C632F5 /* UIView+SHTool.m in Sources */,
