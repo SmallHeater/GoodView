@@ -12,7 +12,6 @@
 #import "SHSearchBar.h"
 #import "ScenicSpotCell.h"
 #import "QRCodeVC.h"
-#import "SelectCityViewController.h"
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapFoundationKit/AMapServices.h>
 #import "ScenicModel.h"
@@ -20,9 +19,9 @@
 #import "CarouselCell.h"
 #import "JHToutiaoCell.h"
 #import "NearScenicHeadCell.h"
-
+#import "SearchViewController.h"
 #import "JHArticle.h"
-#import "WKWebViewController.h"
+
 
 
 
@@ -241,6 +240,13 @@
 }
 
 #pragma mark  ----  UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    
+    SearchViewController * searchVC = [[SearchViewController alloc] initWithTitle:@"" andTableViewStyle:UITableViewStylePlain];
+    [self.navigationController pushViewController:searchVC animated:YES];
+    return NO;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [textField resignFirstResponder];

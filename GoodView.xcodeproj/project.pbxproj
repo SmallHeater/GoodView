@@ -84,11 +84,12 @@
 		04A217D421A4408800DC2D2B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A217D321A4408800DC2D2B /* HomeViewController.m */; };
 		04D256A921A5697200624688 /* MyEntryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D256A821A5697200624688 /* MyEntryModel.m */; };
 		04D256B021A56D6C00624688 /* MyEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D256AF21A56D6C00624688 /* MyEntryCell.m */; };
-		62267AD721A7ED6800110EAB /* SHSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 62267AD621A7ED6800110EAB /* SHSearchBar.m */; };
 		62267ADD21A7EE1500110EAB /* search.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 62267ADC21A7EE1500110EAB /* search.tiff */; };
 		62267AE021A7F45400110EAB /* ScenicSpotCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62267ADF21A7F45400110EAB /* ScenicSpotCell.m */; };
 		62267AE221A7FA8000110EAB /* ic_near_scenic_earphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62267AE121A7FA7F00110EAB /* ic_near_scenic_earphone@2x.png */; };
 		62267AE421A7FB9100110EAB /* uu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 62267AE321A7FB9100110EAB /* uu@2x.png */; };
+		622F54B621AEAF8100C61C8A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 622F54B521AEAF8100C61C8A /* SearchViewController.m */; };
+		622F54B921AEAFFC00C61C8A /* SHSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 622F54B821AEAFFB00C61C8A /* SHSearchBar.m */; };
 		62E5EB8121AC0BAC00C0F952 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62E5EB8021AC0BAC00C0F952 /* WKWebViewController.m */; };
 		62E5EB8321AC0F3500C0F952 /* back.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 62E5EB8221AC0F3500C0F952 /* back.tiff */; };
 		62ED857F21A537F900245CA0 /* SHLabelAndLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */; };
@@ -301,13 +302,15 @@
 		04D256A821A5697200624688 /* MyEntryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEntryModel.m; sourceTree = "<group>"; };
 		04D256AE21A56D6C00624688 /* MyEntryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyEntryCell.h; sourceTree = "<group>"; };
 		04D256AF21A56D6C00624688 /* MyEntryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyEntryCell.m; sourceTree = "<group>"; };
-		62267AD521A7ED6800110EAB /* SHSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSearchBar.h; sourceTree = "<group>"; };
-		62267AD621A7ED6800110EAB /* SHSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSearchBar.m; sourceTree = "<group>"; };
 		62267ADC21A7EE1500110EAB /* search.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = search.tiff; sourceTree = "<group>"; };
 		62267ADE21A7F45400110EAB /* ScenicSpotCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScenicSpotCell.h; sourceTree = "<group>"; };
 		62267ADF21A7F45400110EAB /* ScenicSpotCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScenicSpotCell.m; sourceTree = "<group>"; };
 		62267AE121A7FA7F00110EAB /* ic_near_scenic_earphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_near_scenic_earphone@2x.png"; sourceTree = "<group>"; };
 		62267AE321A7FB9100110EAB /* uu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uu@2x.png"; sourceTree = "<group>"; };
+		622F54B421AEAF8100C61C8A /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		622F54B521AEAF8100C61C8A /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		622F54B721AEAFFB00C61C8A /* SHSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSearchBar.h; sourceTree = "<group>"; };
+		622F54B821AEAFFB00C61C8A /* SHSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSearchBar.m; sourceTree = "<group>"; };
 		62E5EB7F21AC0BAC00C0F952 /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
 		62E5EB8021AC0BAC00C0F952 /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
 		62E5EB8221AC0F3500C0F952 /* back.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = back.tiff; sourceTree = "<group>"; };
@@ -562,6 +565,8 @@
 				0427A58321AA77C200E1B175 /* OfflinePackageVC.m */,
 				62E5EB7F21AC0BAC00C0F952 /* WKWebViewController.h */,
 				62E5EB8021AC0BAC00C0F952 /* WKWebViewController.m */,
+				622F54B421AEAF8100C61C8A /* SearchViewController.h */,
+				622F54B521AEAF8100C61C8A /* SearchViewController.m */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -589,6 +594,8 @@
 		04A2179721A4401E00DC2D2B /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				622F54B721AEAFFB00C61C8A /* SHSearchBar.h */,
+				622F54B821AEAFFB00C61C8A /* SHSearchBar.m */,
 				62ED857E21A537F900245CA0 /* SHLabelAndLabelView.h */,
 				62ED857D21A537F900245CA0 /* SHLabelAndLabelView.m */,
 				043B5C6321A5128300478CD8 /* SHImageAndTitleBtn.h */,
@@ -868,8 +875,6 @@
 		62ED868821A7A34D00245CA0 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
-				62267AD521A7ED6800110EAB /* SHSearchBar.h */,
-				62267AD621A7ED6800110EAB /* SHSearchBar.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1145,7 +1150,6 @@
 				0427A57B21AA49C500E1B175 /* MyOrderCell.m in Sources */,
 				04A2179C21A4401E00DC2D2B /* JHLiveAdaptUI.m in Sources */,
 				62ED872421A7E1CD00245CA0 /* QRCodeVC.m in Sources */,
-				62267AD721A7ED6800110EAB /* SHSearchBar.m in Sources */,
 				0427A51D21A5A3D000E1B175 /* SHBaseTableViewController.m in Sources */,
 				62ED874621A7E2FC00245CA0 /* UIViewExt.m in Sources */,
 				0427A54D21A8F1DA00E1B175 /* AccountManager.m in Sources */,
@@ -1155,6 +1159,7 @@
 				04A2179E21A4401E00DC2D2B /* JHLiveBaseNavigationBar.m in Sources */,
 				04A217D121A4406B00DC2D2B /* MyViewController.m in Sources */,
 				0427A58A21AA87AE00E1B175 /* CityModel.m in Sources */,
+				622F54B921AEAFFC00C61C8A /* SHSearchBar.m in Sources */,
 				0430105621AD7D8000C632F5 /* CarouselCell.m in Sources */,
 				04A217D421A4408800DC2D2B /* HomeViewController.m in Sources */,
 				0427A58121AA779100E1B175 /* LoudspeakerOrderVC.m in Sources */,
@@ -1162,6 +1167,7 @@
 				0427A57E21AA5E9200E1B175 /* MyOrderVC.m in Sources */,
 				62ED859B21A6D88C00245CA0 /* AccountBindingVC.m in Sources */,
 				62ED867F21A79A9C00245CA0 /* SelectCityViewController.m in Sources */,
+				622F54B621AEAF8100C61C8A /* SearchViewController.m in Sources */,
 				0430105F21AD83A400C632F5 /* NearScenicHeadCell.m in Sources */,
 				0427A5AF21AAE55100E1B175 /* VerticalLoopView.m in Sources */,
 				62ED86A121A7A4CF00245CA0 /* NSString+NormalMethod.m in Sources */,
