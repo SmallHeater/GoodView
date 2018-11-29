@@ -93,63 +93,12 @@
     }];
 }
 
-/*
- 
- -(void)headerRereshing{
- 
- _count = @"0";
- 
- DLog(@"%@--%@",[DZUserTool sharedDZUserTool].dzuser.latitude,[DZUserTool sharedDZUserTool].dzuser.longitude);
- 
- [HTTPTool postWithURL:KGENURL@"User/orderlist" Set:kset params:@{@"number":_count,@"user_id":[DZUserTool sharedDZUserTool].dzuser.usertoken} success:^(id responseObject) {
- 
- 
- if(![responseObject[@"orders"]  isEqual:[NSNull null]]){
- 
- 
- NSArray *orders = [JHOrders objectArrayWithKeyValuesArray:responseObject[@"orders"]];
- 
- _testDataArr = [NSMutableArray array];
- for (JHOrders *order in orders) {
- [_testDataArr addObject:order];
- }
- }else{
- _testDataArr = [NSMutableArray array];
- }
- // 刷新表格
- [self.tableView reloadData];
- [self.tableView.header endRefreshing];
- 
- } failure:^(NSError *error) {
- [ProgressHUD showError:@"网络异常"];
- }];
- 
- }
- -(void)footerRereshing{
- 
- DLog(@"_________________________%@",[DZUserTool sharedDZUserTool].dzuser.latitude);
- 
- _count = [NSString stringWithFormat:@"%lu",(unsigned long)_testDataArr.count];
- [HTTPTool postWithURL:KGENURL@"User/orderlist" Set:kset params:@{@"number":_count,@"user_id":[DZUserTool sharedDZUserTool].dzuser.usertoken} success:^(id responseObject) {
- 
- if(![responseObject[@"orders"]  isEqual:[NSNull null]]){
- 
- NSArray *orders = [JHOrders objectArrayWithKeyValuesArray:responseObject[@"orders"]];
- _testDataArr = [NSMutableArray array];
- for (JHOrders *order in orders) {
- [_testDataArr addObject:order];
- }
- 
- }        // 刷新表格
- [self.tableView reloadData];
- [self.tableView.footer endRefreshing];
- 
- } failure:^(NSError *error) {
- [ProgressHUD showError:@"网络异常"];
- }];
- }
- 
- */
+//下拉刷新
+-(void)loadNewData{
+    
+    [self getData];
+    [self.tableView.mj_header endRefreshing];
+}
 
 
 @end

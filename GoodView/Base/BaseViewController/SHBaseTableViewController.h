@@ -18,4 +18,7 @@
 
 -(instancetype)initWithTitle:(NSString *)navTitle andTableViewStyle:(UITableViewStyle)style;
 
+//下拉刷新触发
+-(void)loadNewData;
+
 @end

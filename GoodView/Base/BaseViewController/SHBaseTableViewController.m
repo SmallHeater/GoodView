@@ -52,6 +52,10 @@
 }
 
 #pragma mark  ----  自定义函数
+//下拉刷新触发
+-(void)loadNewData{
+    
+}
 
 #pragma mark  ----  懒加载
 
@@ -75,6 +79,13 @@
         _tableView.estimatedRowHeight = 0;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
+        __weak SHBaseTableViewController * wkSelf = self;
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            // 进入刷新状态后会自动调用这个block
+            [wkSelf loadNewData];
+        }];
+        [_tableView.mj_header beginRefreshing];
+        
     }
     return _tableView;
 }

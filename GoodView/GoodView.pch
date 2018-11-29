@@ -22,7 +22,7 @@
 #import "URLHeader.h"
 #import "UIImageView+WebCache.h"
 #import "UIView+SHTool.h"
-
+#import "MJRefresh.h"
 
 #define MAINWIDTH [UIScreen mainScreen].bounds.size.width
 #define MAINHEIGHT [UIScreen mainScreen].bounds.size.height

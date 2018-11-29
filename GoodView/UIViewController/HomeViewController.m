@@ -21,7 +21,7 @@
 #import "NearScenicHeadCell.h"
 #import "SearchViewController.h"
 #import "JHArticle.h"
-
+#import "LoginViewController.h"
 
 
 
@@ -314,7 +314,7 @@
             
             UIButton * cityBtn = [weakSelf.searchBGView viewWithTag:1200];
             [cityBtn setTitle:regeocode.city forState:UIControlStateNormal];
-            self.scenicNumber = @"0";
+            weakSelf.scenicNumber = @"0";
             [weakSelf loadHomeData];
         }
         else
@@ -494,8 +494,28 @@
 //扫一扫按钮的响应
 -(void)scanBtnClicked{
     
-    QRCodeVC * vc = [[QRCodeVC alloc] init];
-    [self.navigationController pushViewController:vc animated:NO];
+    if([AccountManager sharedManager].isLogIn){
+     
+        QRCodeVC * vc = [[QRCodeVC alloc] init];
+        [self.navigationController pushViewController:vc animated:NO];
+    }
+    else{
+        
+        [MBProgressHUD showErrorMessage:@"请先登录哦"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           
+            LoginViewController * loginVC = [[LoginViewController alloc] init];
+            [self.navigationController pushViewController:loginVC animated:NO];
+        });
+    }
+}
+
+//下拉刷新
+-(void)loadNewData{
+    
+    self.scenicNumber = @"";
+    [self loadHomeData];
+    [self.tableView.mj_header endRefreshing];
 }
 
 #pragma mark  ----  懒加载

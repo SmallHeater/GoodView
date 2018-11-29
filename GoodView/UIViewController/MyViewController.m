@@ -287,6 +287,9 @@
         _avatarImageView.image = [UIImage imageNamed:@"scenic_me_avatar_no_login@2x.png"];
         _avatarImageView.layer.masksToBounds = YES;
         _avatarImageView.layer.cornerRadius = 45;
+        
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userNameLabelTaped)];
+        [_avatarImageView addGestureRecognizer:tap];
     }
     return _avatarImageView;
 }
