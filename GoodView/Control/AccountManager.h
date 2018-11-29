@@ -18,8 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) BOOL isLogIn;
 //用户数据模型
 @property (nonatomic,strong) JHUserModel * userModel;
-//用户所在城市
-@property (nonatomic,strong) NSString * city;
+//用户定位城市
+@property (nonatomic,strong) NSString * locationcCity;
+//用户选择城市
+@property (nonatomic,strong) NSString * selectedCity;
 //定位到的经纬度
 @property (nonatomic,assign) float latitude;
 @property (nonatomic,assign) float longitude;

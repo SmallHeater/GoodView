@@ -61,6 +61,7 @@
 @property (nonatomic,assign) float lastContentY;
 //是否还需要加载更多（无更多数据后，置为NO）
 @property (nonatomic,assign) BOOL needLoadMore;
+
 @end
 
 @implementation HomeViewController
@@ -75,8 +76,6 @@
     self.needLoadMore = YES;
     [self startPositioning];
     [self setUI];
-    
-    NSLog(@"宽高：%ld,%ld",(long)MAINWIDTH,(long)MAINHEIGHT);
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -308,13 +307,14 @@
         //修改label显示内容
         if (regeocode)
         {
-            [AccountManager sharedManager].city = regeocode.city;
+            [AccountManager sharedManager].locationcCity = regeocode.city;
+            [AccountManager sharedManager].selectedCity = regeocode.city;
             [AccountManager sharedManager].longitude = location.coordinate.longitude;
             [AccountManager sharedManager].latitude = location.coordinate.latitude;
             
             UIButton * cityBtn = [weakSelf.searchBGView viewWithTag:1200];
             [cityBtn setTitle:regeocode.city forState:UIControlStateNormal];
-            NSLog(@"%@",[NSString stringWithFormat:@"%@ \n %@-%@-%.2fm", regeocode.formattedAddress,regeocode.citycode, regeocode.adcode, location.horizontalAccuracy]);
+            self.scenicNumber = @"0";
             [weakSelf loadHomeData];
         }
         else
@@ -340,62 +340,84 @@
 //获取首页数据
 -(void)loadHomeData{
     
+    __weak HomeViewController * weakSelf = self;
     AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:KGENURL]];
-    [manager POST:@"Scenic/home" parameters:@{@"number":self.scenicNumber,@"city":@"杭州市",@"latitude":[NSNumber numberWithFloat:[AccountManager sharedManager].latitude],@"longitude":[NSNumber numberWithFloat:[AccountManager sharedManager].longitude],@"user_id":@""} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager POST:@"Scenic/home" parameters:@{@"number":self.scenicNumber,@"city":[AccountManager sharedManager].selectedCity,@"latitude":[NSNumber numberWithFloat:[AccountManager sharedManager].latitude],@"longitude":[NSNumber numberWithFloat:[AccountManager sharedManager].longitude],@"user_id":@""} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSNumber * status = responseObject[@"status"];
         if (status.integerValue == 1) {
             
-            self.hadLoadMore = NO;
+            weakSelf.hadLoadMore = NO;
             NSDictionary * dataDic = responseObject[@"result"];
             NSArray * scenicsArray = dataDic[@"scenics"];
-            if (scenicsArray.count == 0) {
+            if (scenicsArray && [scenicsArray isKindOfClass:[NSArray class]]) {
                 
-                self.needLoadMore = NO;
+                if (scenicsArray.count == 0) {
+                    
+                    weakSelf.needLoadMore = NO;
+                }
+                
+                if ([weakSelf.scenicNumber isEqualToString:@"0"]) {
+                    
+                    //说明是新请求
+                    [weakSelf.dataArray removeAllObjects];
+                }
+                
+                for (NSUInteger i = 0; i < scenicsArray.count; i++) {
+                    
+                    NSDictionary * dic = scenicsArray[i];
+                    NSError * error;
+                    ScenicModel * model = [[ScenicModel alloc] initWithDictionary:dic error:&error];
+                    if (model) {
+                        
+                        [weakSelf.dataArray addObject:model];
+                    }
+                }
+                
+                weakSelf.scenicNumber = [[NSString alloc] initWithFormat:@"%ld",self.dataArray.count];
             }
+            else{
+                
+                [weakSelf.dataArray removeAllObjects];
+            }
+            
+            
             
             NSArray * adArray = dataDic[@"ad"];
-            [self.adModelArray removeAllObjects];
-            for (NSUInteger j = 0; j < adArray.count; j++) {
+            
+            if (adArray && [adArray isKindOfClass:[NSArray class]]) {
                 
-                NSDictionary * dic = adArray[j];
-                NSError * error;
-                ADModel * model = [[ADModel alloc] initWithDictionary:dic error:&error];
-                if (model) {
+                [weakSelf.adModelArray removeAllObjects];
+                for (NSUInteger j = 0; j < adArray.count; j++) {
                     
-                    [self.adModelArray addObject:model];
+                    NSDictionary * dic = adArray[j];
+                    NSError * error;
+                    ADModel * model = [[ADModel alloc] initWithDictionary:dic error:&error];
+                    if (model) {
+                        
+                        [weakSelf.adModelArray addObject:model];
+                    }
                 }
             }
             
-            
-            [self.toutiaoModelArray removeAllObjects];
+            [weakSelf.toutiaoModelArray removeAllObjects];
             NSArray * toutiaoArray = dataDic[@"toutiao"];
-            for (NSUInteger k = 0; k < toutiaoArray.count; k++) {
+            if (toutiaoArray && [toutiaoArray isKindOfClass:[NSArray class]]) {
                 
-                NSDictionary * dic = toutiaoArray[k];
-                NSError * error;
-                JHArticle * model = [[JHArticle alloc] initWithDictionary:dic error:&error];
-                if (model) {
+                for (NSUInteger k = 0; k < toutiaoArray.count; k++) {
                     
-                    [self.toutiaoModelArray addObject:model];
+                    NSDictionary * dic = toutiaoArray[k];
+                    NSError * error;
+                    JHArticle * model = [[JHArticle alloc] initWithDictionary:dic error:&error];
+                    if (model) {
+                        
+                        [weakSelf.toutiaoModelArray addObject:model];
+                    }
                 }
             }
-            
-            for (NSUInteger i = 0; i < scenicsArray.count; i++) {
-                
-                NSDictionary * dic = scenicsArray[i];
-                NSError * error;
-                ScenicModel * model = [[ScenicModel alloc] initWithDictionary:dic error:&error];
-                if (model) {
-                    
-                    [self.dataArray addObject:model];
-                }
-            }
-            
-            self.scenicNumber = [[NSString alloc] initWithFormat:@"%ld",self.dataArray.count];
-            [self.tableView reloadData];
+            [weakSelf.tableView reloadData];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -452,7 +474,20 @@
 //城市按钮的响应
 -(void)cityBtnClicked{
     
-    SelectCityViewController * vc = [[SelectCityViewController alloc] initWithTitle:@"选择城市" locationCity:@"杭州"];
+    SelectCityViewController * vc = [[SelectCityViewController alloc] initWithTitle:@"选择城市" locationCity:[AccountManager sharedManager].locationcCity];
+    __weak HomeViewController *weakSelf = self;
+    vc.city = ^(NSString *city) {
+        
+        if (![NSString contentIsNullORNil:city]) {
+         
+            [AccountManager sharedManager].selectedCity = city;
+            UIButton * cityBtn = [weakSelf.searchBGView viewWithTag:1200];
+            [cityBtn setTitle:[AccountManager sharedManager].selectedCity forState:UIControlStateNormal];
+            self.scenicNumber = @"0";
+            [self loadHomeData];
+        }
+    };
+    
     [self.navigationController pushViewController:vc animated:NO];
 }
 

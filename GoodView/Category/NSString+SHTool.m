@@ -55,4 +55,46 @@
     return NO;
 }
 
+/**
+ *  获取文本的显示宽度
+ *
+ *  @param text 文本
+ *  @param font 字体
+ *  @param height 指定高度
+ *
+ *  @return 计算好的宽度
+ */
++ (CGFloat)textWidthWithText:(NSString *)text font:(UIFont *)font inHeight:(CGFloat)height{
+    
+    NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode=NSLineBreakByWordWrapping;
+    NSDictionary* attributes =@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle.copy};
+    CGSize labelSize= [text boundingRectWithSize: CGSizeMake(MAXFLOAT, height)
+                                         options: NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine
+                                      attributes:attributes
+                                         context:nil].size;
+    return labelSize.width;
+}
+
+/**
+ *  获取文本的显示宽度
+ *
+ *  @param text 文本
+ *  @param font 字体
+ *  @param width 指定宽度
+ *
+ *  @return 计算好的高度
+ */
++ (CGFloat)textHeightWithText:(NSString *)text font:(UIFont *)font inWidth:(CGFloat)width{
+    
+    NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    paragraphStyle.lineBreakMode=NSLineBreakByWordWrapping;
+    NSDictionary* attributes =@{NSFontAttributeName:font,NSParagraphStyleAttributeName:paragraphStyle.copy};
+    CGSize labelSize= [text boundingRectWithSize: CGSizeMake(width, MAXFLOAT)
+                                         options: NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingTruncatesLastVisibleLine
+                                      attributes:attributes
+                                         context:nil].size;
+    return labelSize.height;
+}
+
 @end

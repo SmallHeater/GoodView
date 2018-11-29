@@ -12,7 +12,13 @@
 #import "CityModel.h"
 
 
-@interface SelectCityViewController ()<UITableViewDelegate,UITableViewDataSource>
+typedef NS_ENUM(NSUInteger,TableViewType){
+    
+    TableViewType_list = 0,//列表展示tableView
+    TableViewType_search//搜索数据展示tableView
+};
+
+@interface SelectCityViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (nonatomic,strong) SHSearchBar * searchBar;
 //列表区域
@@ -23,6 +29,12 @@
 @property (nonatomic,strong) NSMutableArray * hotCitysArray;
 //定位城市模型
 @property (nonatomic,strong) CityModel * locationCityModel;
+//存储所有数据模型的数组，搜索用
+@property (nonatomic,strong) NSMutableArray<CityModel *> * modelsArray;
+//存储搜索到的城市的模型数组
+@property (nonatomic,strong) NSMutableArray<CityModel *> * searchedModelArray;
+@property (nonatomic,assign) TableViewType tableViewType;
+
 
 @end
 
@@ -35,6 +47,7 @@
     self = [super initWithTitle:navTitle];
     if (self) {
         
+        self.tableViewType = TableViewType_list;
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
            
             for (NSDictionary * dic in self.dataArray) {
@@ -65,6 +78,12 @@
     [self setUI];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -79,15 +98,41 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    if (self.tableViewType == TableViewType_list) {
+        
+        NSDictionary * dic = self.dataArray[indexPath.section];
+        NSArray * cityModelsArray = dic[@"citysModel"];
+        CityModel * model = cityModelsArray[indexPath.row];
+        if (self.city) {
+            
+            self.city(model.city_name);
+        }
+    }
+    else if (self.tableViewType == TableViewType_search){
+        
+        CityModel * model = self.searchedModelArray[indexPath.row];
+        if (self.city) {
+            
+            self.city(model.city_name);
+        }
+    }
+    [self backBtnClicked:nil];
 }
 
 #pragma mark  ----  UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    NSDictionary * dic = self.dataArray[section];
-    NSArray * cityModelsArray = dic[@"citysModel"];
-    return cityModelsArray.count;
+    if (self.tableViewType == TableViewType_list) {
+        
+        NSDictionary * dic = self.dataArray[section];
+        NSArray * cityModelsArray = dic[@"citysModel"];
+        return cityModelsArray.count;
+    }
+    else if (self.tableViewType == TableViewType_search){
+        
+        return self.searchedModelArray.count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,33 +145,85 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    NSDictionary * dic = self.dataArray[indexPath.section];
-    NSArray * cityModelsArray = dic[@"citysModel"];
-    CityModel * model = cityModelsArray[indexPath.row];
-    [cell setCity:model.city_name];
+    if (self.tableViewType == TableViewType_list) {
+        
+        NSDictionary * dic = self.dataArray[indexPath.section];
+        NSArray * cityModelsArray = dic[@"citysModel"];
+        CityModel * model = cityModelsArray[indexPath.row];
+        [cell setCity:model.city_name];
+    }
+    else if (self.tableViewType == TableViewType_search){
+        
+        CityModel * model = self.searchedModelArray[indexPath.row];
+        [cell setCity:model.city_name];
+    }
+
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return self.dataArray.count;
+    if (self.tableViewType == TableViewType_list) {
+        
+        return self.dataArray.count;
+    }
+    else if (self.tableViewType == TableViewType_search){
+        
+        return 1;
+    }
+    return 0;
 }
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
-    NSDictionary * dic = self.dataArray[section];
-    return dic[@"initial"];
+    if (self.tableViewType == TableViewType_list) {
+        
+        NSDictionary * dic = self.dataArray[section];
+        return dic[@"initial"];
+    }
+    else if (self.tableViewType == TableViewType_search){
+        
+    }
+    return @"";
 }
 
 - (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView{
     
     NSMutableArray * array = [[NSMutableArray alloc] init];
-    for (NSUInteger i = 0; i < self.dataArray.count; i++) {
+    
+    if (self.tableViewType == TableViewType_list) {
         
-        NSDictionary * dic = self.dataArray[i];
-        [array addObject:dic[@"initial"]];
+        for (NSUInteger i = 0; i < self.dataArray.count; i++) {
+            
+            NSDictionary * dic = self.dataArray[i];
+            [array addObject:dic[@"initial"]];
+        }
     }
+    else if (self.tableViewType == TableViewType_search){
+        
+    }
+    
     return array;
+}
+
+#pragma mark  ----  UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    if ([NSString contentIsNullORNil:string] && range.location == 0) {
+        
+        //搜索输入框删完了
+        [self search:@""];
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [textField resignFirstResponder];
+    [self search:textField.text];
+    return YES;
 }
 
 #pragma mark  ----  自定义函数
@@ -151,13 +248,70 @@
 }
 
 //定位城市的响应
--(void)locationBtnClicked{
+-(void)locationBtnClicked:(UIButton *)btn{
     
+    if (self.city) {
+        
+        self.city(self.locationCityModel.city_name);
+    }
+    [self backBtnClicked:nil];
 }
 
 //热门城市的响应
 -(void)btnClicked:(UIButton *)hotBtn{
     
+    NSUInteger index = hotBtn.tag - 1300;
+    CityModel * model = self.hotCitysArray[index];
+    if (self.city) {
+        
+        self.city(model.city_name);
+    }
+    [self backBtnClicked:nil];
+}
+
+//搜索
+-(void)search:(NSString *)text{
+    
+    if (![NSString contentIsNullORNil:text]) {
+        
+        [self.searchedModelArray removeAllObjects];
+        NSString *subString=[text substringWithRange:NSMakeRange(0, 1)];
+        const char *cString=[subString UTF8String];
+        if (strlen(cString)==3){
+            
+            //汉字
+            for (CityModel * model in self.modelsArray) {
+                
+                if ([model.city_name rangeOfString:text].location != NSNotFound) {
+                    
+                    [self.searchedModelArray addObject:model];
+                }
+            }
+            
+        }else if(strlen(cString)==1){
+            
+            //字母
+            NSString * lowStr = [text lowercaseString];
+            for (CityModel * model in self.modelsArray) {
+                
+                if ([model.pinyin hasPrefix:lowStr]) {
+                    
+                    [self.searchedModelArray addObject:model];
+                }
+            }
+        }
+        
+        self.tableViewType = TableViewType_search;
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
+        
+    }
+    else{
+        
+        [self.searchedModelArray removeAllObjects];
+        self.tableViewType = TableViewType_list;
+        self.tableView.tableHeaderView = self.tableHeaderView;
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark  ----  懒加载
@@ -168,6 +322,7 @@
         _searchBar = [[SHSearchBar alloc] initWithFrame:CGRectMake(0, 0, 0, 0) andPlaceholder:@"请输入城市名或拼音"];
         _searchBar.backgroundColor = [UIColor whiteColor];
         _searchBar.layer.cornerRadius = 4;
+        _searchBar.delegate = self;
     }
     return _searchBar;
 }
@@ -247,7 +402,7 @@
         [locationBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 60)];
         [locationBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         
-        [locationBtn addTarget:self action:@selector(locationBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+        [locationBtn addTarget:self action:@selector(locationBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
         [_tableHeaderView addSubview:locationBtn];
         
         //热门城市
@@ -266,6 +421,7 @@
             
             CityModel * model = self.hotCitysArray[i];
             UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn.tag = 1300 +i;
             [btn setBackgroundColor:Color_F5F5F5];
             btn.frame = CGRectMake(15 + (btnWidth + padding) * (i % 3), CGRectGetMaxY(hotLabel.frame) + 10 + (i / 3) * (40 + 10), 100, 40);
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -321,6 +477,32 @@
         [_hotCitysArray addObject:ninthModel];
     }
     return _hotCitysArray;
+}
+
+-(NSMutableArray<CityModel *> *)modelsArray{
+    
+    if (!_modelsArray) {
+        
+        _modelsArray = [[NSMutableArray alloc] init];
+        for (NSDictionary * dic in self.dataArray) {
+            
+            NSArray * cityModelsArray = dic[@"citysModel"];
+            for (CityModel * model in cityModelsArray) {
+                
+                [self.modelsArray addObject:model];
+            }
+        }
+    }
+    return _modelsArray;
+}
+
+-(NSMutableArray<CityModel *> *)searchedModelArray{
+    
+    if (!_searchedModelArray) {
+        
+        _searchedModelArray = [[NSMutableArray alloc] init];
+    }
+    return _searchedModelArray;
 }
 
 @end

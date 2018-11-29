@@ -143,6 +143,12 @@
     
 }
 
+//导航被点击
+-(void)locationImageViewTaped{
+    
+    NSLog(@"导航被点击");
+}
+
 #pragma mark  ---- 懒加载
 -(UIImageView *)myImageView{
     
@@ -207,6 +213,10 @@
         
         //30*30
         _locationImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"uu@2x.png"]];
+        _locationImageView.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(locationImageViewTaped)];
+        [_locationImageView addGestureRecognizer:tap];
     }
     return _locationImageView;
 }

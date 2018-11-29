@@ -8,7 +8,12 @@
 
 #import "SHBaseViewController.h"
 
+typedef void(^SelectedCity)(NSString * city);
+
 @interface SelectCityViewController : SHBaseViewController
+
+//选中城市的回调
+@property (nonatomic,copy) SelectedCity city;
 
 //定位城市
 -(instancetype)initWithTitle:(NSString *)navTitle locationCity:(NSString *)locationCity;

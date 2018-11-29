@@ -17,8 +17,10 @@
 @property (nonatomic,strong) SHSearchBar * searchBar;
 //搜索按钮
 @property (nonatomic,strong) UIButton * searchBtn;
-
 @property (nonatomic,strong) UIView * headerView;
+//历史纪律view高度
+@property (nonatomic,assign) float headerHeight;
+
 
 @end
 
@@ -30,7 +32,7 @@
     [super viewDidLoad];
     [self setUI];
     self.tableView.backgroundColor = Color_F5F5F5;
-    [self.searchBar isFirstResponder];
+    [self.searchBar becomeFirstResponder];
     [self creatSearchedBtn];
 }
 
@@ -45,6 +47,22 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [textField resignFirstResponder];
+    
+    NSArray * searchRecordArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"searchRecordArray"];
+    if (searchRecordArray && [searchRecordArray isKindOfClass:[NSArray class]]) {
+        
+        NSMutableArray * tempArray = [[NSMutableArray alloc] initWithArray:searchRecordArray];
+        [tempArray addObject:textField.text];
+        searchRecordArray = nil;
+        searchRecordArray = (NSArray *)tempArray;
+    }
+    else{
+        
+        searchRecordArray = [[NSArray alloc] initWithObjects:textField.text, nil];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:searchRecordArray forKey:@"searchRecordArray"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self search:self.searchBar.text];
     return YES;
 }
@@ -59,7 +77,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 70;
+    return self.headerHeight;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -85,7 +103,6 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //显示最右边的箭头
-//        cell.backgroundColor = [UIColor whiteColor];
     }
     
     ScenicModel * model = self.dataArray[indexPath.row];
@@ -119,7 +136,7 @@
 //搜索按钮的响应
 -(void)searchBtnClicked{
     
-    if ([NSString contentIsNullORNil:self.searchBar.text]) {
+    if (![NSString contentIsNullORNil:self.searchBar.text]) {
         
         [self search:self.searchBar.text];
     }
@@ -128,25 +145,69 @@
 //创建搜索过地方的按钮
 -(void)creatSearchedBtn{
     
-    float previousX = 0;
-    for (NSUInteger i = 0; i < 3; i++) {
+    NSArray * searchRecordArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"searchRecordArray"];
+    NSUInteger index = 0;
+    //行
+    NSUInteger row = 0;
+    CGFloat totalWidth = 10;
+    for (NSUInteger i = 0; i < searchRecordArray.count; i++) {
         
-        UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(5 + previousX, 25, 60, 40);
-        previousX = CGRectGetMaxX(btn.frame);
-        [btn setTitle:@"西湖" forState:UIControlStateNormal];
-        [btn setTitleColor:Color_1FBF9A forState:UIControlStateNormal];
-        [btn setBackgroundColor:[UIColor whiteColor]];
-        btn.layer.cornerRadius = 5;
-        [self.headerView addSubview:btn];
+        if (index > searchRecordArray.count - 1) {
+            
+            break;
+        }
+        
+        for (NSUInteger j = 0; j < searchRecordArray.count; j++) {
+            
+            if (index > searchRecordArray.count -  1) {
+                
+                break;
+            }
+            
+            NSString * title = searchRecordArray[index];
+            //当前btn的宽度
+            CGFloat width = [NSString textWidthWithText:title font:FONT15 inHeight:28];
+            if (totalWidth + width + 10 + 12 > MAINWIDTH) {
+                
+                row++;
+                totalWidth = 10;
+                continue;
+            }
+            
+            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn.frame = CGRectMake(totalWidth, 25 + row * (28 + 6), width + 12, 28);
+            [btn setTitle:title forState:UIControlStateNormal];
+            [btn setTitleColor:Color_1FBF9A forState:UIControlStateNormal];
+            [btn setBackgroundColor:[UIColor whiteColor]];
+            btn.titleLabel.font = FONT15;
+            btn.layer.cornerRadius = 5;
+            [self.headerView addSubview:btn];
+
+            totalWidth += width + 6 + 12;
+            index++;
+        }
     }
+    
+    self.headerHeight = 25 + (row + 1) * (28 + 6);
+}
+
+//清除历史记录的响应
+-(void)clearRecord{
+    
+    NSMutableArray * searchRecordArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"searchRecordArray"];
+    if (searchRecordArray && [searchRecordArray isKindOfClass:[NSMutableArray class]]) {
+        
+        [searchRecordArray removeAllObjects];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:searchRecordArray forKey:@"searchRecordArray"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 //搜索
 -(void)search:(NSString *)text{
     
     AFHTTPSessionManager * manager = [[AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:KGENURL]];
-    [manager POST:@"Scenic/searchScenic" parameters:@{@"scenicName":@"万象",@"city":@"济南市",@"user_id":@"12"} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager POST:@"Scenic/searchScenic" parameters:@{@"scenicName":text,@"city":[AccountManager sharedManager].selectedCity,@"user_id":@"12"} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -222,15 +283,15 @@
         //清除记录
         UIButton * clearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [clearBtn setTitle:@"清除记录" forState:UIControlStateNormal];
+        [clearBtn addTarget:self action:@selector(clearRecord) forControlEvents:UIControlEventTouchUpInside];
         [clearBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         clearBtn.titleLabel.font = FONT12;
-        clearBtn.titleLabel.textAlignment = NSTextAlignmentRight;
         [_headerView addSubview:clearBtn];
         [clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
            
             make.top.equalTo(label.mas_top);
             make.right.offset(-10);
-            make.width.offset(100);
+            make.width.offset(60);
             make.height.equalTo(label.mas_height);
         }];
     }
